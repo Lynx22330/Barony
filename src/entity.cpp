@@ -839,78 +839,61 @@ int Entity::entityLight()
 
 Entity::entityLightAfterReductions
 
-Returns new entities' illumination,  
-after reductions depending on the entity stats and another entity observing
+Returns entity's visibility, based on:
+light level, stats, skills, distractions, and observer stats
 
 -------------------------------------------------------------------------------*/
 
 int Entity::entityLightAfterReductions(Stat& myStats, Entity* observer)
 {
 	int player = -1;
-	const int minLight = (int)(TOUCHRANGE * 1.5);
-	int light = std::max(minLight, entityLight()); // max 255 light to start with.
+	int minLight = (int)(TOUCHRANGE * 1.5);
+	int maxLight = 255;
+	int minVis = (int) (TOUCHRANGE * 1.5);
+	int maxVis = 1000;
+	int observerSight = 0;
+	int light = entityLight();
 	bool invis = isInvisible();
-	if ( !invis )
+	bool sneaking = false;
+	if ( behavior == &actPlayer )
 	{
-		bool sneaking = false;
-		if ( behavior == &actPlayer )
+		player = skill[2];
+		if ( player > -1 && stats[player] && stats[player]->sneaking == 1 && !stats[player]->defending )
 		{
-			player = skill[2];
-			if ( player > -1 && stats[player] )
-			{
-				if ( stats[player]->sneaking == 1 && !stats[player]->defending )
-				{
-					sneaking = true;
-				}
-			}
-		}
-
-		if ( observer )
-		{
-			light += observer->getPER() * 4; // add light level for PER x 4
-			if ( sneaking )
-			{
-				light /= 2; // halve for sneaking
-			}
-			light -= (light - TOUCHRANGE) * (1.0 * (myStats.PROFICIENCIES[PRO_STEALTH] / 100.0)); // reduce to 32 as sneak approaches 100
-			Stat* observerStats = observer->getStats();
-			if ( observerStats && observerStats->EFFECTS[EFF_BLIND] )
-			{
-				light = TOUCHRANGE;
-			}
-			if ( observer->behavior == &actMonster
-				&& observer->monsterLastDistractedByNoisemaker > 0 
-				&& uidToEntity(observer->monsterLastDistractedByNoisemaker) )
-			{
-				if ( observer->monsterTarget == observer->monsterLastDistractedByNoisemaker
-					|| myStats.EFFECTS[EFF_DISORIENTED] )
-				{
-					// currently hunting noisemaker.
-					light = 16;
-				}
-			}
-		}
-		else
-		{
-			if ( sneaking )
-			{
-				light /= 2; // halve for sneaking
-			}
-			light -= (light - TOUCHRANGE) * (1.0 * (myStats.PROFICIENCIES[PRO_STEALTH] / 100.0)); // reduce to 32 as sneak approaches 100
+			sneaking = true;
 		}
 	}
-	
-	if ( invis )
+	if (observer)
 	{
-		light = std::min(light, TOUCHRANGE);
+		observerSight = observer->getPER() * 4;
+		Stat* observerStats = observer->getStats();
+		// Optionally: If observer is LICH, DEVIL, etc, minVis = 1000; (see invisible)
+		if ( observerStats && observerStats->EFFECTS[EFF_BLIND] )
+		{
+			observerSight = 0;
+		}
+		if ( observer->behavior == &actMonster
+						&& observer->monsterLastDistractedByNoisemaker > 0
+						&& uidToEntity(observer->monsterLastDistractedByNoisemaker) )
+		{
+			if ( observer->monsterTarget == observer->monsterLastDistractedByNoisemaker
+				|| myStats.EFFECTS[EFF_DISORIENTED] )
+			{
+				// currently hunting noisemaker.
+				maxVis = 16;
+			}
+		}
 	}
-
-	light = std::max(light, 0);
 	if ( myStats.type == DUMMYBOT )
 	{
-		light = std::max(light, 256); // dummybots can always be seen at least 16 tiles away.
+		minVis = 256; // dummybots can always be seen at least 16 tiles away.
 	}
-	return light;
+	float stealthMod = invis ? 0 : (1.0 - myStats.PROFICIENCIES[PRO_STEALTH] / 100.0);
+	float sneakMod = sneaking ? 0.5 : 1;
+	int tileVis = std::clamp(light + observerSight, minLight, maxLight);
+	minVis = minVis * sneakMod;
+	int entityVis = (int) (std::clamp(tileVis * stealthMod * sneakMod, minVis, maxVis));
+	return entityVis;
 }
 
 /*-------------------------------------------------------------------------------

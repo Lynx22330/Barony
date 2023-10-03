@@ -60,8 +60,8 @@ void initRat(Entity* my, Stat* myStats)
 				myStats->setAttribute("special_npc", "algernon");
 				strcpy(myStats->name, MonsterData_t::getSpecialNPCName(*myStats).c_str());
 	            my->sprite = MonsterData_t::getSpecialNPCBaseModel(*myStats);
-				myStats->HP = 60;
-				myStats->MAXHP = 60;
+				myStats->HP = 120;
+				myStats->MAXHP = 120;
 				myStats->OLDHP = myStats->HP;
 				myStats->STR = -1;
 				myStats->DEX = 20;
@@ -132,7 +132,7 @@ void initRat(Entity* my, Stat* myStats)
 	{
 		if ( myStats->getAttribute("special_npc") == "algernon" )
 		{
-			my->z -= 0.5; // algernon is slightly larger than an ordinary rat.
+			my->z -= 1; // algernon is slightly larger than an ordinary rat.
 		}
 	}
 }

@@ -1145,7 +1145,7 @@ real_t Player::PlayerMovement_t::getCurrentMovementSpeed()
 
 void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 {
-	if ( !players[player.playernum]->entity )
+	if (!players[player.playernum]->entity)
 	{
 		return;
 	}
@@ -1155,7 +1155,7 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 	Input& input = Input::inputs[player.playernum];
 
 	double refreshRateDelta = 1.0;
-	if ( useRefreshRateDelta && fps > 0.0 )
+	if (useRefreshRateDelta && fps > 0.0)
 	{
 		refreshRateDelta *= TICKS_PER_SECOND / (real_t)fpsLimit;
 	}
@@ -1168,27 +1168,27 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 
 	bool allowMovement = my->isMobile();
 	bool pacified = stats[PLAYER_NUM]->EFFECTS[EFF_PACIFY];
-	if ( !allowMovement && pacified )
+	if (!allowMovement && pacified)
 	{
-		if ( !stats[PLAYER_NUM]->EFFECTS[EFF_PARALYZED] && !stats[PLAYER_NUM]->EFFECTS[EFF_STUNNED]
-			&& !stats[PLAYER_NUM]->EFFECTS[EFF_ASLEEP] )
+		if (!stats[PLAYER_NUM]->EFFECTS[EFF_PARALYZED] && !stats[PLAYER_NUM]->EFFECTS[EFF_STUNNED]
+			&& !stats[PLAYER_NUM]->EFFECTS[EFF_ASLEEP])
 		{
 			allowMovement = true;
 		}
 	}
 
-	if ( ((!player.usingCommand() && player.bControlEnabled && !gamePaused) || pacified) 
-		&& allowMovement )
+	if (((!player.usingCommand() && player.bControlEnabled && !gamePaused) || pacified)
+		&& allowMovement)
 	{
 		//x_force and y_force represent the amount of percentage pushed on that respective axis. Given a keyboard, it's binary; either you're pushing "move left" or you aren't. On an analog stick, it can range from whatever value to whatever.
 		float x_force = 0;
 		float y_force = 0;
 
-		if ( pacified )
+		if (pacified)
 		{
 			x_force = 0.f;
 			y_force = -0.1;
-			if ( stats[PLAYER_NUM]->EFFECTS[EFF_CONFUSED] )
+			if (stats[PLAYER_NUM]->EFFECTS[EFF_CONFUSED])
 			{
 				y_force *= -1;
 			}
@@ -1196,21 +1196,21 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 		else
 		{
 			double backpedalMultiplier = 0.25;
-			if ( stats[PLAYER_NUM]->EFFECTS[EFF_DASH] )
+			if (stats[PLAYER_NUM]->EFFECTS[EFF_DASH])
 			{
 				backpedalMultiplier = 1.25;
 			}
 
-			if ( !inputs.hasController(PLAYER_NUM) )
+			if (!inputs.hasController(PLAYER_NUM))
 			{
-				if ( !stats[PLAYER_NUM]->EFFECTS[EFF_CONFUSED] )
+				if (!stats[PLAYER_NUM]->EFFECTS[EFF_CONFUSED])
 				{
 					//Normal controls.
 					x_force = (input.binary("Move Right") - input.binary("Move Left"));
 					y_force = input.binary("Move Forward") - (double)input.binary("Move Backward") * backpedalMultiplier;
-					if ( noclip )
+					if (noclip)
 					{
-						if ( keystatus[SDLK_LSHIFT] )
+						if (keystatus[SDLK_LSHIFT])
 						{
 							x_force = x_force * 0.5;
 							y_force = y_force * 0.5;
@@ -1225,25 +1225,25 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 				}
 			}
 
-			if ( inputs.hasController(PLAYER_NUM) /*&& !input.binary("Move Left") && !input.binary("Move Right")*/ )
+			if (inputs.hasController(PLAYER_NUM) /*&& !input.binary("Move Left") && !input.binary("Move Right")*/)
 			{
 				x_force = inputs.getController(PLAYER_NUM)->getLeftXPercentForPlayerMovement();
 
-				if ( stats[PLAYER_NUM]->EFFECTS[EFF_CONFUSED] )
+				if (stats[PLAYER_NUM]->EFFECTS[EFF_CONFUSED])
 				{
 					x_force *= -1;
 				}
 			}
-			if ( inputs.hasController(PLAYER_NUM) /*&& !input.binary("Move Forward") && !input.binary("Move Backward")*/ )
+			if (inputs.hasController(PLAYER_NUM) /*&& !input.binary("Move Forward") && !input.binary("Move Backward")*/)
 			{
 				y_force = inputs.getController(PLAYER_NUM)->getLeftYPercentForPlayerMovement();
 
-				if ( stats[PLAYER_NUM]->EFFECTS[EFF_CONFUSED] )
+				if (stats[PLAYER_NUM]->EFFECTS[EFF_CONFUSED])
 				{
 					y_force *= -1;
 				}
 
-				if ( y_force < 0 )
+				if (y_force < 0)
 				{
 					y_force *= backpedalMultiplier;    //Move backwards more slowly.
 				}
@@ -1252,7 +1252,7 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 
 		real_t speedFactor = getSpeedFactor(weightratio, statGetDEX(stats[PLAYER_NUM], players[PLAYER_NUM]->entity));
 		static ConsoleVariable<bool> cvar_debugspeedfactor("/player_showspeedfactor", false);
-		if ( *cvar_debugspeedfactor && ticks % 50 == 0 )
+		if (*cvar_debugspeedfactor && ticks % 50 == 0)
 		{
 			Sint32 STR = statGetSTR(stats[PLAYER_NUM], players[PLAYER_NUM]->entity);
 			real_t weightratioOld = (1000 + STR * 100 - weight) / (double)(1000 + STR * 100);
@@ -1260,23 +1260,23 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 			real_t maxSpeed = getMaximumSpeed();
 			Sint32 DEX = statGetDEX(stats[PLAYER_NUM], players[PLAYER_NUM]->entity);
 			real_t speedFactorOld = std::min((DEX * 0.1 + 15.5) * weightratioOld, maxSpeed);
-			if ( DEX <= 5 )
+			if (DEX <= 5)
 			{
 				speedFactorOld = std::min((DEX + 10) * weightratioOld, maxSpeed);
 			}
-			else if ( DEX <= 15 )
+			else if (DEX <= 15)
 			{
 				speedFactorOld = std::min((DEX * 0.2 + 14) * weightratioOld, maxSpeed);
 			}
 			messagePlayer(0, MESSAGE_DEBUG, "New: %.3f | Old: %.3f | (%+.3f)", speedFactor, speedFactorOld, 100.0 * ((speedFactor / speedFactorOld) - 1.0));
 		}
-		if ( stats[PLAYER_NUM]->EFFECTS[EFF_DASH] )
+		if (stats[PLAYER_NUM]->EFFECTS[EFF_DASH])
 		{
 			PLAYER_VELX += my->monsterKnockbackVelocity * cos(my->monsterKnockbackTangentDir) * refreshRateDelta;
 			PLAYER_VELY += my->monsterKnockbackVelocity * sin(my->monsterKnockbackTangentDir) * refreshRateDelta;
 			my->monsterKnockbackVelocity *= pow(0.95, refreshRateDelta);
 		}
-		else if ( stats[PLAYER_NUM]->EFFECTS[EFF_KNOCKBACK] )
+		else if (stats[PLAYER_NUM]->EFFECTS[EFF_KNOCKBACK])
 		{
 			PLAYER_VELX += my->monsterKnockbackVelocity * cos(my->monsterKnockbackTangentDir) * refreshRateDelta;
 			PLAYER_VELY += my->monsterKnockbackVelocity * sin(my->monsterKnockbackTangentDir) * refreshRateDelta;
@@ -1288,7 +1288,7 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 			my->monsterKnockbackTangentDir = 0.f;
 		}
 
-		if ( fabs(my->playerStrafeVelocity) > 0.1 )
+		if (fabs(my->playerStrafeVelocity) > 0.1)
 		{
 			PLAYER_VELX += my->playerStrafeVelocity * cos(my->playerStrafeDir) * refreshRateDelta;
 			PLAYER_VELY += my->playerStrafeVelocity * sin(my->playerStrafeDir) * refreshRateDelta;
@@ -1316,15 +1316,15 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 		//messagePlayer(0, MESSAGE_DEBUG, "Vel: %5.5f", getCurrentMovementSpeed());
 	//}
 
-	for ( int i = 0; i < MAXPLAYERS; ++i )
+	for (int i = 0; i < MAXPLAYERS; ++i)
 	{
-		if ( players[i] && players[i]->entity )
+		if (players[i] && players[i]->entity)
 		{
-			if ( players[i]->entity == my )
+			if (players[i]->entity == my)
 			{
 				continue;
 			}
-			if ( entityInsideEntity(my, players[i]->entity) )
+			if (entityInsideEntity(my, players[i]->entity))
 			{
 				double tangent = atan2(my->y - players[i]->entity->y, my->x - players[i]->entity->x);
 				PLAYER_VELX += cos(tangent) * 0.075 * refreshRateDelta;
@@ -1335,22 +1335,29 @@ void Player::PlayerMovement_t::handlePlayerMovement(bool useRefreshRateDelta)
 
 	// swimming slows you down
 	bool amuletwaterbreathing = false;
-	if ( stats[PLAYER_NUM]->amulet != NULL )
+	if (stats[PLAYER_NUM]->amulet != NULL)
 	{
-		if ( stats[PLAYER_NUM]->amulet->type == AMULET_WATERBREATHING )
+		if (stats[PLAYER_NUM]->amulet->type == AMULET_WATERBREATHING)
 		{
 			amuletwaterbreathing = true;
 		}
 	}
 	bool swimming = isPlayerSwimming();
-	if ( swimming && !amuletwaterbreathing )
+	if (swimming && (std::abs(PLAYER_VELX) > 0.01 || std::abs(PLAYER_VELY) > 0.01))
+	{
+		if (local_rng.rand() % 300 == 0 && multiplayer != CLIENT)
+		{
+			my->increaseSkill(PRO_SWIMMING);
+		}
+	}
+	if (swimming && !amuletwaterbreathing)
 	{
 		PLAYER_VELX *= (((stats[PLAYER_NUM]->PROFICIENCIES[PRO_SWIMMING] / 100.f) * 50.f) + 50) / 100.f;
 		PLAYER_VELY *= (((stats[PLAYER_NUM]->PROFICIENCIES[PRO_SWIMMING] / 100.f) * 50.f) + 50) / 100.f;
 
-		if ( stats[PLAYER_NUM]->type == SKELETON )
+		if (stats[PLAYER_NUM]->type == SKELETON)
 		{
-			if ( !swimDebuffMessageHasPlayed )
+			if (!swimDebuffMessageHasPlayed)
 			{
 				messagePlayer(PLAYER_NUM, MESSAGE_HINT, Language::get(3182));
 				swimDebuffMessageHasPlayed = true;
@@ -3884,10 +3891,7 @@ void actPlayer(Entity* my)
 		{
 			int x = std::min(std::max<unsigned int>(0, floor(my->x / 16)), map.width - 1);
 			int y = std::min(std::max<unsigned int>(0, floor(my->y / 16)), map.height - 1);
-			if ( local_rng.rand() % 400 == 0 && multiplayer != CLIENT )
-			{
-				my->increaseSkill(PRO_SWIMMING);
-			}
+
 			my->z = 7;
 			if ( playerRace == SPIDER || playerRace == RAT )
 			{

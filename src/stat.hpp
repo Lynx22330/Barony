@@ -94,31 +94,31 @@ static const int NUMPROFICIENCIES = 16;
 //Start levels for the various proficiency ranges.
 //0 = "none"
 static const int SKILL_LEVEL_NOVICE = 1;
-static const int SKILL_LEVEL_BASIC = 20;
-static const int SKILL_LEVEL_SKILLED = 40;
-static const int SKILL_LEVEL_EXPERT = 60;
-static const int SKILL_LEVEL_MASTER = 80;
-static const int SKILL_LEVEL_LEGENDARY = 100;
+static const int SKILL_LEVEL_BASIC = 25;
+static const int SKILL_LEVEL_SKILLED = 50;
+static const int SKILL_LEVEL_EXPERT = 75;
+static const int SKILL_LEVEL_MASTER = 100;
+static const int SKILL_LEVEL_LEGENDARY = 150;
 
 static const int CAPSTONE_LOCKPICKING_UNLOCK = SKILL_LEVEL_LEGENDARY;
 static const int CAPSTONE_UNLOCK_LEVEL[NUMPROFICIENCIES] =
 {
-		100,		//Lockpicking
-		100,		//Stealth
-		100,		//Trading
-		100,		//Appraisal
-		100,		//Swimming
-		100,		//Leadership
-		100,		//Spellcasting
-		100,		//Magic
-		100,		//Ranged
-		100,		//Sword
-		100,		//Mace
-		100,		//Axe
-		100,		//Polearm
-		100,		//Shield
-		100,		//Unarmed
-		100			//Alchemy
+		150,		//Lockpicking
+		150,		//Stealth
+		150,		//Trading
+		150,		//Appraisal
+		150,		//Swimming
+		150,		//Leadership
+		150,		//Spellcasting
+		150,		//Magic
+		150,		//Ranged
+		150,		//Sword
+		150,		//Mace
+		150,		//Axe
+		150,		//Polearm
+		150,		//Shield
+		150,		//Unarmed
+		150			//Alchemy
 };
 
 static const int CAPSTONE_LOCKPICKING_CHEST_GOLD_AMOUNT = 100;

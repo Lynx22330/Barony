@@ -956,14 +956,14 @@ void setDefaultMonsterStats(Stat* stats, int sprite)
 			stats->type = SKELETON;
 			stats->sex = static_cast<sex_t>(local_rng.rand() % 2);
 			stats->appearance = local_rng.rand();
-			stats->HP = 40;
-			stats->MAXHP = 40;
+			stats->HP = 45	;
+			stats->MAXHP = 45;
 			stats->MP = 30;
 			stats->MAXMP = 30;
 			stats->OLDHP = stats->HP;
-			stats->STR = 0;
+			stats->STR = 1;
 			stats->DEX = -1;
-			stats->CON = 1;
+			stats->CON = 2;
 			stats->INT = -1;
 			stats->PER = 2;
 			stats->CHR = -3;
@@ -1170,7 +1170,7 @@ void setDefaultMonsterStats(Stat* stats, int sprite)
 			stats->MP = 10;
 			stats->MAXMP = 10;
 			stats->OLDHP = stats->HP;
-			stats->STR = 0;
+			stats->STR = 1;
 			stats->DEX = 2;
 			stats->CON = 1;
 			stats->INT = -2;

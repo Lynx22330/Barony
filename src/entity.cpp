@@ -1664,7 +1664,7 @@ void Entity::increaseSkill(int skill, bool notify)
 	}
 
 	Uint32 color = makeColorRGB(255, 255, 0);
-	if ( myStats->PROFICIENCIES[skill] < 100 )
+	if ( myStats->PROFICIENCIES[skill] < 150 )
 	{
 		myStats->PROFICIENCIES[skill]++;
 		if ( notify )
@@ -1680,19 +1680,19 @@ void Entity::increaseSkill(int skill, bool notify)
 		}
 		switch ( myStats->PROFICIENCIES[skill] )
 		{
-			case 20:
+			case 25:
 				messagePlayerColor(player, MESSAGE_PROGRESSION, color, Language::get(616), getSkillLangEntry(skill));
 				break;
-			case 40:
+			case 50:
 				messagePlayerColor(player, MESSAGE_PROGRESSION, color, Language::get(617), getSkillLangEntry(skill));
 				break;
-			case 60:
+			case 75:
 				messagePlayerColor(player, MESSAGE_PROGRESSION, color, Language::get(618), getSkillLangEntry(skill));
 				break;
-			case 80:
+			case 100:
 				messagePlayerColor(player, MESSAGE_PROGRESSION, color, Language::get(619), getSkillLangEntry(skill));
 				break;
-			case 100:
+			case 150:
 				messagePlayerColor(player, MESSAGE_PROGRESSION, color, Language::get(620), getSkillLangEntry(skill));
 				break;
 			default:
@@ -11066,7 +11066,10 @@ void Entity::awardXP(Entity* src, bool share, bool root)
 
 	// calculate XP gain
 	int baseXp = 10;
-	int xpGain = baseXp + local_rng.rand() % std::max(1, baseXp) + std::max(0, srcStats->LVL - destStats->LVL) * baseXp;
+	int randomXp = local_rng.rand() % std::max(1, baseXp);
+	int levelDiffXp = std::max(0, srcStats->LVL - destStats->LVL) * baseXp;
+	int xpGain = (int)(baseXp + randomXp + levelDiffXp / 2.0);
+
 	if ( srcStats->MISC_FLAGS[STAT_FLAG_XP_PERCENT_AWARD] > 0 )
 	{
 		int value = srcStats->MISC_FLAGS[STAT_FLAG_XP_PERCENT_AWARD] - 1; // offset by 1 since 0 is nothing

@@ -2375,21 +2375,21 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				// spellcasting increase chances.
 				if ( stat->PROFICIENCIES[PRO_SPELLCASTING] < 60 )
 				{
-					if ( local_rng.rand() % 6 == 0 ) //16.67%
+					if ( local_rng.rand() % 12 == 0 ) //8.33%
 					{
 						caster->increaseSkill(PRO_SPELLCASTING);
 					}
 				}
 				else if ( stat->PROFICIENCIES[PRO_SPELLCASTING] < 80 )
 				{
-					if ( local_rng.rand() % 9 == 0 ) //11.11%
+					if ( local_rng.rand() % 16 == 0 ) //6.25%
 					{
 						caster->increaseSkill(PRO_SPELLCASTING);
 					}
 				}
 				else // greater than 80
 				{
-					if ( local_rng.rand() % 12 == 0 ) //8.33%
+					if ( local_rng.rand() % 20 == 0 ) //5%
 					{
 						caster->increaseSkill(PRO_SPELLCASTING);
 					}
@@ -2398,21 +2398,21 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				// magic increase chances.
 				if ( stat->PROFICIENCIES[PRO_MAGIC] < 60 )
 				{
-					if ( local_rng.rand() % 7 == 0 ) //14.2%
+					if ( local_rng.rand() % 20 == 0 ) //5%
 					{
 						caster->increaseSkill(PRO_MAGIC);
 					}
 				}
 				else if ( stat->PROFICIENCIES[PRO_MAGIC] < 80 )
 				{
-					if ( local_rng.rand() % 10 == 0 ) //10.00%
+					if ( local_rng.rand() % 30 == 0 ) //3.33%
 					{
 						caster->increaseSkill(PRO_MAGIC);
 					}
 				}
 				else // greater than 80
 				{
-					if ( local_rng.rand() % 13 == 0 ) //7.69%
+					if ( local_rng.rand() % 40 == 0 ) //2.5%
 					{
 						caster->increaseSkill(PRO_MAGIC);
 					}
@@ -2423,32 +2423,32 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 		{
 			if ( stat )
 			{
-				int spellCastChance = 5; // 20%
+				int spellCastChance = 8; // 12.5%
 				int magicChance = 6; // 16.67%
 				int castDifficulty = stat->PROFICIENCIES[PRO_SPELLCASTING] / 20 - spell->difficulty / 20;
 				if ( castDifficulty <= -1 )
 				{
 					// spell was harder.
-					spellCastChance = 3; // 33%
-					magicChance = 3; // 33%
+					spellCastChance = 16; // 6,25%
+					magicChance = 14; // 7.15%
 				}
 				else if ( castDifficulty == 0 )
 				{
 					// spell was same level
-					spellCastChance = 3; // 33%
-					magicChance = 4; // 25%
+					spellCastChance = 14; // 7.15%
+					magicChance = 12; // 8.33%
 				}
 				else if ( castDifficulty == 1 )
 				{
 					// spell was easy.
-					spellCastChance = 4; // 25%
-					magicChance = 5; // 20%
+					spellCastChance = 12; // 8.33%
+					magicChance = 10; // 10%
 				}
 				else if ( castDifficulty > 1 )
 				{
 					// piece of cake!
-					spellCastChance = 6; // 16.67%
-					magicChance = 7; // 14.2%
+					spellCastChance = 10; // 10%
+					magicChance = 8; // 12.5%
 				}
 				if ( usingSpellbook && !playerCastingFromKnownSpellbook )
 				{
@@ -2461,7 +2461,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 						&& stat->PROFICIENCIES[PRO_MAGIC] >= SKILL_LEVEL_SKILLED )
 				{
 					// light provides no levelling past 40 in both spellcasting and magic.
-					if ( local_rng.rand() % 20 == 0 )
+					if ( local_rng.rand() % 10 == 0 )
 					{
 						for ( int i = 0; i < MAXPLAYERS; ++i )
 						{

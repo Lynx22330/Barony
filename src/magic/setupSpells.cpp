@@ -64,8 +64,8 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_lightning.element_internal_name, "spell_element_lightning");
 
 	spellElementConstructor(&spellElement_light);
-	spellElement_light.mana = 1;
-	spellElement_light.base_mana = 1;
+	spellElement_light.mana = 5;
+	spellElement_light.base_mana = 5;
 	spellElement_light.overload_multiplier = 1;
 	spellElement_light.damage = 0;
 	spellElement_light.duration = 750; //500 a better value? //NOTE: 750 is original value.
@@ -192,10 +192,10 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_selfPolymorph.element_internal_name, "spell_element_self_polymorph");
 
 	spellElementConstructor(&spellElement_magicmissile);
-	spellElement_magicmissile.mana = 6;
-	spellElement_magicmissile.base_mana = 6;
+	spellElement_magicmissile.mana = 7;
+	spellElement_magicmissile.base_mana = 7;
 	spellElement_magicmissile.overload_multiplier = 1;
-	spellElement_magicmissile.damage = 30;
+	spellElement_magicmissile.damage = 32;
 	spellElement_magicmissile.duration = 0;
 	strcpy(spellElement_magicmissile.element_internal_name, "spell_element_magicmissile");
 
@@ -240,8 +240,8 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_missile_trio.element_internal_name, "spell_element_trio");
 
 	spellElementConstructor(&spellElement_dominate);
-	spellElement_dominate.mana = 20;
-	spellElement_dominate.base_mana = 20;
+	spellElement_dominate.mana = 35;
+	spellElement_dominate.base_mana = 35;
 	spellElement_dominate.overload_multiplier = 1;
 	spellElement_dominate.damage = 0;
 	spellElement_dominate.duration = 0;
@@ -296,8 +296,8 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_amplifyMagic.element_internal_name, "spell_element_amplify_magic");
 
 	spellElementConstructor(&spellElement_charmMonster);
-	spellElement_charmMonster.mana = 49;
-	spellElement_charmMonster.base_mana = 49;
+	spellElement_charmMonster.mana = 50;
+	spellElement_charmMonster.base_mana = 50;
 	spellElement_charmMonster.overload_multiplier = 1;
 	spellElement_charmMonster.damage = 0;
 	spellElement_charmMonster.duration = 300;
@@ -426,7 +426,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_forcebolt);
 	strcpy(spell_forcebolt.spell_internal_name, "spell_forcebolt");
 	spell_forcebolt.ID = SPELL_FORCEBOLT;
-	spell_forcebolt.difficulty = 0;
+	spell_forcebolt.difficulty = 5;
 	node = list_AddNodeLast(&spell_forcebolt.elements);
 	node->element = copySpellElement(&spellElement_missile);
 	node->size = sizeof(spellElement_t);
@@ -530,7 +530,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_removecurse);
 	strcpy(spell_removecurse.spell_internal_name, "spell_removecurse");
 	spell_removecurse.ID = SPELL_REMOVECURSE;
-	spell_removecurse.difficulty = 60;
+	spell_removecurse.difficulty = 50;
 	spell_removecurse.elements.first = NULL;
 	spell_removecurse.elements.last = NULL;
 	node = list_AddNodeLast(&spell_removecurse.elements);
@@ -557,7 +557,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_identify);
 	strcpy(spell_identify.spell_internal_name, "spell_identify");
 	spell_identify.ID = SPELL_IDENTIFY;
-	spell_identify.difficulty = 60;
+	spell_identify.difficulty = 80;
 	spell_identify.elements.first = NULL;
 	spell_identify.elements.last = NULL;
 	node = list_AddNodeLast(&spell_identify.elements);
@@ -570,7 +570,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_magicmapping);
 	strcpy(spell_magicmapping.spell_internal_name, "spell_magicmapping");
 	spell_magicmapping.ID = SPELL_MAGICMAPPING;
-	spell_magicmapping.difficulty = 60;
+	spell_magicmapping.difficulty = 30;
 	spell_magicmapping.elements.first = NULL;
 	spell_magicmapping.elements.last = NULL;
 	node = list_AddNodeLast(&spell_magicmapping.elements);
@@ -583,7 +583,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_sleep);
 	strcpy(spell_sleep.spell_internal_name, "spell_sleep");
 	spell_sleep.ID = SPELL_SLEEP;
-	spell_sleep.difficulty = 20;
+	spell_sleep.difficulty = 25;
 	node = list_AddNodeLast(&spell_sleep.elements);
 	node->element = copySpellElement(&spellElement_missile);
 	node->size = sizeof(spellElement_t);
@@ -603,7 +603,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_confuse);
 	strcpy(spell_confuse.spell_internal_name, "spell_confuse");
 	spell_confuse.ID = SPELL_CONFUSE;
-	spell_confuse.difficulty = 20;
+	spell_confuse.difficulty = 30;
 	node = list_AddNodeLast(&spell_confuse.elements);
 	node->element = copySpellElement(&spellElement_missile);
 	node->size = sizeof(spellElement_t);
@@ -624,7 +624,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_slow);
 	strcpy(spell_slow.spell_internal_name, "spell_slow");
 	spell_slow.ID = SPELL_SLOW;
-	spell_slow.difficulty = 20;
+	spell_slow.difficulty = 25;
 	node = list_AddNodeLast(&spell_slow.elements);
 	node->element = copySpellElement(&spellElement_missile);
 	node->size = sizeof(spellElement_t);
@@ -644,7 +644,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_opening);
 	strcpy(spell_opening.spell_internal_name, "spell_opening");
 	spell_opening.ID = SPELL_OPENING;
-	spell_opening.difficulty = 20;
+	spell_opening.difficulty = 25;
 	node = list_AddNodeLast(&spell_opening.elements);
 	node->element = copySpellElement(&spellElement_missile);
 	node->size = sizeof(spellElement_t);
@@ -725,7 +725,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_polymorph);
 	strcpy(spell_polymorph.spell_internal_name, "spell_self_polymorph");
 	spell_polymorph.ID = SPELL_SELF_POLYMORPH;
-	spell_polymorph.difficulty = 60;
+	spell_polymorph.difficulty = 45;
 	spell_polymorph.elements.first = NULL;
 	spell_polymorph.elements.last = NULL;
 	node = list_AddNodeLast(&spell_polymorph.elements);
@@ -738,7 +738,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_healing);
 	strcpy(spell_healing.spell_internal_name, "spell_healing");
 	spell_healing.ID = SPELL_HEALING;
-	spell_healing.difficulty = 20;
+	spell_healing.difficulty = 10;
 	spell_healing.elements.first = NULL;
 	spell_healing.elements.last = NULL;
 	node = list_AddNodeLast(&spell_healing.elements);
@@ -772,7 +772,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_cureailment);
 	strcpy(spell_cureailment.spell_internal_name, "spell_cureailment");
 	spell_cureailment.ID = SPELL_CUREAILMENT;
-	spell_cureailment.difficulty = 20;
+	spell_cureailment.difficulty = 10;
 	spell_cureailment.elements.first = NULL;
 	spell_cureailment.elements.last = NULL;
 	node = list_AddNodeLast(&spell_cureailment.elements);
@@ -785,7 +785,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_dig);
 	strcpy(spell_dig.spell_internal_name, "spell_dig");
 	spell_dig.ID = SPELL_DIG;
-	spell_dig.difficulty = 40;
+	spell_dig.difficulty = 60;
 	spell_dig.elements.first = NULL;
 	spell_dig.elements.last = NULL;
 	node = list_AddNodeLast(&spell_dig.elements);

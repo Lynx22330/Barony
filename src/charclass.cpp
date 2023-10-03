@@ -37,11 +37,11 @@ void initClassStats(const int classnum, void* myStats)
 	if ( classnum == CLASS_BARBARIAN )
 	{
 		// attributes
-		stat->STR += 2;
-		stat->CON += 1;
-		stat->DEX -= 0;
-		stat->INT -= 2;
-		stat->CHR -= 1;
+		stat->STR += 5;
+		stat->CON -= 2;
+		stat->DEX -= 2;
+		stat->INT -= 3;
+		stat->CHR -= 2;
 
 		stat->MAXHP += 10;
 		stat->HP += 10;
@@ -49,21 +49,19 @@ void initClassStats(const int classnum, void* myStats)
 		stat->MP -= 10;
 
 		// skills
-		stat->PROFICIENCIES[PRO_SWIMMING] = 25;
-		stat->PROFICIENCIES[PRO_SHIELD] = 25;
-		stat->PROFICIENCIES[PRO_AXE] = 50;
-		stat->PROFICIENCIES[PRO_MACE] = 25;
-		stat->PROFICIENCIES[PRO_UNARMED] = 20;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 10;
+		stat->PROFICIENCIES[PRO_SWIMMING] = 10;
+		stat->PROFICIENCIES[PRO_SHIELD] = 10;
+		stat->PROFICIENCIES[PRO_AXE] = 65;
+		stat->PROFICIENCIES[PRO_UNARMED] = 35;
 	}
 	// warrior
 	else if ( classnum == CLASS_WARRIOR )
 	{
 		// attributes
-		stat->STR += 1;
+		stat->STR += 2;
 		stat->DEX += 1;
-		stat->CON -= 0;
-		stat->INT -= 2;
+		stat->CON -= 1;
+		stat->INT -= 3;
 		stat->PER -= 1;
 		stat->CHR += 1;
 
@@ -71,12 +69,12 @@ void initClassStats(const int classnum, void* myStats)
 		stat->MP -= 10;
 
 		// skills
-		stat->PROFICIENCIES[PRO_LEADERSHIP] = 40;
-		stat->PROFICIENCIES[PRO_RANGED] = 25;
-		stat->PROFICIENCIES[PRO_SWORD] = 25;
+		stat->PROFICIENCIES[PRO_LEADERSHIP] = 20;
+		stat->PROFICIENCIES[PRO_RANGED] = 10;
+		stat->PROFICIENCIES[PRO_SWORD] = 20;
 		stat->PROFICIENCIES[PRO_POLEARM] = 50;
-		stat->PROFICIENCIES[PRO_SHIELD] = 25;
-		stat->PROFICIENCIES[PRO_UNARMED] = 10;
+		stat->PROFICIENCIES[PRO_SHIELD] = 35;
+		stat->PROFICIENCIES[PRO_UNARMED] = 15;
 	}
 	// healer
 	else if ( classnum == CLASS_HEALER )
@@ -86,43 +84,41 @@ void initClassStats(const int classnum, void* myStats)
 		stat->INT += 1;
 		stat->STR -= 1;
 		stat->DEX -= 1;
+		stat->CHR += 2;
 
-		stat->MAXHP -= 10;
-		stat->HP -= 10;
-		stat->MAXMP += 10;
-		stat->MP += 10;
+		stat->MAXHP -= 5;
+		stat->HP -= 5;
+		stat->MAXMP += 5;
+		stat->MP += 5;
 
 		// skills
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 50;
-		stat->PROFICIENCIES[PRO_MAGIC] = 25;
-		stat->PROFICIENCIES[PRO_SWIMMING] = 25;
-		stat->PROFICIENCIES[PRO_POLEARM] = 25;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 30;
+		stat->PROFICIENCIES[PRO_MAGIC] = 10;
+		stat->PROFICIENCIES[PRO_POLEARM] = 20;
 		stat->PROFICIENCIES[PRO_ALCHEMY] = 30;
-		stat->PROFICIENCIES[PRO_APPRAISAL] = 10;
-		stat->PROFICIENCIES[PRO_SHIELD] = 10;
+		stat->PROFICIENCIES[PRO_APPRAISAL] = 5;
 	}
 	// rogue
 	else if ( classnum == CLASS_ROGUE )
 	{
 		// attributes
-		stat->DEX += 2;
-		stat->PER += 2;
-		stat->INT -= 1;
+		stat->DEX += 3;
+		stat->PER += 3;
+		stat->INT -= 3;
 		stat->STR -= 1;
 		stat->CHR -= 1;
 
 		stat->MAXHP -= 5;
 		stat->HP -= 5;
-		stat->MAXMP -= 10;
-		stat->MP -= 10;
+		stat->MAXMP -= 25;
+		stat->MP -= 25;
 
 		// skills
-		stat->PROFICIENCIES[PRO_APPRAISAL] = 25;
-		stat->PROFICIENCIES[PRO_STEALTH] = 50;
+		stat->PROFICIENCIES[PRO_APPRAISAL] = 5;
+		stat->PROFICIENCIES[PRO_STEALTH] = 30;
 		stat->PROFICIENCIES[PRO_LOCKPICKING] = 40;
 		stat->PROFICIENCIES[PRO_RANGED] = 25;
-		stat->PROFICIENCIES[PRO_SWORD] = 25;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 20;
+		stat->PROFICIENCIES[PRO_SWORD] = 35;
 	}
 	// wanderer
 	else if ( classnum == CLASS_WANDERER )
@@ -130,41 +126,41 @@ void initClassStats(const int classnum, void* myStats)
 		// attributes
 		stat->DEX += 1;
 		stat->CON += 1;
-		stat->INT -= 1;
-		stat->PER += 1;
+		stat->INT -= 2;
+		stat->PER += 2;
 		stat->CHR -= 1;
+		stat->GOLD += 250;
 
 		stat->MAXHP += 10;
 		stat->HP += 10;
-		stat->MAXMP -= 10;
-		stat->MP -= 10;
+		stat->MAXMP -= 5;
+		stat->MP -= 5;
 
 		// skills
-		stat->PROFICIENCIES[PRO_STEALTH] = 25;
-		stat->PROFICIENCIES[PRO_SWIMMING] = 50;
-		stat->PROFICIENCIES[PRO_POLEARM] = 25;
-		stat->PROFICIENCIES[PRO_RANGED] = 25;
-		stat->PROFICIENCIES[PRO_TRADING] = 25;
-		stat->PROFICIENCIES[PRO_UNARMED] = 10;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 30;
+		stat->PROFICIENCIES[PRO_STEALTH] = 30;
+		stat->PROFICIENCIES[PRO_SWIMMING] = 65;
+		stat->PROFICIENCIES[PRO_POLEARM] = 45;
+		stat->PROFICIENCIES[PRO_RANGED] = 15;
+		stat->PROFICIENCIES[PRO_TRADING] = 15;
+		stat->PROFICIENCIES[PRO_ALCHEMY] = 25;
 	}
 	// cleric
 	else if ( classnum == CLASS_CLERIC )
 	{
 		// attributes
 		stat->PER += 1;
-		stat->CON += 1;
+		stat->CON += 2;
 		stat->DEX -= 1;
 		stat->CHR -= 0;
 
 		// skills
-		stat->PROFICIENCIES[PRO_MACE] = 25;
-		stat->PROFICIENCIES[PRO_SWIMMING] = 25;
-		stat->PROFICIENCIES[PRO_MAGIC] = 25;
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 25;
-		stat->PROFICIENCIES[PRO_LEADERSHIP] = 20;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 20;
-		stat->PROFICIENCIES[PRO_SHIELD] = 10;
+		stat->PROFICIENCIES[PRO_MACE] = 35;
+		stat->PROFICIENCIES[PRO_SWIMMING] = 35;
+		stat->PROFICIENCIES[PRO_MAGIC] = 15;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 15;
+		stat->PROFICIENCIES[PRO_LEADERSHIP] = 15;
+		stat->PROFICIENCIES[PRO_ALCHEMY] = 25;
+		stat->PROFICIENCIES[PRO_SHIELD] = 25;
 	}
 	// merchant
 	else if ( classnum == CLASS_MERCHANT )
@@ -181,11 +177,10 @@ void initClassStats(const int classnum, void* myStats)
 
 		// skills
 		stat->PROFICIENCIES[PRO_AXE] = 25;
-		stat->PROFICIENCIES[PRO_LEADERSHIP] = 20;
-		stat->PROFICIENCIES[PRO_APPRAISAL] = 50;
-		stat->PROFICIENCIES[PRO_TRADING] = 50;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 10;
-		stat->PROFICIENCIES[PRO_LOCKPICKING] = 10;
+		stat->PROFICIENCIES[PRO_APPRAISAL] = 35;
+		stat->PROFICIENCIES[PRO_TRADING] = 65;
+		stat->PROFICIENCIES[PRO_ALCHEMY] = 15;
+		stat->PROFICIENCIES[PRO_LOCKPICKING] = 15;
 	}
 	// wizard
 	else if ( classnum == CLASS_WIZARD )
@@ -198,15 +193,15 @@ void initClassStats(const int classnum, void* myStats)
 
 		stat->MAXHP -= 10;
 		stat->HP -= 10;
-		stat->MAXMP += 20;
-		stat->MP += 20;
+		stat->MAXMP += 25;
+		stat->MP += 25;
 
 		// skills
-		stat->PROFICIENCIES[PRO_POLEARM] = 25;
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 50;
-		stat->PROFICIENCIES[PRO_MAGIC] = 50;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 10;
-		stat->PROFICIENCIES[PRO_APPRAISAL] = 10;
+		stat->PROFICIENCIES[PRO_POLEARM] = 20;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 35;
+		stat->PROFICIENCIES[PRO_MAGIC] = 35;
+		stat->PROFICIENCIES[PRO_ALCHEMY] = 5;
+		stat->PROFICIENCIES[PRO_APPRAISAL] = 5;
 	}
 	// arcanist
 	else if ( classnum == CLASS_ARCANIST )
@@ -235,21 +230,24 @@ void initClassStats(const int classnum, void* myStats)
 	else if ( classnum == CLASS_JOKER )
 	{
 		// attributes
-		stat->INT += 1;
-		stat->CHR += 1;
-		stat->CON -= 1;
-		stat->STR -= 1;
-		stat->GOLD += 200;
+		stat->INT -= 7;
+		stat->CHR += 7;
+		stat->CON += 7;
+		stat->STR -= 7;
+		stat->DEX += 7;
+		stat->PER -= 7;
+		stat->GOLD += 777;
 
 		// skills
-		stat->PROFICIENCIES[PRO_LOCKPICKING] = 25;
-		stat->PROFICIENCIES[PRO_TRADING] = 25;
-		stat->PROFICIENCIES[PRO_LEADERSHIP] = 20;
-		stat->PROFICIENCIES[PRO_MAGIC] = 25;
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 25;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 10;
-		stat->PROFICIENCIES[PRO_RANGED] = 20;
-		stat->PROFICIENCIES[PRO_STEALTH] = 10;
+		stat->PROFICIENCIES[PRO_LOCKPICKING] = 47;
+		stat->PROFICIENCIES[PRO_TRADING] = 27;
+		stat->PROFICIENCIES[PRO_LEADERSHIP] = 37;
+		stat->PROFICIENCIES[PRO_MAGIC] = 7;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 7;
+		stat->PROFICIENCIES[PRO_ALCHEMY] = 17;
+		stat->PROFICIENCIES[PRO_RANGED] = 17;
+		stat->PROFICIENCIES[PRO_STEALTH] = 27;
+		stat->PROFICIENCIES[PRO_UNARMED] = 77;
 	}
 	// sexton
 	else if ( classnum == CLASS_SEXTON )
@@ -259,17 +257,17 @@ void initClassStats(const int classnum, void* myStats)
 		stat->DEX += 1;
 		stat->CON -= 1;
 		stat->INT += 1;
+		stat->PER += 1;
 
 		stat->MAXMP += 5;
 		stat->MP += 5;
 
 		// skills
-		stat->PROFICIENCIES[PRO_MACE] = 10;
-		stat->PROFICIENCIES[PRO_SHIELD] = 10;
-		stat->PROFICIENCIES[PRO_STEALTH] = 40;
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 40;
-		stat->PROFICIENCIES[PRO_MAGIC] = 40;
-		stat->PROFICIENCIES[PRO_RANGED] = 20;
+		stat->PROFICIENCIES[PRO_MACE] = 15;
+		stat->PROFICIENCIES[PRO_STEALTH] = 30;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 30;
+		stat->PROFICIENCIES[PRO_MAGIC] = 30;
+		stat->PROFICIENCIES[PRO_RANGED] = 25;
 		stat->PROFICIENCIES[PRO_ALCHEMY] = 20;
 	}
 	// ninja
@@ -286,57 +284,54 @@ void initClassStats(const int classnum, void* myStats)
 		stat->HP += 5;
 
 		// skills
-		stat->PROFICIENCIES[PRO_STEALTH] = 60;
-		stat->PROFICIENCIES[PRO_SWORD] = 60;
-		stat->PROFICIENCIES[PRO_RANGED] = 40;
+		stat->PROFICIENCIES[PRO_STEALTH] = 40;
+		stat->PROFICIENCIES[PRO_SWORD] = 70;
+		stat->PROFICIENCIES[PRO_RANGED] = 20;
 	}
 	// monk
 	else if ( classnum == CLASS_MONK )
 	{
 		// attributes
-		stat->STR += 1;
-		stat->CON += 2;
+		stat->STR += 2;
+		stat->CON -= 2;
 		stat->PER -= 1;
 		stat->CHR -= 0;
 
-		stat->MAXHP += 10;
-		stat->HP += 10;
+		stat->MAXHP += 25;
+		stat->HP += 25;
 
 		// skills
-		stat->PROFICIENCIES[PRO_SHIELD] = 40;
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 20;
+		stat->PROFICIENCIES[PRO_SHIELD] = 15;
 		stat->PROFICIENCIES[PRO_LEADERSHIP] = 10;
-		stat->PROFICIENCIES[PRO_MAGIC] = 10;
-		stat->PROFICIENCIES[PRO_UNARMED] = 50;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 20;
-		stat->PROFICIENCIES[PRO_SWIMMING] = 10;
+		stat->PROFICIENCIES[PRO_UNARMED] = 60;
+		stat->PROFICIENCIES[PRO_ALCHEMY] = 25;
+		stat->PROFICIENCIES[PRO_SWIMMING] = 30;
 	}
 	// start DLC
 	else if ( classnum == CLASS_CONJURER )
 	{
 		// attributes
-		stat->INT += 1;
-		stat->CON += 2;
-		stat->DEX -= 1;
-		stat->PER -= 2;
+		stat->INT += 2;
+		stat->CON += 1;
+		stat->DEX -= 0;
+		stat->PER -= 0;
 
-		stat->MAXHP -= 0;
-		stat->HP -= 0;
-		stat->MAXMP += 15;
-		stat->MP += 15;
+		stat->MAXHP -= 5;
+		stat->HP -= 5;
+		stat->MAXMP += 25;
+		stat->MP += 25;
 
 		// skills
-		stat->PROFICIENCIES[PRO_MAGIC] = 40;
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 40;
+		stat->PROFICIENCIES[PRO_MAGIC] = 30;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 30;
 		stat->PROFICIENCIES[PRO_STEALTH] = 20;
-		stat->PROFICIENCIES[PRO_RANGED] = 20;
-		stat->PROFICIENCIES[PRO_LEADERSHIP] = 40;
+		stat->PROFICIENCIES[PRO_LEADERSHIP] = 10;
 		stat->PROFICIENCIES[PRO_ALCHEMY] = 20;
 	}
 	else if ( classnum == CLASS_ACCURSED )
 	{
 		// attributes
-		stat->INT += 10;
+		stat->INT += 8;
 		stat->STR -= 2;
 		stat->CON -= 2;
 		stat->DEX -= 3;
@@ -348,32 +343,31 @@ void initClassStats(const int classnum, void* myStats)
 		stat->MP += 10;
 
 		// skills
-		stat->PROFICIENCIES[PRO_MAGIC] = 70;
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 40;
+		stat->PROFICIENCIES[PRO_MAGIC] = 30;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 30;
 		stat->PROFICIENCIES[PRO_STEALTH] = 40;
-		stat->PROFICIENCIES[PRO_APPRAISAL] = 20;
-		stat->PROFICIENCIES[PRO_UNARMED] = 40;
+		stat->PROFICIENCIES[PRO_UNARMED] = 20;
 	}
 	else if ( classnum == CLASS_MESMER )
 	{
 		// attributes
 		stat->STR -= 2;
 		stat->CON -= 3;
-		stat->INT += 2;
-		stat->DEX -= 2;
-		stat->PER += 2;
-		stat->CHR += 4;
+		stat->INT += 3;
+		stat->DEX -= 1;
+		stat->PER += 1;
+		stat->CHR += 1;
 
 		stat->MAXHP -= 5;
 		stat->HP -= 5;
-		stat->MAXMP += 10;
-		stat->MP += 10;
+		stat->MAXMP += 15;
+		stat->MP += 15;
 
 		// skills
-		stat->PROFICIENCIES[PRO_MAGIC] = 60;
+		stat->PROFICIENCIES[PRO_MAGIC] = 30;
 		stat->PROFICIENCIES[PRO_SPELLCASTING] = 40;
-		stat->PROFICIENCIES[PRO_POLEARM] = 20;
-		stat->PROFICIENCIES[PRO_LEADERSHIP] = 60;
+		stat->PROFICIENCIES[PRO_POLEARM] = 30;
+		stat->PROFICIENCIES[PRO_LEADERSHIP] = 30;
 	}
 	else if ( classnum == CLASS_BREWER )
 	{
@@ -387,27 +381,27 @@ void initClassStats(const int classnum, void* myStats)
 
 		stat->MAXHP += 10;
 		stat->HP += 10;
-		stat->MAXMP -= 10;
-		stat->MP -= 10;
+		stat->MAXMP -= 20;
+		stat->MP -= 20;
 
-		stat->GOLD = 100;
+		stat->GOLD = 175;
 
 		// skills
 		/*stat->PROFICIENCIES[PRO_MACE] = 60;
 		stat->PROFICIENCIES[PRO_SHIELD] = 40;*/
-		stat->PROFICIENCIES[PRO_AXE] = 10;
-		stat->PROFICIENCIES[PRO_UNARMED] = 25;
-		stat->PROFICIENCIES[PRO_TRADING] = 10;
-		stat->PROFICIENCIES[PRO_APPRAISAL] = 10;
-		stat->PROFICIENCIES[PRO_LEADERSHIP] = 25;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 50;
+		stat->PROFICIENCIES[PRO_AXE] = 15;
+		stat->PROFICIENCIES[PRO_UNARMED] = 30;
+		stat->PROFICIENCIES[PRO_TRADING] = 25;
+		stat->PROFICIENCIES[PRO_APPRAISAL] = 5;
+		stat->PROFICIENCIES[PRO_LEADERSHIP] = 10;
+		stat->PROFICIENCIES[PRO_ALCHEMY] = 55;
 	}
 	else if ( classnum == CLASS_SHAMAN )
 	{
 		// attributes
 		stat->STR -= 1;
-		stat->INT += 2;
-		stat->PER += 1;
+		stat->INT += 3;
+		stat->PER += 2;
 		stat->CHR += 1;
 
 		stat->MAXHP += 5;
@@ -417,11 +411,11 @@ void initClassStats(const int classnum, void* myStats)
 		stat->MP += 10;
 
 		// skills
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 40;
-		stat->PROFICIENCIES[PRO_MAGIC] = 40;
-		stat->PROFICIENCIES[PRO_UNARMED] = 10;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 10;
-		stat->PROFICIENCIES[PRO_STEALTH] = 10;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 35;
+		stat->PROFICIENCIES[PRO_MAGIC] = 35;
+		stat->PROFICIENCIES[PRO_UNARMED] = 5;
+		stat->PROFICIENCIES[PRO_ALCHEMY] = 5;
+		stat->PROFICIENCIES[PRO_STEALTH] = 5;
 		/*stat->PROFICIENCIES[PRO_SHIELD] = 40;
 		stat->PROFICIENCIES[PRO_LEADERSHIP] = 10;
 		stat->PROFICIENCIES[PRO_POLEARM] = 10;
@@ -468,7 +462,7 @@ void initClassStats(const int classnum, void* myStats)
 
 		// skills
 		stat->PROFICIENCIES[PRO_SPELLCASTING] = 10;
-		stat->PROFICIENCIES[PRO_APPRAISAL] = 20;
+		stat->PROFICIENCIES[PRO_APPRAISAL] = 10;
 		stat->PROFICIENCIES[PRO_STEALTH] = 25;
 		stat->PROFICIENCIES[PRO_SWIMMING] = 50;
 		stat->PROFICIENCIES[PRO_RANGED] = 50;
@@ -478,10 +472,10 @@ void initClassStats(const int classnum, void* myStats)
 	{
 		// attributes
 		stat->STR -= 2;
-		//stat->DEX -= 2;
+		stat->DEX -= 2;
 		stat->CON -= 3;
-		stat->INT += 1;
-		stat->PER += 0;
+		stat->INT -= 0;
+		stat->PER += 1;
 
 		stat->MAXHP -= 5;
 		stat->HP -= 5;
@@ -491,9 +485,8 @@ void initClassStats(const int classnum, void* myStats)
 
 		// skills
 		stat->PROFICIENCIES[PRO_LOCKPICKING] = 40;
-		stat->PROFICIENCIES[PRO_RANGED] = 10;
-		stat->PROFICIENCIES[PRO_ALCHEMY] = 10;
-		stat->PROFICIENCIES[PRO_TRADING] = 10;
+		stat->PROFICIENCIES[PRO_RANGED] = 15;
+		stat->PROFICIENCIES[PRO_TRADING] = 25;
 	}
 }
 
@@ -622,7 +615,7 @@ void initClass(const int player)
 			free(item);
 
 			// tomahawk
-			item = newItem(BRONZE_TOMAHAWK, DECREPIT, 0, 2, 1, true, nullptr);
+			item = newItem(BRONZE_TOMAHAWK, WORN, 0, 2, 1, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
@@ -667,7 +660,7 @@ void initClass(const int player)
 		}
 
 		// leather helm
-		item = newItem(LEATHER_HELM, WORN, 0, 1, 0, true, nullptr);
+		item = newItem(LEATHER_HELM, DECREPIT, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -680,7 +673,7 @@ void initClass(const int player)
 		}
 
 		// iron armor
-		item = newItem(IRON_BREASTPIECE, SERVICABLE, 0, 1, 0, true, nullptr);
+		item = newItem(IRON_BREASTPIECE, WORN, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -693,7 +686,7 @@ void initClass(const int player)
 		}
 
 		// boots
-		item = newItem(LEATHER_BOOTS, WORN, 0, 1, 0, true, nullptr);
+		item = newItem(LEATHER_BOOTS, DECREPIT, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -796,7 +789,7 @@ void initClass(const int player)
 			free(item);
 
 			// cure ailment spellbook
-			item = newItem(SPELLBOOK_CUREAILMENT, EXCELLENT, 0, 1, 1, true, nullptr);
+			item = newItem(SPELLBOOK_CUREAILMENT, DECREPIT, 0, 1, 1, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
 			{
@@ -809,7 +802,7 @@ void initClass(const int player)
 			free(item);
 
 			// healing spellbook
-			item = newItem(SPELLBOOK_HEALING, EXCELLENT, 0, 1, 2, true, nullptr);
+			item = newItem(SPELLBOOK_HEALING, DECREPIT, 0, 1, 2, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
 			{
@@ -832,7 +825,7 @@ void initClass(const int player)
 			free(item);
 
 			// magicstaff of slow
-			item = newItem(MAGICSTAFF_SLOW, SERVICABLE, 0, 1, 3, true, nullptr);
+			item = newItem(MAGICSTAFF_SLOW, EXCELLENT, 0, 1, 3, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
@@ -849,7 +842,7 @@ void initClass(const int player)
 		}
 
 		// bronze sword
-		item = newItem(BRONZE_SWORD, EXCELLENT, 0, 1, 0, true, nullptr);
+		item = newItem(IRON_SWORD, EXCELLENT, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -916,11 +909,7 @@ void initClass(const int player)
 
 		if ( isLocalPlayer )
 		{
-			// sickness potion
-			item = newItem(POTION_SICKNESS, EXCELLENT, 0, 5, 5, true, nullptr);
-			item2 = itemPickup(player, item);
-			hotbar[3].item = item2->uid;
-			free(item);
+
 
 			// shortbow
 			item = newItem(SHORTBOW, EXCELLENT, 0, 1, 0, true, nullptr);
@@ -929,7 +918,7 @@ void initClass(const int player)
 			free(item);
 
 			// ammo
-			item = newItem(QUIVER_KNOCKBACK, SERVICABLE, 0, 15, 0, true, nullptr);
+			item = newItem(QUIVER_KNOCKBACK, SERVICABLE, 0, 25, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[2].item = item2->uid;
 			free(item);
@@ -941,7 +930,7 @@ void initClass(const int player)
 			free(item);
 
 			// lockpicks
-			item = newItem(TOOL_LOCKPICK, EXCELLENT, 0, 3, 0, true, nullptr);
+			item = newItem(TOOL_LOCKPICK, EXCELLENT, 0, 2, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[5].item = item2->uid;
 			free(item);
@@ -958,7 +947,7 @@ void initClass(const int player)
 		}
 
 		// quarterstaff
-		item = newItem(QUARTERSTAFF, WORN, 0, 1, 0, true, nullptr);
+		item = newItem(QUARTERSTAFF, SERVICABLE, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1063,7 +1052,7 @@ void initClass(const int player)
 			free(item);
 
 			// scroll
-			item = newItem(SCROLL_MAGICMAPPING, SERVICABLE, 0, 6, 0, true, nullptr);
+			item = newItem(SCROLL_MAGICMAPPING, SERVICABLE, 0, 5, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
@@ -1104,7 +1093,7 @@ void initClass(const int player)
 		}
 
 		// wooden shield
-		item = newItem(WOODEN_SHIELD, WORN, 0, 1, 0, true, nullptr);
+		item = newItem(IRON_SHIELD, WORN, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1165,7 +1154,7 @@ void initClass(const int player)
 			free(item);
 
 			// summon scrolls
-			item = newItem(SCROLL_SUMMON, EXCELLENT, 0, 3, 0, true, nullptr);
+			item = newItem(SCROLL_SUMMON, EXCELLENT, curseItems ? -1 : 2, 1, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[4].item = item2->uid;
 			free(item);
@@ -1372,11 +1361,7 @@ void initClass(const int player)
 
 		if ( isLocalPlayer )
 		{
-			// magicstaff of light
-			item = newItem(MAGICSTAFF_LIGHT, EXCELLENT, 0, 1, 3, true, nullptr);
-			item2 = itemPickup(player, item);
-			hotbar[1].item = item2->uid;
-			free(item);
+
 
 			// potion of restore magic
 			item = newItem(POTION_RESTOREMAGIC, EXCELLENT, 0, 2, 1, true, nullptr);
@@ -1397,18 +1382,7 @@ void initClass(const int player)
 			}
 			free(item);
 
-			// spellbook of cold
-			item = newItem(SPELLBOOK_COLD, SERVICABLE, 0, 1, 4, true, nullptr);
-			item2 = itemPickup(player, item);
-			if ( players[player]->hotbar.useHotbarFaceMenu )
-			{
-				hotbar[7].item = item2->uid;
-			}
-			else
-			{
-				hotbar[8].item = item2->uid;
-			}
-			free(item);
+
 
 			// spellbook of light
 			item = newItem(SPELLBOOK_LIGHT, SERVICABLE, 0, 1, 5, true, nullptr);
@@ -1539,18 +1513,7 @@ void initClass(const int player)
 			}
 			free(item);
 
-			// spellbook of light
-			item = newItem(SPELLBOOK_LIGHT, WORN, 0, 1, 7, true, nullptr);
-			item2 = itemPickup(player, item);
-			if ( players[player]->hotbar.useHotbarFaceMenu )
-			{
-				hotbar[8].item = item2->uid;
-			}
-			else
-			{
-				hotbar[9].item = item2->uid;
-			}
-			free(item);
+
 
 			// scroll
 			item = newItem(SCROLL_CHARGING, EXCELLENT, 0, 2, 1, true, nullptr);
@@ -1569,7 +1532,7 @@ void initClass(const int player)
 		}
 
 		// jester hat
-		item = newItem(HAT_JESTER, SERVICABLE, curseItems ? -1 : 1, 1, 0, true, nullptr);
+		item = newItem(HAT_JESTER, SERVICABLE, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1590,30 +1553,26 @@ void initClass(const int player)
 			free(item);
 
 			// lockpicks
-			item = newItem(TOOL_LOCKPICK, EXCELLENT, 0, 1, 0, true, nullptr);
+			item = newItem(TOOL_LOCKPICK, DECREPIT, 0, 7, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
 
 			// scroll of teleportation
-			item = newItem(SCROLL_TELEPORTATION, EXCELLENT, 0, 3, 0, true, nullptr);
+			item = newItem(SCROLL_TELEPORTATION, EXCELLENT, 0, 7, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[4].item = item2->uid;
 			free(item);
 
-			// potion
-			item = newItem(POTION_POLYMORPH, EXCELLENT, 0, 1, 0, true, nullptr);
-			item2 = itemPickup(player, item);
-			hotbar[2].item = item2->uid;
-			free(item);
+
 
 			// scroll of food
-			item = newItem(SCROLL_FOOD, EXCELLENT, 0, 1, 0, false, nullptr);
+			item = newItem(SCROLL_FOOD, EXCELLENT, curseItems ? -1 : -7, 7, 0, false, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
 			// ring of levitation
-			item = newItem(RING_LEVITATION, SERVICABLE, 0, 1, 2, true, nullptr);
+			item = newItem(RING_LEVITATION, EXCELLENT, -7, 1, 2, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
@@ -1631,17 +1590,17 @@ void initClass(const int player)
 			free(item);
 
 			// blindfold
-			item = newItem(TOOL_BLINDFOLD, SERVICABLE, 0, 1, 2, true, nullptr);
+			item = newItem(TOOL_BLINDFOLD, SERVICABLE, curseItems ? -1 : -7, 1, 2, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
 			// luckstone
-			item = newItem(GEM_LUCK, EXCELLENT, 0, 1, 1, false, nullptr);
+			item = newItem(GEM_LUCK, EXCELLENT, curseItems ? -1 : -7, 7, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
 			// food
-			item = newItem(FOOD_CREAMPIE, SERVICABLE, 0, 8, 0, true, nullptr);
+			item = newItem(FOOD_CREAMPIE, SERVICABLE, 0, 7, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[3].item = item2->uid;
 			free(item);
@@ -1755,7 +1714,7 @@ void initClass(const int player)
 			}
 			free(item);
 
-			item = newItem(SPELLBOOK_OPENING, WORN, 0, 1, 6, true, nullptr);
+			item = newItem(SPELLBOOK_OPENING, DECREPIT, 0, 1, 6, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
 			{
@@ -1790,8 +1749,8 @@ void initClass(const int player)
 			return;
 		}
 
-		// katana
-		item = newItem(CRYSTAL_SWORD, DECREPIT, 0, 1, 0, true, nullptr);
+		// SHARP BLADE, - Lynx <3
+		item = newItem(STEEL_SWORD, WORN, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -2105,6 +2064,11 @@ void initClass(const int player)
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
+
+			item = newItem(SCROLL_MAGICMAPPING, SERVICABLE, 0, 2, 1, true, nullptr);
+			item2 = itemPickup(player, item);
+			hotbar[8].item = item2->uid;
+			free(item);
 		}
 	}
 	else if ( client_classes[player] == CLASS_MESMER )
@@ -2212,7 +2176,7 @@ void initClass(const int player)
 		}
 
 		// booze
-		item = newItem(IRON_AXE, EXCELLENT, 0, 1, 0, true, nullptr);
+		item = newItem(IRON_AXE, EXCELLENT, curseItems ? -1 : 1, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -2511,7 +2475,7 @@ void initClass(const int player)
 
 		if ( isLocalPlayer )
 		{
-			item = newItem(BOOMERANG, DECREPIT, 0, 1, 0, true, nullptr);
+			item = newItem(BOOMERANG, DECREPIT, curseItems ? -1 : -2, 1, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
@@ -2548,7 +2512,7 @@ void initClass(const int player)
 			hotbar[5].item = item2->uid;
 			free(item);
 
-			item = newItem(POTION_SPEED, EXCELLENT, 0, 2, 0, true, nullptr);
+			item = newItem(POTION_SPEED, EXCELLENT, 0, 1, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[6].item = item2->uid;
 			free(item);
@@ -2653,7 +2617,7 @@ void initClass(const int player)
 			hotbar[4].item = item2->uid;
 			free(item);
 
-			item = newItem(TOOL_LOCKPICK, EXCELLENT, 0, 4, 0, true, nullptr);
+			item = newItem(TOOL_LOCKPICK, EXCELLENT, 0, 2, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[6].item = item2->uid;
 			free(item);
@@ -2675,11 +2639,11 @@ void initClass(const int player)
 				free(item);
 			}
 
-			item = newItem(TOOL_METAL_SCRAP, DECREPIT, 0, 16, 0, true, nullptr);
+			item = newItem(TOOL_METAL_SCRAP, DECREPIT, 0, 8, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
-			item = newItem(TOOL_MAGIC_SCRAP, DECREPIT, 0, 8, 0, true, nullptr);
+			item = newItem(TOOL_MAGIC_SCRAP, DECREPIT, 0, 4, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
@@ -2758,7 +2722,7 @@ void initClass(const int player)
 	{
 		if ( stats[player]->playerRace == RACE_VAMPIRE && stats[player]->appearance == 0 )
 		{
-			addSpell(SPELL_LEVITATION, player, true);
+			addSpell(SPELL_FLUTTER, player, true);
 			addSpell(SPELL_BLEED, player, true);
 		}
 		else if ( stats[player]->playerRace == RACE_SUCCUBUS && stats[player]->appearance == 0 )

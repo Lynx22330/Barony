@@ -891,8 +891,8 @@ int Entity::entityLightAfterReductions(Stat& myStats, Entity* observer)
 	float stealthMod = invis ? 0 : (1.0 - myStats.PROFICIENCIES[PRO_STEALTH] / 100.0);
 	float sneakMod = sneaking ? 0.5 : 1;
 	int tileVis = std::clamp(light + observerSight, minLight, maxLight);
-	minVis = minVis * sneakMod;
-	int entityVis = (int) (std::clamp(tileVis * stealthMod * sneakMod, minVis, maxVis));
+	minVis = (int) minVis * sneakMod;
+	int entityVis = (int) (std::clamp((int) tileVis * stealthMod * sneakMod, minVis, maxVis));
 	return entityVis;
 }
 

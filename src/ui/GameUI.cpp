@@ -6989,7 +6989,7 @@ void StatusEffectQueue_t::updateAllQueuedEffects()
 			{
 				miscEffects[kEffectLifesaving] = true;
 			}
-			if ( stats[player]->sneaking == 1 && !stats[player]->defending && !skillCapstoneUnlocked(player, PRO_STEALTH) )
+			if ( stats[player]->sneaking == 1 && !stats[player]->defending && PRO_STEALTH < 100 )
 			{
 				miscEffects[kEffectSneak] = true;
 			}

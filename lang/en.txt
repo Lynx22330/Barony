@@ -4319,8 +4319,8 @@ Legendary:
 
 Legendary: 
  Sneaking (using defend key without a shield)
-  grants invisibility.
- Backstab bonus damage is doubled#
+  grants invisibility at MASTER status.
+ Backstab bonus damage is doubled at LEGENDARY status#
 3272 
 
 

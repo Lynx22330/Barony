@@ -892,7 +892,7 @@ int Entity::entityLightAfterReductions(Stat& myStats, Entity* observer)
 	float sneakMod = sneaking ? 0.5 : 1;
 	int tileVis = std::clamp(light + observerSight, minLight, maxLight);
 	minVis = (int) minVis * sneakMod;
-	int entityVis = (int) (std::clamp((int) tileVis * stealthMod * sneakMod, minVis, maxVis));
+	int entityVis = (int)(std::clamp((int)(tileVis * stealthMod * sneakMod), minVis, maxVis));	
 	return entityVis;
 }
 
@@ -5949,7 +5949,7 @@ bool Entity::isInvisible() const
 	{
 		if ( this->skill[2] >= 0 && this->skill[2] < MAXPLAYERS )
 		{
-			if ( skillCapstoneUnlockedEntity(PRO_STEALTH) && (stats[this->skill[2]]->sneaking && !stats[this->skill[2]]->defending) )
+			if ((PRO_STEALTH >= 100) && (stats[this->skill[2]]->sneaking && !stats[this->skill[2]]->defending) )
 			{
 				if ( this->skill[9] == 0 ) // player attack variable.
 				{

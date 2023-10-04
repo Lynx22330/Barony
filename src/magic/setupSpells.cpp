@@ -596,7 +596,7 @@ void setupSpells()   ///TODO: Verify this function.
 	node = list_AddNodeLast(&element->elements);
 	node->element = copySpellElement(&spellElement_sleep);
 	node->size = sizeof(spellElement_t);
-	node->deconstructor = &spellElementDeconstructor;
+	node->deconstructor = &spellElementDeconstructor;	
 	element = (spellElement_t*) node->element;
 	element->node = node;
 
@@ -752,7 +752,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_extrahealing);
 	strcpy(spell_extrahealing.spell_internal_name, "spell_extrahealing");
 	spell_extrahealing.ID = SPELL_EXTRAHEALING;
-	spell_extrahealing.difficulty = 60;
+	spell_extrahealing.difficulty = 40;
 	spell_extrahealing.elements.first = NULL;
 	spell_extrahealing.elements.last = NULL;
 	node = list_AddNodeLast(&spell_extrahealing.elements);
@@ -847,7 +847,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_summon);
 	strcpy(spell_summon.spell_internal_name, "spell_summon");
 	spell_summon.ID = SPELL_SUMMON;
-	spell_summon.difficulty = 40;
+	spell_summon.difficulty = 30;
 	spell_summon.elements.first = NULL;
 	spell_summon.elements.last = NULL;
 	node = list_AddNodeLast(&spell_summon.elements);
@@ -860,7 +860,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_dominate);
 	strcpy(spell_dominate.spell_internal_name, "spell_dominate");
 	spell_dominate.ID = SPELL_DOMINATE;
-	spell_dominate.difficulty = 100;
+	spell_dominate.difficulty = 150;
 	node = list_AddNodeLast(&spell_dominate.elements);
 	node->element = copySpellElement(&spellElement_missile);
 	node->size = sizeof(spellElement_t);
@@ -1011,7 +1011,7 @@ void setupSpells()   ///TODO: Verify this function.
 	node->deconstructor = &spellElementDeconstructor;
 	element = (spellElement_t*)node->element;
 	element->node = node;
-	element->mana = 5;
+	element->mana = 0;
 
 	spellConstructor(&spell_ratForm);
 	strcpy(spell_ratForm.spell_internal_name, "spell_rat_form");

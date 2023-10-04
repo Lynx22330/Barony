@@ -1869,16 +1869,16 @@ void actHudWeapon(Entity* my)
 			Item* item = stats[HUDWEAPON_PLAYERNUM]->weapon;
 			if ( item && !hideWeapon )
 			{
-				if ( !rangedweapon 
-					&& item->type != TOOL_SKELETONKEY 
-					&& item->type != TOOL_LOCKPICK
-					&& item->type != TOOL_BEARTRAP
-					&& itemCategory(item) != POTION 
-					&& itemCategory(item) != GEM
-					&& item->type != FOOD_CREAMPIE
-					&& !(item->type >= ARTIFACT_ORB_BLUE && item->type <= ARTIFACT_ORB_GREEN)
-					&& !(itemIsThrowableTinkerTool(item))
-					&& item->type != TOOL_WHIP )
+					if ( !rangedweapon 
+						&& item->type != TOOL_SKELETONKEY 
+						&& item->type != TOOL_LOCKPICK
+						&& item->type != TOOL_BEARTRAP
+						&& itemCategory(item) != POTION 
+						&& itemCategory(item) != GEM
+						&& item->type != FOOD_CREAMPIE
+						&& !(item->type >= ARTIFACT_ORB_BLUE && item->type <= ARTIFACT_ORB_GREEN)
+						&& !(itemIsThrowableTinkerTool(item))
+						&& item->type != TOOL_WHIP )
 				{
 					if ( stats[HUDWEAPON_PLAYERNUM]->weapon->type != TOOL_PICKAXE && itemCategory(item) != THROWN )
 					{

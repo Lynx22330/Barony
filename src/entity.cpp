@@ -5910,60 +5910,47 @@ that would make it invisible
 
 bool Entity::isInvisible() const
 {
-	if ( intro ) 
+	if (intro)
 	{
 		// show up in hi-scores
 		return false;
 	}
 	Stat* entitystats;
-	if ( (entitystats = getStats()) == NULL )
+	if ((entitystats = getStats()) == NULL)
 	{
 		return false;
 	}
 
 	// being invisible
-	if ( entitystats->EFFECTS[EFF_INVISIBLE] == true )
+	if (entitystats->EFFECTS[EFF_INVISIBLE] == true)
 	{
 		return true;
 	}
 
 	// wearing invisibility cloaks
-	if ( entitystats->cloak != NULL )
+	if (entitystats->cloak != NULL)
 	{
-		if ( entitystats->cloak->type == CLOAK_INVISIBILITY )
+		if (entitystats->cloak->type == CLOAK_INVISIBILITY)
 		{
 			return true;
 		}
 	}
 
 	// wearing invisibility ring
-	if ( entitystats->ring != NULL )
+	if (entitystats->ring != NULL)
 	{
-		if ( entitystats->ring->type == RING_INVISIBILITY )
+		if (entitystats->ring->type == RING_INVISIBILITY)
 		{
 			return true;
 		}
 	}
 
-	if ( this->behavior == &actPlayer )
-	{
-		if ( this->skill[2] >= 0 && this->skill[2] < MAXPLAYERS )
-		{
-			if ((PRO_STEALTH >= 100) && (stats[this->skill[2]]->sneaking && !stats[this->skill[2]]->defending) )
-			{
-				if ( this->skill[9] == 0 ) // player attack variable.
-				{
-					return true;
-				}
-			}
-		}
-	}
-	/*else if ( skillCapstoneUnlockedEntity(PRO_STEALTH) )
-	{
-		return true;
-	}*/
-
-	return false;
+	return this->behavior == &actPlayer && this->skill[2] >= 0
+		&& this->skill[2] < MAXPLAYERS
+		&& getStats()->PROFICIENCIES[PRO_STEALTH] >= 100
+		&& stats[this->skill[2]]->sneaking
+		&& !stats[this->skill[2]]->defending
+		&& this->skill[9] == 0; // player attack variable.
 }
 
 /*-------------------------------------------------------------------------------

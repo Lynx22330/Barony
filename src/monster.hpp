@@ -472,29 +472,29 @@ static const int numDamageTableTypes = 7;
 
 static std::vector<std::vector<unsigned int>> classStatGrowth =
 {
-	// stat weightings for classes on level up
+	// stat weights for classes on level up
 	//	STR	DEX	CON	INT	PER	CHR -- sum is approx 24.
-	{	6,	5,	2,	2,	4,	5 }, // BARB 0
-	{	7,	2,	6,	1,	2,	6 }, // WARRIOR 1
-	{	3,	3,	4,	6,	5,	3 }, // HEALER 2
-	{	2,	7,	1,	2,	7,	5 }, // ROGUE 3
+	{	8,	4,	2,	1,	4,	5 }, // BARBARIAN 0
+	{	6,	2,	8,	1,	2,	5 }, // WARRIOR 1
+	{	3,	3,	2,	8,	3,	5 }, // HEALER 2
+	{	3,	8,	1,	2,	7,	3 }, // ROGUE 3
 	{	5,	4,	5,	3,	5,	2 }, // WANDERER 4
-	{	4,	2,	5,	5,	4,	4 }, // CLERIC 5
+	{	4,	4,	6,	2,	4,	4 }, // CLERIC 5
 	{	3,	2,	4,	3,	5,	7 }, // MERCHANT 6
-	{	1,	3,	2,	7,	6,	5 }, // WIZARD 7
+	{	1,	3,	2,	12,	3,	3 }, // WIZARD 7
 	{	2,	6,	2,	6,	6,	2 }, // ARCANIST 8
 	{	4,	4,	4,	4,	4,	4 }, // JOKER 9
-	{	4,	4,	2,	4,	2,	2 }, // SEXTON 10
-	{	5,	5,	3,	2,	2,	1 }, // NINJA 11
-	{	4,	2,	5,	3,	2,	2 }, // MONK 12
-	{	3,	2,	4,	6,	4,	4 }, // CONJURER 13
-	{	3,	3,	1,	6,	6,	3 }, // ACCURSED 14
-	{	3,	3,	1,	6,	4,	7 }, // MESMER 15
+	{	4,	4,	2,	6,	1,	1 }, // SEXTON 10
+	{	8,	6,	2,	2,	4,	2 }, // NINJA 11
+	{	4,	4,	4,	2,	2,	2 }, // MONK 12
+	{	3,	2,	4,	10,	2,	2 }, // CONJURER 13
+	{	2,	2,	1,	7,	7,	3 }, // ACCURSED 14
+	{	3,	3,	1,	7,	3,	7 }, // MESMER 15
 	{	4,	5,	5,	2,	3,	5 }, // BREWER 16
-	{	2,	5,	2,	4,	7,	4 }, // MACHINIST 17
+	{	2,	5,	2,	4,	8,	3 }, // MACHINIST 17
 	{	4,	3,	2,	3,	4,	4 }, // PUNISHER 18
 	{	4,	4,	4,	4,	4,	4 }, // SHAMAN 19
-	{	1,	7,	1,	4,	7,	4 }  // HUNTER 20
+	{	1,	10,	1,	4,	4,	4 }  // HUNTER 20
 };
 
 enum AllyNPCCommand : int

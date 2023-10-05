@@ -27,6 +27,7 @@ See LICENSE for details.
 #include <steam/steam_api.h>
 #endif
 #include "player.hpp"
+#include "charclass.hpp"
 #include "scores.hpp"
 #include "menu.hpp"
 #include "mod_tools.hpp"
@@ -2822,10 +2823,10 @@ void Entity::handleEffects(Stat* myStats)
 		myStats->MAXHP += HP_MOD;
 		modHP(HP_MOD);
 		myStats->HP = std::min(myStats->HP, myStats->MAXHP);
-		if ( !(behavior == &actMonster && monsterAllySummonRank != 0) )
+		if (!(behavior == &actMonster && monsterAllySummonRank != 0))
 		{
-			myStats->MP += MP_MOD;
-			myStats->MAXMP += MP_MOD;
+			myStats->MP += 1 + (std::max(myStats->INT, 1) * 0.75 + myStats->PROFICIENCIES[PRO_MAGIC] * 0.01);
+			myStats->MAXMP += 1 + (std::max(myStats->INT, 1) * 0.75 + myStats->PROFICIENCIES[PRO_MAGIC] * 0.01);
 			if ( behavior == &actPlayer && myStats->playerRace == RACE_INSECTOID && myStats->appearance == 0 )
 			{
 				myStats->MAXMP = std::min(50, myStats->MAXMP);

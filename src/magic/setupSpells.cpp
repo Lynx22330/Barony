@@ -40,9 +40,9 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_missile.element_internal_name, "spell_element_missile");
 
 	spellElementConstructor(&spellElement_force);
-	spellElement_force.mana = 4;
-	spellElement_force.base_mana = 4;
-	spellElement_force.overload_multiplier = 1;
+	spellElement_force.mana = 2;
+	spellElement_force.base_mana = 2;
+	spellElement_force.overload_multiplier = 6;
 	spellElement_force.damage = 15;
 	spellElement_force.duration = 0;
 	strcpy(spellElement_force.element_internal_name, "spell_element_forcebolt");

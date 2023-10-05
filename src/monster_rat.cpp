@@ -142,6 +142,8 @@ void initRat(Entity* my, Stat* myStats)
 	myStats->EFFECTS_TIMERS[EFF_LEVITATING] = 0;
 }
 
+float myZ = 0;
+
 void ratAnimate(Entity* my, double dist)
 {
     if (my->ticks == my->getUID() % TICKS_PER_SECOND) {
@@ -151,92 +153,95 @@ void ratAnimate(Entity* my, double dist)
         }
     }
 
-	// walk cycle
-	if (dist >= 0.1 && !MONSTER_ATTACK) {
-	    if (my->ticks % 10 == 0)
-	    {
-	        // normal rat walk cycle
-		    if ( my->sprite == 131 ) {
-			    my->sprite = 265;
-		    } else if (my->sprite == 265) {
-			    my->sprite = 131;
-		    }
+    float myZOffset = -8.0 + sin(my->ticks * 0.125) * 2;
 
-		    // algernon walk cycle
-		    if ( my->sprite == 1068 ) {
-			    my->sprite = 1069;
-		    } else if (my->sprite == 1069) {
-			    my->sprite = 1068;
-		    }
-	    }
-	}
+    // walk cycle
+    if (dist >= 0.1 && !MONSTER_ATTACK) {
+        if (my->ticks % 10 == 0)
+        {
+            // normal rat walk cycle
+            if ( my->sprite == 131 ) {
+                my->sprite = 265;
+            } else if (my->sprite == 265) {
+                my->sprite = 131;
+            }
 
-	static ConsoleVariable<bool> cvar_useFocalZ("/rat_anim_use_focal_z", false);
+            // algernon walk cycle
+            if ( my->sprite == 1068 ) {
+                my->sprite = 1069;
+            } else if (my->sprite == 1069) {
+                my->sprite = 1068;
+            }
+        }
+    }
+
+    static ConsoleVariable<bool> cvar_useFocalZ("/rat_anim_use_focal_z", false);
 
     // attack cycle
-	if (MONSTER_ATTACK) {
-	    const int frame = TICKS_PER_SECOND / 10;
-	    const bool algernon = my->sprite >= 1068;
-	    if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
-	        my->sprite = algernon ? 1070 : 1063;
-	        if (*cvar_useFocalZ) {
-				my->focalz = -9.5;
-	        } else {
-	            my->z = -4.5;
-	        }
-	    }
-	    if (MONSTER_ATTACKTIME == frame * 1) { // frame 2
-	        my->sprite = algernon ? 1071 : 1064;
-	        if (*cvar_useFocalZ) {
-	            my->focalz = -10.5;
-	        } else {
-	            my->z = -5.5;
-	        }
-	    }
-	    if (MONSTER_ATTACKTIME == frame * 2) { // frame 3
-	        my->sprite = algernon ? 1072 : 1065;
-	        if (*cvar_useFocalZ) {
-	            my->focalz = -11.5;
-	        } else {
-	            my->z = -6.5;
-	        }
-	    }
-	    if (MONSTER_ATTACKTIME == frame * 4) { // frame 4
-	        my->sprite = algernon ? 1073 : 1066;
-	        if (*cvar_useFocalZ) {
-	            my->focalz = -12;
-	        } else {
-	            my->z = -6;
-	        }
-	        const Sint32 temp = MONSTER_ATTACKTIME;
-	        my->attack(1, 0, nullptr); // munch
-	        MONSTER_ATTACKTIME = temp;
-	    }
-	    if (MONSTER_ATTACKTIME == frame * 6) { // frame 5
-	        my->sprite = algernon ? 1074 : 1067;
-	        if (*cvar_useFocalZ) {
-	            my->focalz = -11;
-	        } else {
-	            my->z = -5;
-	        }
-	    }
-	    if (MONSTER_ATTACKTIME == frame * 7) { // end
-	        if (algernon) {
-	            my->sprite = 1068;
-	            my->z = -3.5;
-	        } else {
-	            my->sprite = 131;
-	            my->z = -2;
-	        }
+    if (MONSTER_ATTACK) {
+        const int frame = TICKS_PER_SECOND / 10;
+        const bool algernon = my->sprite >= 1068;
+        if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
+            my->sprite = algernon ? 1070 : 1063;
+            if (*cvar_useFocalZ) {
+                my->focalz = -1.5;
+            } else {
+                myZ = 4.5;
+            }
+        }
+        if (MONSTER_ATTACKTIME == frame * 1) { // frame 2
+            my->sprite = algernon ? 1071 : 1064;
+            if (*cvar_useFocalZ) {
+                my->focalz = -2.5;
+            } else {
+                myZ = 3.5;
+            }
+        }
+        if (MONSTER_ATTACKTIME == frame * 2) { // frame 3
+            my->sprite = algernon ? 1072 : 1065;
+            if (*cvar_useFocalZ) {
+                my->focalz = -3.5;
+            } else {
+                myZ = 2.5;
+            }
+        }
+        if (MONSTER_ATTACKTIME == frame * 4) { // frame 4
+            my->sprite = algernon ? 1073 : 1066;
+            if (*cvar_useFocalZ) {
+                my->focalz = -4;
+            } else {
+                myZ = 2;
+            }
+            const Sint32 temp = MONSTER_ATTACKTIME;
+            my->attack(1, 0, nullptr); // munch
+            MONSTER_ATTACKTIME = temp;
+        }
+        if (MONSTER_ATTACKTIME == frame * 6) { // frame 5
+            my->sprite = algernon ? 1074 : 1067;
+            if (*cvar_useFocalZ) {
+                my->focalz = -3;
+            } else {
+                myZ = 3;
+            }
+        }
+        if (MONSTER_ATTACKTIME == frame * 7) { // end
+            if (algernon) {
+                my->sprite = 1068;
+                myZ = 5.5;
+            } else {
+                my->sprite = 131;
+                myZ = 6;
+            }
             my->focalz = 0;
-	        MONSTER_ATTACK = 0;
-	        MONSTER_ATTACKTIME = 0;
-	    }	
-	    else {
-		    ++MONSTER_ATTACKTIME;
-		    my->new_z = my->z;
-		}
-	}
+            MONSTER_ATTACK = 0;
+            MONSTER_ATTACKTIME = 0;
+        }
+        else {
+            ++MONSTER_ATTACKTIME;
+            my->new_z = myZ;
+        }
+    }
+    my->z = myZ + myZOffset;
 }
 
 	void ratDie(Entity * my)

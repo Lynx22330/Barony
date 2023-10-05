@@ -6667,6 +6667,9 @@ void Entity::attack(int pose, int charge, Entity* target)
 						case SPELLBOOK_FEAR:
 							castSpell(uid, &spell_fear, true, false);
 							break;
+						case SPELLBOOK_MAGICTEST:
+							castSpell(uid, &spell_magicTest, true, false);
+							break;
 						//case SPELLBOOK_REFLECT_MAGIC: //TODO: Test monster support. Maybe better to just use a special ability that directly casts the spell.
 						//castSpell(uid, &spell_reflectMagic, true, false)
 						//break;

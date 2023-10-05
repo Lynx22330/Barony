@@ -423,6 +423,14 @@ void setupSpells()   ///TODO: Verify this function.
 	spellElement_demonIllusion.duration = 0;
 	strcpy(spellElement_demonIllusion.element_internal_name, "spell_element_demon_illu");
 
+	spellElementConstructor(&spellElement_magicTest);
+	spellElement_magicTest.mana = 5;
+	spellElement_magicTest.base_mana = 5;
+	spellElement_magicTest.overload_multiplier = 1;
+	spellElement_magicTest.damage = 5;
+	spellElement_magicTest.duration = 0;
+	strcpy(spellElement_magicTest.element_internal_name, "spell_element_magictest");
+
 	spellConstructor(&spell_forcebolt);
 	strcpy(spell_forcebolt.spell_internal_name, "spell_forcebolt");
 	spell_forcebolt.ID = SPELL_FORCEBOLT;
@@ -1292,4 +1300,26 @@ void setupSpells()   ///TODO: Verify this function.
 	node->deconstructor = &spellElementDeconstructor;
 	element = (spellElement_t*)node->element;
 	element->node = node;
-}
+
+	spellConstructor(&spell_magicTest);
+	strcpy(spell_magicTest.spell_internal_name, "spell_magictest");
+	spell_magicTest.ID = SPELL_MAGICTEST;
+	spell_magicTest.difficulty = 20;
+	spell_magicTest.elements.first = NULL;
+	spell_magicTest.elements.last = NULL;
+	node = list_AddNodeLast(&spell_magicTest.elements);
+	node->element = copySpellElement(&spellElement_missile);
+	node->size = sizeof(spellElement_t);
+	node->deconstructor = &spellElementDeconstructor;
+	element = (spellElement_t*)node->element;
+	element->node = node; //Tell the element what list it resides in.
+	//Now for the second element.
+	element->elements.first = NULL;
+	element->elements.last = NULL;
+	node = list_AddNodeLast(&element->elements);
+	node->element = copySpellElement(&spellElement_fire);
+	node->size = sizeof(spellElement_t);
+	node->deconstructor = &spellElementDeconstructor;
+	element = (spellElement_t*)node->element;
+	element->node = node;
+	}

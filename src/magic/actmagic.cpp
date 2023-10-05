@@ -2930,7 +2930,6 @@ void actMagicMissile(Entity* my)   //TODO: Verify this function.
 						spellEffectDemonIllusion(*my, *element, parent, hit.entity, resistance);
 					}
 				}
-
 				if ( hitstats )
 				{
 					if ( player >= 0 )

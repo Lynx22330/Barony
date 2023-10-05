@@ -3975,6 +3975,11 @@ void getSpellEffectString(int spellID, char effectTextBuffer[256], char spellTyp
 			snprintf(effectTextBuffer, 255, Language::get(3886));
 			*spellInfoLines = 2;
 			break;
+		case SPELL_MAGICTEST:
+			snprintf(spellType, 31, Language::get(3303));
+			snprintf(effectTextBuffer, 255, Language::get(6023));
+			*spellInfoLines = 1;
+			break;
 		case SPELL_CRAB_FORM:
 		case SPELL_CRAB_WEB:
 		default:

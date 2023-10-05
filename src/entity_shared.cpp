@@ -161,7 +161,7 @@ int checkSpriteType(Sint32 sprite)
 	return 0;
 }
 
-char itemNameStrings[NUM_ITEM_STRINGS][32] =
+char itemNameStrings[NUM_ITEM_STRINGS][32] = 
 {
 	"NULL",
 	"random_item",
@@ -422,6 +422,7 @@ char itemNameStrings[NUM_ITEM_STRINGS][32] =
 	"spellbook_self_polymorph",
 	"spellbook_9",
 	"spellbook_10",
+	"spellbook_magictest",
 	"magicstaff_poison",
 	"tool_metal_scrap",
 	"tool_magic_scrap",
@@ -596,6 +597,7 @@ char itemStringsByType[10][NUM_ITEM_STRINGS_BY_TYPE][32] =
 		"spellbook_self_polymorph",
 		"spellbook_9",
 		"spellbook_10",
+		"spellbook_magictest",
 		"tool_whip",
 		"tool_pickaxe",
 		"artifact_sword",

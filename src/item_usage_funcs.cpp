@@ -5211,6 +5211,9 @@ void item_Spellbook(Item*& item, int player)
 			case SPELLBOOK_10:
 				learned = addSpell(SPELL_CRAB_WEB, player);
 				break;
+			case SPELLBOOK_MAGICTEST:
+				learned = addSpell(SPELL_MAGICTEST, player);
+				break;
 			default:
 				learned = addSpell(SPELL_FORCEBOLT, player);
 				break;

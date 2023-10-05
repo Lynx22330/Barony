@@ -2525,6 +2525,7 @@ void useItem(Item* item, const int player, Entity* usedBy, bool unequipForDroppi
 		case SPELLBOOK_FLUTTER:
 		case SPELLBOOK_DASH:
 		case SPELLBOOK_SELF_POLYMORPH:
+		case SPELLBOOK_MAGICTEST:
 			item_Spellbook(item, player);
 			break;
 		case GEM_ROCK:

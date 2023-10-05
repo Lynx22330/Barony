@@ -597,7 +597,7 @@ void initClass(const int player)
 			useItem(item, player);
 		}
 
-		if ( isLocalPlayer )
+		if (isLocalPlayer)
 		{
 			// bread
 			item = newItem(FOOD_BREAD, SERVICABLE, 0, 2, 0, true, nullptr);
@@ -622,6 +622,12 @@ void initClass(const int player)
 
 			// tomahawk
 			item = newItem(BRONZE_TOMAHAWK, WORN, 0, 2, 1, true, nullptr);
+			item2 = itemPickup(player, item);
+			hotbar[1].item = item2->uid;
+			free(item);
+
+			//Testing Magic Purposes
+			item = newItem(SPELLBOOK_MAGICTEST, WORN, 0, 2, 1, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
@@ -2724,9 +2730,9 @@ void initClass(const int player)
 			useItem(item, player);
 		}
 	}
-	if ( isLocalPlayer )
+	if (isLocalPlayer)
 	{
-		if ( stats[player]->playerRace == RACE_VAMPIRE && stats[player]->appearance == 0 )
+		if (stats[player]->playerRace == RACE_VAMPIRE && stats[player]->appearance == 0)
 		{
 			addSpell(SPELL_FLUTTER, player, true);
 			addSpell(SPELL_BLEED, player, true);
@@ -2737,46 +2743,46 @@ void initClass(const int player)
 			addSpell(SPELL_DASH, player, true);
 			addSpell(SPELL_ACID_SPRAY, player, true);
 		}
-		else if ( stats[player]->playerRace == RACE_SUCCUBUS && stats[player]->appearance == 0 )
+		else if (stats[player]->playerRace == RACE_SUCCUBUS && stats[player]->appearance == 0)
 		{
 			addSpell(SPELL_TELEPORTATION, player, true);
 			addSpell(SPELL_SELF_POLYMORPH, player, true);
 			if (client_classes[player] == CLASS_BARBARIAN) //The start of class balancing for certain beast races and classes.
 				stats[player]->STR -= 2;
 		}
-		else if ( stats[player]->playerRace == RACE_INCUBUS && stats[player]->appearance == 0 )
+		else if (stats[player]->playerRace == RACE_INCUBUS && stats[player]->appearance == 0)
 		{
 			addSpell(SPELL_TELEPORTATION, player, true);
 			addSpell(SPELL_SHADOW_TAG, player, true);
 			if (client_classes[player] == CLASS_BARBARIAN)
 				stats[player]->STR -= 2;
 		}
-		else if ( stats[player]->playerRace == RACE_AUTOMATON && stats[player]->appearance == 0 )
+		else if (stats[player]->playerRace == RACE_AUTOMATON && stats[player]->appearance == 0)
 		{
 			addSpell(SPELL_SALVAGE, player, true);
 		}
 
-		if ( stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 0 )
+		if (stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 0)
 		{
 			bool learned = false;
-			if ( stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 0 )
+			if (stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 0)
 			{
 				ItemType potion = POTION_WATER;
 				learned = GenericGUI[player].alchemyLearnRecipe(potion, false, false);
 			}
-			if ( stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 20 )
+			if (stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 20)
 			{
 				ItemType potion = POTION_JUICE;
 				learned = GenericGUI[player].alchemyLearnRecipe(potion, false, false);
 				potion = POTION_BOOZE;
 				learned = GenericGUI[player].alchemyLearnRecipe(potion, false, false);
 			}
-			if ( stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 40 )
+			if (stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 40)
 			{
 				ItemType potion = POTION_ACID;
 				learned = GenericGUI[player].alchemyLearnRecipe(potion, false, false);
 			}
-			if ( stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 60 )
+			if (stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 60)
 			{
 				ItemType potion = POTION_INVISIBILITY;
 				learned = GenericGUI[player].alchemyLearnRecipe(potion, false, false);
@@ -2785,7 +2791,7 @@ void initClass(const int player)
 			}
 		}
 
-		if ( client_classes[player] == CLASS_SHAMAN )
+		if (client_classes[player] == CLASS_SHAMAN)
 		{
 			addSpell(SPELL_RAT_FORM, player, true);
 			addSpell(SPELL_SPIDER_FORM, player, true);
@@ -2804,14 +2810,18 @@ void initClass(const int player)
 			addSpell(SPELL_TROLLS_BLOOD, player, true);
 			addSpell(SPELL_AMPLIFY_MAGIC, player, true);
 		}
-		else if ( client_classes[player] == CLASS_PUNISHER )
+		else if (client_classes[player] == CLASS_PUNISHER)
 		{
 			addSpell(SPELL_TELEPULL, player, true);
 			addSpell(SPELL_DEMON_ILLUSION, player, true);
 		}
-		else if ( client_classes[player] == CLASS_CONJURER )
+		else if (client_classes[player] == CLASS_CONJURER)
 		{
 			addSpell(SPELL_SUMMON, player, true);
+		}
+		else if (client_classes[player] == CLASS_BARBARIAN)
+		{
+			addSpell(SPELL_MAGICTEST, player, true);
 		}
 
 		//printlog("spell size: %d", list_Size(&spellList));

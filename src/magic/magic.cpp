@@ -78,6 +78,7 @@ void freeSpells()
 	list_FreeAll(&spell_flutter.elements);
 	list_FreeAll(&spell_dash.elements);
 	list_FreeAll(&spell_polymorph.elements);
+	list_FreeAll(&spell_magicTest.elements);
 }
 
 void spell_magicMap(int player)

@@ -506,7 +506,7 @@ static std::vector<std::vector<unsigned int>> classStatGrowth =
 	{	2,	5,	2,	4,	8,	3 }, // MACHINIST 17
 	{	4,	3,	2,	3,	4,	4 }, // PUNISHER 18
 	{	4,	4,	4,	4,	4,	4 }, // SHAMAN 19
-	{	1,	10,	1,	4,	4,	4 }  // HUNTER 20
+	{	2,	12,	2,	3,	2,	3 }  // HUNTER 20
 };
 
 enum AllyNPCCommand : int

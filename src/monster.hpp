@@ -58,6 +58,7 @@ enum Monster : int
 	SPELLBOT,
 	GYROBOT,
 	DUMMYBOT,
+	FLYINGRAT,
 	MAX_MONSTER
 };
 const int NUMMONSTERS = MAX_MONSTER;
@@ -282,6 +283,13 @@ static std::vector<Sint32> monsterSprites[NUMMONSTERS] = {
     {
         889,
     },
+
+	//FLYINGRAT
+	{
+		1232, 1233,                      //Flying Animation State
+		1234, 1235, 1236, 1237, 1238   //Attack Animation States
+		
+	},
 };
 
 static char monstertypename[][15] =
@@ -322,7 +330,8 @@ static char monstertypename[][15] =
 	"sentrybot",
 	"spellbot",
 	"gyrobot",
-	"dummybot"
+	"dummybot",
+	"flyingrat"
 };
 
 static char monstertypenamecapitalized[][15] =
@@ -363,7 +372,8 @@ static char monstertypenamecapitalized[][15] =
 	"Sentrybot",
 	"Spellbot",
 	"Gyrobot",
-	"Dummybot"
+	"Dummybot",
+	"Flyingrat"
 };
 
 // body part focal points
@@ -411,7 +421,8 @@ static char gibtype[NUMMONSTERS] =
 	0,	//SENTRYBOT
 	0,	//SPELLBOT
 	0,  //GYROBOT
-	0	//DUMMYBOT
+	0,	//DUMMYBOT
+	1   //FLYINGRAT
 };
 
 // columns go like this:
@@ -455,7 +466,8 @@ static double damagetables[NUMMONSTERS][7] =
 	{ 1.f, 1.f, 1.f, 1.f, 0.5, 0.5, 1.f }, // sentrybot
 	{ 1.f, 1.f, 1.f, 1.f, 0.5, 0.5, 1.f }, // sentrybot
 	{ 1.f, 1.f, 1.f, 1.f, 0.5, 0.5, 1.f }, // gyrobot
-	{ 1.f, 1.f, 1.f, 1.f, 0.5, 1.2, 0.5 }  // dummybot
+	{ 1.f, 1.f, 1.f, 1.f, 0.5, 1.2, 0.5 }, // dummybot
+	{ 0.9, 0.9, 0.9, 0.9, 1.5, 1.2, 0.8 }  // flyingrat
 };
 
 enum DamageTableType : int
@@ -692,6 +704,7 @@ void initLichIce(Entity* my, Stat* myStats);
 void initSentryBot(Entity* my, Stat* myStats);
 void initGyroBot(Entity* my, Stat* myStats);
 void initDummyBot(Entity* my, Stat* myStats);
+void initFlyingRat(Entity* my, Stat* myStats);
 
 //--act*Limb functions--
 void actHumanLimb(Entity* my);
@@ -758,6 +771,7 @@ void lichIceDie(Entity* my);
 void sentryBotDie(Entity* my);
 void gyroBotDie(Entity* my);
 void dummyBotDie(Entity* my);
+void flyingRatDie(Entity* my);
 
 //--*MoveBodyparts functions--
 void humanMoveBodyparts(Entity* my, Stat* myStats, double dist);
@@ -792,6 +806,7 @@ void lichIceAnimate(Entity* my, Stat* myStats, double dist);
 void sentryBotAnimate(Entity* my, Stat* myStats, double dist);
 void gyroBotAnimate(Entity* my, Stat* myStats, double dist);
 void dummyBotAnimate(Entity* my, Stat* myStats, double dist);
+void flyingRatAnimate(Entity* my, double dist);
 
 //--misc functions--
 void actMinotaurTrap(Entity* my);

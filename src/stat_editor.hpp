@@ -56,9 +56,10 @@ typedef enum
 	GOATMAN,
 	AUTOMATON,
 	LICH_ICE,
-	LICH_FIRE
+	LICH_FIRE,
+	FLYINGRAT
 } Monster;
-#define NUMMONSTERS 33
+#define NUMMONSTERS 34
 extern int kills[NUMMONSTERS];
 
 // effects

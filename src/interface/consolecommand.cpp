@@ -4044,7 +4044,8 @@ namespace ConsoleCommands {
 				TROLL,
 				SPIDER,
 				GHOUL,
-				SKELETON
+				SKELETON,
+				FLYINGRAT
 			};
 			std::vector<Monster> set2 = {
 				SCORPION,

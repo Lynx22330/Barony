@@ -4275,6 +4275,7 @@ int FollowerRadialMenu::optionDisabledForCreature(int playerSkillLVL, int monste
 	{
 		case HUMAN:
 		case RAT:
+		case FLYINGRAT:
 		case SLIME:
 		case SPIDER:
 		case SKELETON:
@@ -4694,6 +4695,7 @@ bool FollowerRadialMenu::allowedInteractFood(int monsterType)
 		case SPIDER:
 		case SCORPION:
 		case RAT:
+		case FLYINGRAT:
 		case TROLL:
 		case COCKATRICE:
 		case SCARAB:

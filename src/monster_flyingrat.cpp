@@ -154,14 +154,6 @@ void flyingRatAnimate(Entity* my, double dist)
 			else if (my->sprite == 1239) {
 				my->sprite = 1238;
 			}
-
-			// algernon walk cycle
-			if (my->sprite == 1068) {
-				my->sprite = 1069;
-			}
-			else if (my->sprite == 1069) {
-				my->sprite = 1068;
-			}
 		}
 	}
 
@@ -170,7 +162,6 @@ void flyingRatAnimate(Entity* my, double dist)
 	// attack cycle
 	if (MONSTER_ATTACK) {
 		const int frame = TICKS_PER_SECOND / 10;
-		const bool notavailable = my->sprite = 1240;
 		if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
 			my->sprite = 1240;
 			if (*cvar_useFocalZ) {
@@ -220,14 +211,8 @@ void flyingRatAnimate(Entity* my, double dist)
 			}
 		}
 		if (MONSTER_ATTACKTIME == frame * 7) { // end
-			if (notavailable) {
-				my->sprite = 1068;
-				myZ = 5.5;
-			}
-			else {
-				my->sprite = 1238;
-				myZ = 6;
-			}
+            my->sprite = 1238;
+            myZ = 6;
 			my->focalz = 0;
 			MONSTER_ATTACK = 0;
 			MONSTER_ATTACKTIME = 0;

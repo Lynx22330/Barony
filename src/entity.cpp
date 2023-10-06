@@ -17277,7 +17277,7 @@ void Entity::setRangedProjectileAttack(Entity& marksman, Stat& myStats, int opti
 			int statChance = std::min(std::max(marksman.getPER() / 2, 0), 50); // 0 to 50 value.
 			if ( myStats.weapon->type == HEAVY_CROSSBOW )
 			{
-				statChance += 50;
+				statChance += 255;
 			}
 			int chance = local_rng.rand() % 100;
 			if ( chance < statChance )

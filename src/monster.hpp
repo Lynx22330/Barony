@@ -24,6 +24,7 @@ enum Monster : int
 	NOTHING,
 	HUMAN,
 	RAT,
+	FLYINGRAT,
 	GOBLIN,
 	SLIME,
 	TROLL,
@@ -90,6 +91,13 @@ static std::vector<Sint32> monsterSprites[NUMMONSTERS] = {
         1068, 1069,                     // algernon walk cycle
         1070, 1071, 1072, 1073, 1074,   // algernon attack frames
     },
+	// FLYINGRAT
+	{
+		131, 265,                       // flying rat walk cycle
+		1063, 1064, 1065, 1066, 1067,   // flying rat attack frames
+		1068, 1069,                     // algernon walk cycle
+		1070, 1071, 1072, 1073, 1074,   // algernon attack frames
+	},
 
     // GOBLIN
     {

@@ -134,15 +134,13 @@ void initRat(Entity* my, Stat* myStats)
 		{
 			my->z -= 1; // algernon is slightly larger than an ordinary rat.
 		}
-		else {
-			my->z += -8;
-		}
 	}
 	myStats->EFFECTS[EFF_LEVITATING] = true;
 	myStats->EFFECTS_TIMERS[EFF_LEVITATING] = 0;
 }
 
 float myZ = 0;
+int bobCount = 0;
 
 void ratAnimate(Entity* my, double dist)
 {
@@ -153,24 +151,25 @@ void ratAnimate(Entity* my, double dist)
         }
     }
 
-    float myZOffset = -8.0 + sin(my->ticks * 0.125) * 2;
+    float myZOffset = -6.0 + sin(my->ticks * 0.125) * 2;
+	bobCount = (bobCount + 1) % 6000;
 
     // walk cycle
     if (dist >= 0.1 && !MONSTER_ATTACK) {
         if (my->ticks % 10 == 0)
         {
             // normal rat walk cycle
-            if ( my->sprite == 131 ) {
-                my->sprite = 265;
-            } else if (my->sprite == 265) {
-                my->sprite = 131;
+            if ( my->sprite == 1238 ) {
+                my->sprite = 1238;
+            } else if (my->sprite == 1238) {
+                my->sprite = 1238;
             }
 
             // algernon walk cycle
-            if ( my->sprite == 1068 ) {
-                my->sprite = 1069;
-            } else if (my->sprite == 1069) {
-                my->sprite = 1068;
+            if ( my->sprite == 1238) {
+                my->sprite = 1238;
+            } else if (my->sprite == 1238) {
+                my->sprite = 1238;
             }
         }
     }
@@ -182,7 +181,7 @@ void ratAnimate(Entity* my, double dist)
         const int frame = TICKS_PER_SECOND / 10;
         const bool algernon = my->sprite >= 1068;
         if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
-            my->sprite = algernon ? 1070 : 1063;
+            my->sprite = algernon ? 1070 : 1238;
             if (*cvar_useFocalZ) {
                 my->focalz = -1.5;
             } else {
@@ -190,7 +189,7 @@ void ratAnimate(Entity* my, double dist)
             }
         }
         if (MONSTER_ATTACKTIME == frame * 1) { // frame 2
-            my->sprite = algernon ? 1071 : 1064;
+            my->sprite = algernon ? 1071 : 1238;
             if (*cvar_useFocalZ) {
                 my->focalz = -2.5;
             } else {
@@ -198,7 +197,7 @@ void ratAnimate(Entity* my, double dist)
             }
         }
         if (MONSTER_ATTACKTIME == frame * 2) { // frame 3
-            my->sprite = algernon ? 1072 : 1065;
+            my->sprite = algernon ? 1072 : 1238;
             if (*cvar_useFocalZ) {
                 my->focalz = -3.5;
             } else {
@@ -206,7 +205,7 @@ void ratAnimate(Entity* my, double dist)
             }
         }
         if (MONSTER_ATTACKTIME == frame * 4) { // frame 4
-            my->sprite = algernon ? 1073 : 1066;
+            my->sprite = algernon ? 1073 : 1238;
             if (*cvar_useFocalZ) {
                 my->focalz = -4;
             } else {
@@ -217,7 +216,7 @@ void ratAnimate(Entity* my, double dist)
             MONSTER_ATTACKTIME = temp;
         }
         if (MONSTER_ATTACKTIME == frame * 6) { // frame 5
-            my->sprite = algernon ? 1074 : 1067;
+            my->sprite = algernon ? 1074 : 1238;
             if (*cvar_useFocalZ) {
                 my->focalz = -3;
             } else {
@@ -229,7 +228,7 @@ void ratAnimate(Entity* my, double dist)
                 my->sprite = 1068;
                 myZ = 5.5;
             } else {
-                my->sprite = 131;
+                my->sprite = 1238;
                 myZ = 6;
             }
             my->focalz = 0;

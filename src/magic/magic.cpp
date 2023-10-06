@@ -1208,6 +1208,7 @@ void spellEffectCharmMonster(Entity& my, spellElement_t& element, Entity* parent
 				case SKELETON:
 				case SCORPION:
 				case SHOPKEEPER:
+				case FLYINGRAT:
 					difficulty = 0;
 					break;
 				case GOBLIN:
@@ -1652,6 +1653,7 @@ Entity* spellEffectPolymorph(Entity* target, Entity* parent, bool fromMagicSpell
 		switch ( monsterSummonType )
 		{
 			case RAT:
+			case FLYINGRAT:
 			case SLIME:
 			case TROLL:
 			case SPIDER:
@@ -1673,6 +1675,7 @@ Entity* spellEffectPolymorph(Entity* target, Entity* parent, bool fromMagicSpell
 		switch ( targetStats->type )
 		{
 			case RAT:
+			case FLYINGRAT:
 			case SLIME:
 			case TROLL:
 			case SPIDER:

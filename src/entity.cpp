@@ -805,6 +805,8 @@ void Entity::killedByMonsterObituary(Entity* victim)
 			case LICH_FIRE:
 				victim->setObituary(Language::get(2161));
 				break;
+			case FLYINGRAT:
+				victim->setObituary(Language::get(6023));
 			default:
 				victim->setObituary(Language::get(1500));
 				break;

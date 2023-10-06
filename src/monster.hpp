@@ -702,6 +702,7 @@ void initLichIce(Entity* my, Stat* myStats);
 void initSentryBot(Entity* my, Stat* myStats);
 void initGyroBot(Entity* my, Stat* myStats);
 void initDummyBot(Entity* my, Stat* myStats);
+void initFlyingRat(Entity* my, Stat* myStats);
 
 //--act*Limb functions--
 void actHumanLimb(Entity* my);
@@ -768,6 +769,7 @@ void lichIceDie(Entity* my);
 void sentryBotDie(Entity* my);
 void gyroBotDie(Entity* my);
 void dummyBotDie(Entity* my);
+void flyingRatDie(Entity* my);
 
 //--*MoveBodyparts functions--
 void humanMoveBodyparts(Entity* my, Stat* myStats, double dist);
@@ -802,6 +804,7 @@ void lichIceAnimate(Entity* my, Stat* myStats, double dist);
 void sentryBotAnimate(Entity* my, Stat* myStats, double dist);
 void gyroBotAnimate(Entity* my, Stat* myStats, double dist);
 void dummyBotAnimate(Entity* my, Stat* myStats, double dist);
+void flyingRatAnimate(Entity* my, Stat* myStats, double dist);
 
 //--misc functions--
 void actMinotaurTrap(Entity* my);

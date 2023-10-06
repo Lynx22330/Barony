@@ -188,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\monster_rat.cpp">
       <Filter>Source Files</Filter>
+	</ClCompile>
+	<ClCompile Include="..\..\src\monster_flyingrat.cpp">
+		<Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\monster_scorpion.cpp">
       <Filter>Source Files</Filter>

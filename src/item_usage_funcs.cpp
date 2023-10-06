@@ -3743,7 +3743,7 @@ void item_ScrollSummon(Item* item, int player)
 	{
 		// spawn something really nasty
 		numCreatures = 1;
-		switch (local_rng.rand() % 4)
+		switch (local_rng.rand() % 5)
 		{
 			case 0:
 				creature = MINOTAUR;
@@ -3756,6 +3756,9 @@ void item_ScrollSummon(Item* item, int player)
 				break;
 			case 3:
 				creature = TROLL;
+				break;
+			case 4:
+				creature = FLYINGRAT;
 				break;
 		}
 	}
@@ -3793,7 +3796,7 @@ void item_ScrollSummon(Item* item, int player)
 	else if (item->beatitude == 0)
 	{
 		// spawn weak monster ally
-		switch (local_rng.rand() % 3)
+		switch (local_rng.rand() % 4)
 		{
 			case 0:
 				creature = RAT;
@@ -3805,6 +3808,10 @@ void item_ScrollSummon(Item* item, int player)
 				break;
 			case 2:
 				creature = SLIME;
+				numCreatures = local_rng.rand() % 2 + 1;
+				break;
+			case 3:
+				creature = FLYINGRAT;
 				numCreatures = local_rng.rand() % 2 + 1;
 				break;
 		}

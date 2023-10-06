@@ -20,7 +20,7 @@
 #include "collision.hpp"
 #include "prng.hpp"
 
-void initRat(Entity* my, Stat* myStats)
+void initFlyingrat(Entity* my, Stat* myStats)
 {
 	my->flags[BURNABLE] = true;
 	my->flags[UPDATENEEDED] = true;
@@ -35,57 +35,6 @@ void initRat(Entity* my, Stat* myStats)
 		MONSTER_IDLESND = 29;
 		MONSTER_IDLEVAR = 1;
 	}
-	if ( multiplayer != CLIENT && !MONSTER_INIT )
-	{
-		if ( myStats != NULL )
-		{
-			if ( !myStats->leader_uid )
-			{
-				myStats->leader_uid = 0;
-			}
-
-			// apply random stat increases if set in stat_shared.cpp or editor
-			setRandomMonsterStats(myStats);
-
-			// generate 6 items max, less if there are any forced items from boss variants
-			int customItemsToGenerate = ITEM_CUSTOM_SLOT_LIMIT;
-
-			// boss variants
-			const bool boss =
-			    local_rng.rand() % 50 == 0 &&
-			    !my->flags[USERFLAG2] &&
-			    !myStats->MISC_FLAGS[STAT_FLAG_DISABLE_MINIBOSS];
-			if ( (boss || *cvar_summonBosses) && myStats->leader_uid == 0 )
-			{
-				myStats->setAttribute("special_npc", "algernon");
-				strcpy(myStats->name, MonsterData_t::getSpecialNPCName(*myStats).c_str());
-	            my->sprite = MonsterData_t::getSpecialNPCBaseModel(*myStats);
-				myStats->HP = 120;
-				myStats->MAXHP = 120;
-				myStats->OLDHP = myStats->HP;
-				myStats->STR = -1;
-				myStats->DEX = 20;
-				myStats->CON = 2;
-				myStats->INT = 20;
-				myStats->PER = -2;
-				myStats->CHR = 5;
-				myStats->LVL = 10;
-				newItem(GEM_EMERALD, static_cast<Status>(1 + local_rng.rand() % 4), 0, 1, local_rng.rand(), true, &myStats->inventory);
-				customItemsToGenerate = customItemsToGenerate - 1;
-				int c;
-				for ( c = 0; c < 6; c++ )
-				{
-					Entity* entity = summonMonster(RAT, my->x, my->y);
-					if ( entity )
-					{
-						entity->parent = my->getUID();
-						if ( Stat* followerStats = entity->getStats() )
-						{
-							followerStats->leader_uid = entity->parent;
-						}
-					}
-				}
-			}
 			// random effects
 
 			// generates equipment and weapons if available from editor
@@ -127,14 +76,6 @@ void initRat(Entity* my, Stat* myStats)
 					break;
 			}
 		}
-	}
-	if ( multiplayer != CLIENT && myStats )
-	{
-		if (myStats->getAttribute("special_npc") == "algernon")
-		{
-			my->z -= 1; // algernon is slightly larger than an ordinary rat.
-		}
-	}
 	myStats->EFFECTS[EFF_LEVITATING] = true;
 	myStats->EFFECTS_TIMERS[EFF_LEVITATING] = 0;
 }
@@ -164,13 +105,6 @@ void ratAnimate(Entity* my, double dist)
             } else if (my->sprite == 1239) {
                 my->sprite = 1238;
             }
-
-            // algernon walk cycle
-            if ( my->sprite == 1068) {
-                my->sprite = 1069;
-            } else if (my->sprite == 1069) {
-                my->sprite = 1068;
-            }
         }
     }
 
@@ -179,36 +113,23 @@ void ratAnimate(Entity* my, double dist)
     // attack cycle
     if (MONSTER_ATTACK) {
         const int frame = TICKS_PER_SECOND / 10;
-        const bool algernon = my->sprite >= 1068;
         if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
-            my->sprite = algernon ? 1070 : 1063;
-            if (*cvar_useFocalZ) {
-                my->focalz = -1.5;
-            } else {
+            my->sprite = 1063;
                 myZ = 4.5;
             }
         }
         if (MONSTER_ATTACKTIME == frame * 1) { // frame 2
-            my->sprite = algernon ? 1071 : 1064;
-            if (*cvar_useFocalZ) {
-                my->focalz = -2.5;
-            } else {
+            my->sprite = 1064;
                 myZ = 3.5;
             }
         }
         if (MONSTER_ATTACKTIME == frame * 2) { // frame 3
-            my->sprite = algernon ? 1072 : 1065;
-            if (*cvar_useFocalZ) {
-                my->focalz = -3.5;
-            } else {
+            my->sprite = 1065;
                 myZ = 2.5;
             }
         }
         if (MONSTER_ATTACKTIME == frame * 4) { // frame 4
-            my->sprite = algernon ? 1073 : 1066;
-            if (*cvar_useFocalZ) {
-                my->focalz = -4;
-            } else {
+            my->sprite = 1066;
                 myZ = 2;
             }
             const Sint32 temp = MONSTER_ATTACKTIME;
@@ -216,18 +137,11 @@ void ratAnimate(Entity* my, double dist)
             MONSTER_ATTACKTIME = temp;
         }
         if (MONSTER_ATTACKTIME == frame * 6) { // frame 5
-            my->sprite = algernon ? 1074 : 1067;
-            if (*cvar_useFocalZ) {
-                my->focalz = -3;
-            } else {
+            my->sprite = 1067;
                 myZ = 3;
             }
         }
         if (MONSTER_ATTACKTIME == frame * 7) { // end
-            if (algernon) {
-                my->sprite = 1068;
-                myZ = 5.5;
-            } else {
                 my->sprite = 1238;
                 myZ = 6;
             }

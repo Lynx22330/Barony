@@ -160,8 +160,8 @@ void ratAnimate(Entity* my, double dist)
         {
             // normal rat walk cycle
             if ( my->sprite == 1238 ) {
-                my->sprite = 1238;
-            } else if (my->sprite == 1238) {
+                my->sprite = 1239;
+            } else if (my->sprite == 1239) {
                 my->sprite = 1238;
             }
 

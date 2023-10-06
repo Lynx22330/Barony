@@ -46,7 +46,7 @@ void initFlyingRat(Entity* my, Stat* myStats)
 				!myStats->MISC_FLAGS[STAT_FLAG_DISABLE_MINIBOSS];
 			if ((boss || *cvar_summonBosses) && myStats->leader_uid == 0)
 			{
-				myStats->setAttribute("special_npc", "notavailable");
+				myStats->setAttribute("special_npc", "algernon");
 				strcpy(myStats->name, MonsterData_t::getSpecialNPCName(*myStats).c_str());
 				my->sprite = MonsterData_t::getSpecialNPCBaseModel(*myStats);
 				myStats->HP = 120;
@@ -148,11 +148,11 @@ void flyingRatAnimate(Entity* my, double dist)
 		if (my->ticks % 10 == 0)
 		{
 			// normal rat walk cycle
-			if (my->sprite == 131) {
-				my->sprite = 265;
+			if (my->sprite == 1238) {
+				my->sprite = 1239;
 			}
-			else if (my->sprite == 131) {
-				my->sprite = 265;
+			else if (my->sprite == 1239) {
+				my->sprite = 1238;
 			}
 
 			// algernon walk cycle
@@ -165,7 +165,7 @@ void flyingRatAnimate(Entity* my, double dist)
 		}
 	}
 
-	static ConsoleVariable<bool> cvar_useFocalZ("/rat_anim_use_focal_z", false);
+	static ConsoleVariable<bool> cvar_useFocalZ("/flyingrat_anim_use_focal_z", false);
 
 	// attack cycle
 	if (MONSTER_ATTACK) {

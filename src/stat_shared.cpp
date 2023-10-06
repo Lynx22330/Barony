@@ -1284,19 +1284,20 @@ void setDefaultMonsterStats(Stat* stats, int sprite)
 			stats->MP = 15;
 			stats->MAXMP = 15;
 			stats->OLDHP = stats->HP;
-			stats->STR = 2;
-			stats->DEX = 3;
-			stats->CON = 4;
+			stats->STR = 4;
+			stats->DEX = 6;
+			stats->CON = 1;
 			stats->INT = -1;
 			stats->PER = 1;
 			stats->CHR = 0;
 			stats->EXP = 0;
-			stats->LVL = 3;
+			stats->LVL = 5;
 			stats->GOLD = 50;
 			stats->HUNGER = 900;
 
 			stats->EDITOR_ITEMS[ITEM_SLOT_INV_1] = 1;
 			stats->EDITOR_ITEMS[ITEM_SLOT_INV_1 + ITEM_CHANCE] = 33; //Random Items
+			break;
 		case 10:
 		default:
 			break;

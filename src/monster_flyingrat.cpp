@@ -46,7 +46,7 @@ void initFlyingRat(Entity* my, Stat* myStats)
 				!myStats->MISC_FLAGS[STAT_FLAG_DISABLE_MINIBOSS];
 			if ((boss || *cvar_summonBosses) && myStats->leader_uid == 0)
 			{
-				myStats->setAttribute("special_npc", "algernon");
+				myStats->setAttribute("special_npc", "notavailable");
 				strcpy(myStats->name, MonsterData_t::getSpecialNPCName(*myStats).c_str());
 				my->sprite = MonsterData_t::getSpecialNPCBaseModel(*myStats);
 				myStats->HP = 120;
@@ -118,7 +118,7 @@ void initFlyingRat(Entity* my, Stat* myStats)
 	{
 	if (multiplayer != CLIENT && myStats)
 	{
-		if (myStats->getAttribute("special_npc") == "algernon")
+		if (myStats->getAttribute("special_npc") == "notavailable")
 		{
 			my->z -= 1; // algernon is slightly larger than an ordinary rat.
 		}
@@ -140,7 +140,7 @@ void flyingRatAnimate(Entity* my, double dist)
 		}
 	}
 
-	float myZOffset = -6.0 + sin(my->ticks * 0.125) * 2;
+	float myZOffset = -3.0 + sin(my->ticks * 0.125) * 2;
 	bobCount = (bobCount + 1) % 6000;
 
 	// walk cycle
@@ -170,9 +170,9 @@ void flyingRatAnimate(Entity* my, double dist)
 	// attack cycle
 	if (MONSTER_ATTACK) {
 		const int frame = TICKS_PER_SECOND / 10;
-		const bool algernon = my->sprite >= 1068;
+		const bool notavailable = my->sprite >= 1068;
 		if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
-			my->sprite = algernon ? 1070 : 1063;
+			my->sprite = notavailable ? 1070 : 1063;
 			if (*cvar_useFocalZ) {
 				my->focalz = -1.5;
 			}
@@ -181,7 +181,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			}
 		}
 		if (MONSTER_ATTACKTIME == frame * 1) { // frame 2
-			my->sprite = algernon ? 1071 : 1064;
+			my->sprite = notavailable ? 1071 : 1064;
 			if (*cvar_useFocalZ) {
 				my->focalz = -2.5;
 			}
@@ -190,7 +190,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			}
 		}
 		if (MONSTER_ATTACKTIME == frame * 2) { // frame 3
-			my->sprite = algernon ? 1072 : 1065;
+			my->sprite = notavailable ? 1072 : 1065;
 			if (*cvar_useFocalZ) {
 				my->focalz = -3.5;
 			}
@@ -199,7 +199,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			}
 		}
 		if (MONSTER_ATTACKTIME == frame * 4) { // frame 4
-			my->sprite = algernon ? 1073 : 1066;
+			my->sprite = notavailable ? 1073 : 1066;
 			if (*cvar_useFocalZ) {
 				my->focalz = -4;
 			}
@@ -211,7 +211,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			MONSTER_ATTACKTIME = temp;
 		}
 		if (MONSTER_ATTACKTIME == frame * 6) { // frame 5
-			my->sprite = algernon ? 1074 : 1067;
+			my->sprite = notavailable ? 1074 : 1067;
 			if (*cvar_useFocalZ) {
 				my->focalz = -3;
 			}
@@ -220,7 +220,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			}
 		}
 		if (MONSTER_ATTACKTIME == frame * 7) { // end
-			if (algernon) {
+			if (notavailable) {
 				my->sprite = 1068;
 				myZ = 5.5;
 			}

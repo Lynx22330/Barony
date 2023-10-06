@@ -273,6 +273,9 @@ Entity* entityClicked(bool* clickedOnGUI, bool clickCheckOverride, int player, E
 				case CREATURE_IMP:
 					sfx = 198 + local_rng.rand() % 3;
 					break;
+				case FLYINGRAT:
+					sfx = 29;
+					break;
 				default:
 					sfx = 0;
 					break;

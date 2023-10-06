@@ -915,6 +915,7 @@ char spriteEditorNameStrings[NUM_EDITOR_SPRITES][64] =
 	"TELEPORT SHRINE",
 	"SPELL SHRINE",
 	"COLLIDER DECORATION"
+	"FLYING RAT"
 };
 
 char monsterEditorNameStrings[NUMMONSTERS][16] =
@@ -955,7 +956,8 @@ char monsterEditorNameStrings[NUMMONSTERS][16] =
 	"sentrybot",
 	"spellbot",
 	"gyrobot",
-	"dummybot"
+	"dummybot",
+	"flyingrat"
 };
 
 char tileEditorNameStrings[NUM_EDITOR_TILES][44] =

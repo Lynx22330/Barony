@@ -1272,6 +1272,32 @@ void setDefaultMonsterStats(Stat* stats, int sprite)
 			stats->LVL = 1;
 			stats->monsterTinkeringStatus = DECREPIT; // store the type of item that was used to summon me.
 			break;
+		case 167:
+		case (1000 + FLYINGRAT):
+			stats->type = FLYINGRAT;
+			stats->sex = static_cast<sex_t>(local_rng.rand() % 2);
+			stats->appearance = local_rng.rand();
+			stats->inventory.first = NULL;
+			stats->inventory.last = NULL;
+			stats->HP = 45;
+			stats->MAXHP = 45;
+			stats->MP = 15;
+			stats->MAXMP = 15;
+			stats->OLDHP = stats->HP;
+			stats->STR = 4;
+			stats->DEX = 6;
+			stats->CON = 1;
+			stats->INT = -1;
+			stats->PER = 1;
+			stats->CHR = 0;
+			stats->EXP = 0;
+			stats->LVL = 5;
+			stats->GOLD = 50;
+			stats->HUNGER = 900;
+
+			stats->EDITOR_ITEMS[ITEM_SLOT_INV_1] = 1;
+			stats->EDITOR_ITEMS[ITEM_SLOT_INV_1 + ITEM_CHANCE] = 33; //Random Items
+			break;
 		case 10:
 		default:
 			break;

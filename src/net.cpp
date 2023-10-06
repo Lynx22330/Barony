@@ -1655,7 +1655,7 @@ Entity* receiveEntity(Entity* entity)
 	const bool excludeForAnimation =
 	    !newentity &&
 	    entity->behavior == &actMonster &&
-	    (monsterType == RAT || monsterType == SLIME || monsterType == SCARAB) &&
+	    (monsterType == RAT || monsterType == SLIME || monsterType == SCARAB || monsterType == FLYINGRAT) &&
 	    entity->skill[8]; // MONSTER_ATTACK
 
 	//if ( Entity::getMonsterTypeFromSprite(entity->sprite) == SPIDER )

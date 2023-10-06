@@ -11,6 +11,8 @@
 
 * Flying rat
 
+### Important Notes
+Always export MODELS as SLAB. (Bottom Right under EXPORT. SLAB is in the center.)
 ```c++
 if (x) {
     // CODE!

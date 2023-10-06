@@ -489,6 +489,9 @@
     <ClCompile Include="..\..\src\engine\audio\init_audio.cpp">
       <Filter>Source Files\engine\audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\monster_flyingrat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\book.hpp">

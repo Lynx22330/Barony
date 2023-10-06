@@ -805,6 +805,9 @@ void Entity::killedByMonsterObituary(Entity* victim)
 			case LICH_FIRE:
 				victim->setObituary(Language::get(2161));
 				break;
+			case FLYINGRAT:
+				victim->setObituary(Language::get(6023));
+				break;
 			default:
 				victim->setObituary(Language::get(1500));
 				break;
@@ -13279,7 +13282,7 @@ int Entity::getAttackPose() const
 			type == GNOME || type == DEMON ||
 			type == CREATURE_IMP || type == SUCCUBUS ||
 			type == SHOPKEEPER || type == MINOTAUR ||
-			type == SHADOW || type == RAT || type == SPIDER || type == CRAB ||
+			type == SHADOW || type == RAT || type == SPIDER || type == CRAB || type == FLYINGRAT ||
 			type == SLIME || (type == SCARAB && sprite != 1078 && sprite != 1079))
 		{
 			pose = MONSTER_POSE_MELEE_WINDUP1;

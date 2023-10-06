@@ -91,6 +91,7 @@ int monsterCurve(int level)
 				return RAT;
 			case 4:
 			case 5:
+				return FLYINGRAT;
 			case 6:
 			case 7:
 				return SKELETON;
@@ -128,6 +129,7 @@ int monsterCurve(int level)
 				return GOBLIN;
 			case 5:
 			case 6:
+				return FLYINGRAT;
 			case 7:
 				return SLIME;
 			case 8:
@@ -4790,6 +4792,7 @@ void assignActions(map_t* map)
                 case 164: monsterType = SPELLBOT; break;
                 case 165: monsterType = DUMMYBOT; break;
                 case 166: monsterType = GYROBOT; break;
+				case 167: monsterType = FLYINGRAT; break;
                 default:
 					monsterIsFixedSprite = false;
 					monsterType = static_cast<Monster>(monsterCurve(currentlevel));

@@ -68,7 +68,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellElement_light.base_mana = 5;
 	spellElement_light.overload_multiplier = 1;
 	spellElement_light.damage = 0;
-	spellElement_light.duration = 750; //500 a better value? //NOTE: 750 is original value.
+	spellElement_light.duration = 2500; //500 a better value? //NOTE: 750 is original value. //2500 modded light value.
 	strcpy(spellElement_light.element_internal_name, "spell_element_light");
 
 	spellElementConstructor(&spellElement_dig);

@@ -2139,6 +2139,7 @@ void actMonster(Entity* my)
 			case SPELLBOT: initSentryBot(my, nullptr); break;
 			case GYROBOT: initGyroBot(my, nullptr); break;
 			case DUMMYBOT: initDummyBot(my, nullptr); break;
+			case FLYINGRAT: initFlyingRat(my, nullptr); break;
 			default: printlog("Unknown monster, can't init!"); break;
 			}
 		}
@@ -2179,6 +2180,7 @@ void actMonster(Entity* my)
 			case SPELLBOT: sentryBotAnimate(my, nullptr, dist); break;
 			case GYROBOT: gyroBotAnimate(my, nullptr, dist); break;
 			case DUMMYBOT: dummyBotAnimate(my, nullptr, dist); break;
+			case FLYINGRAT: flyingRatAnimate(my, nullptr, dist); break;
 			default: break;
 			}
 
@@ -2266,6 +2268,7 @@ void actMonster(Entity* my)
 				case SPELLBOT: my->sprite = 885; initSentryBot(my, myStats); break;
 				case GYROBOT: initGyroBot(my, myStats); break;
 				case DUMMYBOT: initDummyBot(my, myStats); break;
+				case FLYINGRAT: initFlyingRat(my, myStats); break;
 				default: break; //This should never be reached.
 			}
 		}
@@ -3296,6 +3299,9 @@ void actMonster(Entity* my)
 				break;
 			case DUMMYBOT:
 				dummyBotDie(my);
+				break;
+			case FLYINGRAT:
+				flyingRatDie(my);
 				break;
 			default:
 				break; //This should never be reached.
@@ -8100,6 +8106,7 @@ timeToGoAgain:
 		case SPELLBOT: sentryBotAnimate(my, myStats, dist); break;
 		case GYROBOT: gyroBotAnimate(my, myStats, dist); break;
 		case DUMMYBOT: dummyBotAnimate(my, myStats, dist); break;
+		case FLYINGRAT: flyingRatAnimate(my, myStats, dist); break;
 		default: break;
 		}
 	}

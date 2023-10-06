@@ -2719,6 +2719,8 @@ void initClass(const int player)
 			addSpell(SPELL_SHADOW_TAG, player, true);
 			if (client_classes[player] == CLASS_BARBARIAN)
 				stats[player]->STR -= 2;
+			else (client_classes[player] == CLASS_HUNTER); //Hunter Balance for cursed boomerang.
+			stats[player]->DEX -= 1;
 		}
 		else if ( stats[player]->playerRace == RACE_AUTOMATON && stats[player]->appearance == 0 )
 		{

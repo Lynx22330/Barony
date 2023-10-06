@@ -24,7 +24,6 @@ enum Monster : int
 	NOTHING,
 	HUMAN,
 	RAT,
-	FLYINGRAT,
 	GOBLIN,
 	SLIME,
 	TROLL,
@@ -59,6 +58,7 @@ enum Monster : int
 	SPELLBOT,
 	GYROBOT,
 	DUMMYBOT,
+	FLYINGRAT,
 	MAX_MONSTER
 };
 const int NUMMONSTERS = MAX_MONSTER;
@@ -83,7 +83,7 @@ static std::vector<Sint32> monsterSprites[NUMMONSTERS] = {
 
     // RAT
     {
-        1238, 1239,                     // normal rat walk cycle
+		131, 265,                       // normal rat walk cycle
         814,                            // player rat head
         1043,                           // player rat head attack 1
         1044,                           // player rat head attack 2
@@ -283,6 +283,11 @@ static std::vector<Sint32> monsterSprites[NUMMONSTERS] = {
     {
         889,
     },
+
+	//FLYINGRAT
+	{
+		1238, 1239
+	},
 };
 
 static char monstertypename[][15] =
@@ -323,7 +328,8 @@ static char monstertypename[][15] =
 	"sentrybot",
 	"spellbot",
 	"gyrobot",
-	"dummybot"
+	"dummybot",
+	"flyingrat"
 };
 
 static char monstertypenamecapitalized[][15] =
@@ -364,7 +370,8 @@ static char monstertypenamecapitalized[][15] =
 	"Sentrybot",
 	"Spellbot",
 	"Gyrobot",
-	"Dummybot"
+	"Dummybot",
+	"Flyingrat"
 };
 
 // body part focal points
@@ -412,7 +419,8 @@ static char gibtype[NUMMONSTERS] =
 	0,	//SENTRYBOT
 	0,	//SPELLBOT
 	0,  //GYROBOT
-	0	//DUMMYBOT
+	0,	//DUMMYBOT
+	1   //FLYINGRAT
 };
 
 // columns go like this:
@@ -456,7 +464,8 @@ static double damagetables[NUMMONSTERS][7] =
 	{ 1.f, 1.f, 1.f, 1.f, 0.5, 0.5, 1.f }, // sentrybot
 	{ 1.f, 1.f, 1.f, 1.f, 0.5, 0.5, 1.f }, // sentrybot
 	{ 1.f, 1.f, 1.f, 1.f, 0.5, 0.5, 1.f }, // gyrobot
-	{ 1.f, 1.f, 1.f, 1.f, 0.5, 1.2, 0.5 }  // dummybot
+	{ 1.f, 1.f, 1.f, 1.f, 0.5, 1.2, 0.5 }, // dummybot
+	{ 0.9, 0.9, 0.9, 0.9, 1.5, 1.2, 0.8 }  // flyingrat
 };
 
 enum DamageTableType : int

@@ -26,7 +26,7 @@ void initRat(Entity* my, Stat* myStats)
 	my->flags[UPDATENEEDED] = true;
 	my->flags[INVISIBLE] = false;
 
-	my->initMonster(131);
+	my->initMonster(1238);
 
 	if ( multiplayer != CLIENT )
 	{
@@ -159,10 +159,10 @@ void ratAnimate(Entity* my, double dist)
         if (my->ticks % 10 == 0)
         {
             // normal rat walk cycle
-            if ( my->sprite == 131) {
-                my->sprite = 265;
-            } else if (my->sprite == 131) {
-                my->sprite = 265;
+            if ( my->sprite == 1238) {
+                my->sprite = 1239;
+            } else if (my->sprite == 1239) {
+                my->sprite = 1238;
             }
 
             // algernon walk cycle

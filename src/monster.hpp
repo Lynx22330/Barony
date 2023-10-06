@@ -287,7 +287,8 @@ static std::vector<Sint32> monsterSprites[NUMMONSTERS] = {
 	//FLYINGRAT
 	{
 		1238, 1239,                      //Flying Animation State
-		1240, 1241, 1242, 1243, 1244     //Attack Animation States
+		1240, 1241, 1242, 1243, 1244   //Attack Animation States
+		
 	},
 };
 

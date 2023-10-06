@@ -40,7 +40,7 @@ void initFlyingRat(Entity* my, Stat* myStats)
 			int customItemsToGenerate = ITEM_CUSTOM_SLOT_LIMIT;
 
 			// boss variants
-			const bool boss =
+			const bool boss = false;
 				local_rng.rand() % 50 == 0 &&
 				!my->flags[USERFLAG2] &&
 				!myStats->MISC_FLAGS[STAT_FLAG_DISABLE_MINIBOSS];
@@ -170,9 +170,9 @@ void flyingRatAnimate(Entity* my, double dist)
 	// attack cycle
 	if (MONSTER_ATTACK) {
 		const int frame = TICKS_PER_SECOND / 10;
-		const bool notavailable = my->sprite >= 1240;
+		const bool notavailable = my->sprite = 1240;
 		if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
-			my->sprite = notavailable ? 1070 : 1240;
+			my->sprite = 1240;
 			if (*cvar_useFocalZ) {
 				my->focalz = -1.5;
 			}
@@ -181,7 +181,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			}
 		}
 		if (MONSTER_ATTACKTIME == frame * 1) { // frame 2
-			my->sprite = notavailable ? 1071 : 1241;
+			my->sprite =  1241;
 			if (*cvar_useFocalZ) {
 				my->focalz = -2.5;
 			}
@@ -190,7 +190,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			}
 		}
 		if (MONSTER_ATTACKTIME == frame * 2) { // frame 3
-			my->sprite = notavailable ? 1072 : 1242;
+			my->sprite = 1242;
 			if (*cvar_useFocalZ) {
 				my->focalz = -3.5;
 			}
@@ -199,7 +199,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			}
 		}
 		if (MONSTER_ATTACKTIME == frame * 4) { // frame 4
-			my->sprite = notavailable ? 1073 : 1243;
+			my->sprite = 1243;
 			if (*cvar_useFocalZ) {
 				my->focalz = -4;
 			}
@@ -211,7 +211,7 @@ void flyingRatAnimate(Entity* my, double dist)
 			MONSTER_ATTACKTIME = temp;
 		}
 		if (MONSTER_ATTACKTIME == frame * 6) { // frame 5
-			my->sprite = notavailable ? 1074 : 1244;
+			my->sprite = 1244;
 			if (*cvar_useFocalZ) {
 				my->focalz = -3;
 			}

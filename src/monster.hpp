@@ -804,7 +804,7 @@ void lichIceAnimate(Entity* my, Stat* myStats, double dist);
 void sentryBotAnimate(Entity* my, Stat* myStats, double dist);
 void gyroBotAnimate(Entity* my, Stat* myStats, double dist);
 void dummyBotAnimate(Entity* my, Stat* myStats, double dist);
-void flyingRatAnimate(Entity* my, Stat* myStats, double dist);
+void flyingRatAnimate(Entity* my, double dist);
 
 //--misc functions--
 void actMinotaurTrap(Entity* my);

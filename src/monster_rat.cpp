@@ -28,18 +28,18 @@ void initRat(Entity* my, Stat* myStats)
 
 	my->initMonster(131);
 
-	if ( multiplayer != CLIENT )
+	if (multiplayer != CLIENT)
 	{
 		MONSTER_SPOTSND = 29;
 		MONSTER_SPOTVAR = 1;
 		MONSTER_IDLESND = 29;
 		MONSTER_IDLEVAR = 1;
 	}
-	if ( multiplayer != CLIENT && !MONSTER_INIT )
+	if (multiplayer != CLIENT && !MONSTER_INIT)
 	{
-		if ( myStats != NULL )
+		if (myStats != NULL)
 		{
-			if ( !myStats->leader_uid )
+			if (!myStats->leader_uid)
 			{
 				myStats->leader_uid = 0;
 			}
@@ -52,14 +52,14 @@ void initRat(Entity* my, Stat* myStats)
 
 			// boss variants
 			const bool boss =
-			    local_rng.rand() % 50 == 0 &&
-			    !my->flags[USERFLAG2] &&
-			    !myStats->MISC_FLAGS[STAT_FLAG_DISABLE_MINIBOSS];
-			if ( (boss || *cvar_summonBosses) && myStats->leader_uid == 0 )
+				local_rng.rand() % 50 == 0 &&
+				!my->flags[USERFLAG2] &&
+				!myStats->MISC_FLAGS[STAT_FLAG_DISABLE_MINIBOSS];
+			if ((boss || *cvar_summonBosses) && myStats->leader_uid == 0)
 			{
 				myStats->setAttribute("special_npc", "algernon");
 				strcpy(myStats->name, MonsterData_t::getSpecialNPCName(*myStats).c_str());
-	            my->sprite = MonsterData_t::getSpecialNPCBaseModel(*myStats);
+				my->sprite = MonsterData_t::getSpecialNPCBaseModel(*myStats);
 				myStats->HP = 120;
 				myStats->MAXHP = 120;
 				myStats->OLDHP = myStats->HP;
@@ -73,13 +73,13 @@ void initRat(Entity* my, Stat* myStats)
 				newItem(GEM_EMERALD, static_cast<Status>(1 + local_rng.rand() % 4), 0, 1, local_rng.rand(), true, &myStats->inventory);
 				customItemsToGenerate = customItemsToGenerate - 1;
 				int c;
-				for ( c = 0; c < 6; c++ )
+				for (c = 0; c < 6; c++)
 				{
 					Entity* entity = summonMonster(RAT, my->x, my->y);
-					if ( entity )
+					if (entity)
 					{
 						entity->parent = my->getUID();
-						if ( Stat* followerStats = entity->getStats() )
+						if (Stat* followerStats = entity->getStats())
 						{
 							followerStats->leader_uid = entity->parent;
 						}
@@ -97,50 +97,45 @@ void initRat(Entity* my, Stat* myStats)
 			// count if any custom inventory items from editor
 			int customItems = countCustomItems(myStats); //max limit of 6 custom items per entity.
 
-														 // count any inventory items set to default in edtior
+			// count any inventory items set to default in edtior
 			int defaultItems = countDefaultItems(myStats);
 
 			my->setHardcoreStats(*myStats);
 
 			// generate the default inventory items for the monster, provided the editor sprite allowed enough default slots
-			switch ( defaultItems )
+			switch (defaultItems)
 			{
-				case 6:
-				case 5:
-				case 4:
-				case 3:
-				case 2:
-				case 1:
-					if ( local_rng.rand() % 4 )
+			case 6:
+			case 5:
+			case 4:
+			case 3:
+			case 2:
+			case 1:
+				if (local_rng.rand() % 4)
+				{
+					if (local_rng.rand() % 2)
 					{
-						if ( local_rng.rand() % 2 )
-						{
-							newItem(FOOD_MEAT, EXCELLENT, 0, 1, local_rng.rand(), false, &myStats->inventory);
-						}
-						else
-						{
-							newItem(FOOD_CHEESE, DECREPIT, 0, 1, local_rng.rand(), false, &myStats->inventory);
-						}
+						newItem(FOOD_MEAT, EXCELLENT, 0, 1, local_rng.rand(), false, &myStats->inventory);
 					}
-					break;
-				default:
-					break;
+					else
+					{
+						newItem(FOOD_CHEESE, DECREPIT, 0, 1, local_rng.rand(), false, &myStats->inventory);
+					}
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
-	if ( multiplayer != CLIENT && myStats )
+	if (multiplayer != CLIENT && myStats)
 	{
 		if (myStats->getAttribute("special_npc") == "algernon")
 		{
 			my->z -= 1; // algernon is slightly larger than an ordinary rat.
 		}
 	}
-	myStats->EFFECTS[EFF_LEVITATING] = true;
-	myStats->EFFECTS_TIMERS[EFF_LEVITATING] = 0;
 }
-
-	float myZ = 0;
-	int bobCount = 0;
 
 void ratAnimate(Entity* my, double dist)
 {
@@ -151,106 +146,110 @@ void ratAnimate(Entity* my, double dist)
 		}
 	}
 
-    float myZOffset = -6.0 + sin(my->ticks * 0.125) * 2;
-	bobCount = (bobCount + 1) % 6000;
-	
-    // walk cycle
-    if (dist >= 0.1 && !MONSTER_ATTACK) {
-        if (my->ticks % 10 == 0)
-        {
-            // normal rat walk cycle
-            if ( my->sprite == 131) {
-                my->sprite = 265;
-            } else if (my->sprite == 131) {
-                my->sprite = 265;
-            }
+	// walk cycle
+	if (dist >= 0.1 && !MONSTER_ATTACK) {
+		if (my->ticks % 10 == 0)
+		{
+			// normal rat walk cycle
+			if (my->sprite == 131) {
+				my->sprite = 265;
+			}
+			else if (my->sprite == 265) {
+				my->sprite = 131;
+			}
 
-            // algernon walk cycle
-            if ( my->sprite == 1068) {
-                my->sprite = 1069;
-            } else if (my->sprite == 1069) {
-                my->sprite = 1068;
-            }
-        }
-    }
+			// algernon walk cycle
+			if (my->sprite == 1068) {
+				my->sprite = 1069;
+			}
+			else if (my->sprite == 1069) {
+				my->sprite = 1068;
+			}
+		}
+	}
 
-    static ConsoleVariable<bool> cvar_useFocalZ("/rat_anim_use_focal_z", false);
+	static ConsoleVariable<bool> cvar_useFocalZ("/rat_anim_use_focal_z", false);
 
-    // attack cycle
-    if (MONSTER_ATTACK) {
-        const int frame = TICKS_PER_SECOND / 10;
-        const bool algernon = my->sprite >= 1068;
-        if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
-            my->sprite = algernon ? 1070 : 1063;
-            if (*cvar_useFocalZ) {
-                my->focalz = -1.5;
-            } else {
-                myZ = 4.5;
-            }
-        }
-        if (MONSTER_ATTACKTIME == frame * 1) { // frame 2
-            my->sprite = algernon ? 1071 : 1064;
-            if (*cvar_useFocalZ) {
-                my->focalz = -2.5;
-            } else {
-                myZ = 3.5;
-            }
-        }
-        if (MONSTER_ATTACKTIME == frame * 2) { // frame 3
-            my->sprite = algernon ? 1072 : 1065;
-            if (*cvar_useFocalZ) {
-                my->focalz = -3.5;
-            } else {
-                myZ = 2.5;
-            }
-        }
-        if (MONSTER_ATTACKTIME == frame * 4) { // frame 4
-            my->sprite = algernon ? 1073 : 1066;
-            if (*cvar_useFocalZ) {
-                my->focalz = -4;
-            } else {
-                myZ = 2;
-            }
-            const Sint32 temp = MONSTER_ATTACKTIME;
-            my->attack(1, 0, nullptr); // munch
-            MONSTER_ATTACKTIME = temp;
-        }
-        if (MONSTER_ATTACKTIME == frame * 6) { // frame 5
-            my->sprite = algernon ? 1074 : 1067;
-            if (*cvar_useFocalZ) {
-                my->focalz = -3;
-            } else {
-                myZ = 3;
-            }
-        }
-        if (MONSTER_ATTACKTIME == frame * 7) { // end
-            if (algernon) {
-                my->sprite = 1068;
-                myZ = 5.5;
-            } else {
-                my->sprite = 1238;
-                myZ = 6;
-            }
-            my->focalz = 0;
-            MONSTER_ATTACK = 0;
-            MONSTER_ATTACKTIME = 0;
-        }
-        else {
-            ++MONSTER_ATTACKTIME;
-            my->new_z = myZ;
-        }
-    }
-    my->z = myZ + myZOffset;
+	// attack cycle
+	if (MONSTER_ATTACK) {
+		const int frame = TICKS_PER_SECOND / 10;
+		const bool algernon = my->sprite >= 1068;
+		if (MONSTER_ATTACKTIME == frame * 0) { // frame 1
+			my->sprite = algernon ? 1070 : 1063;
+			if (*cvar_useFocalZ) {
+				my->focalz = -1.5;
+			}
+			else {
+				my->z = 4.5;
+			}
+		}
+		if (MONSTER_ATTACKTIME == frame * 1) { // frame 2
+			my->sprite = algernon ? 1071 : 1064;
+			if (*cvar_useFocalZ) {
+				my->focalz = -2.5;
+			}
+			else {
+				my->z = 3.5;
+			}
+		}
+		if (MONSTER_ATTACKTIME == frame * 2) { // frame 3
+			my->sprite = algernon ? 1072 : 1065;
+			if (*cvar_useFocalZ) {
+				my->focalz = -3.5;
+			}
+			else {
+				my->z = 2.5;
+			}
+		}
+		if (MONSTER_ATTACKTIME == frame * 4) { // frame 4
+			my->sprite = algernon ? 1073 : 1066;
+			if (*cvar_useFocalZ) {
+				my->focalz = -4;
+			}
+			else {
+				my->z = 2;
+			}
+			const Sint32 temp = MONSTER_ATTACKTIME;
+			my->attack(1, 0, nullptr); // munch
+			MONSTER_ATTACKTIME = temp;
+		}
+		if (MONSTER_ATTACKTIME == frame * 6) { // frame 5
+			my->sprite = algernon ? 1074 : 1067;
+			if (*cvar_useFocalZ) {
+				my->focalz = -3;
+			}
+			else {
+				my->z = 3;
+			}
+		}
+		if (MONSTER_ATTACKTIME == frame * 7) { // end
+			if (algernon) {
+				my->sprite = 1068;
+				my->z = 5.5;
+			}
+			else {
+				my->sprite = 131;
+				my->z = 6;
+			}
+			my->focalz = 0;
+			MONSTER_ATTACK = 0;
+			MONSTER_ATTACKTIME = 0;
+		}
+		else {
+			++MONSTER_ATTACKTIME;
+			my->new_z = my->z;
+		}
+	}
 }
 
-	void ratDie(Entity * my)
+void ratDie(Entity* my)
 {
 	Entity* gib = spawnGib(my);
 	gib->skill[5] = 1; // poof
 	gib->sprite = my->sprite;
 	gib->pitch = 0.0;
 	serverSpawnGibForClient(gib);
-	for ( int c = 0; c < 5; c++ )
+	for (int c = 0; c < 5; c++)
 	{
 		Entity* gib = spawnGib(my);
 		serverSpawnGibForClient(gib);

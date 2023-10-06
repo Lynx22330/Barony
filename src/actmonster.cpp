@@ -2180,7 +2180,7 @@ void actMonster(Entity* my)
 			case SPELLBOT: sentryBotAnimate(my, nullptr, dist); break;
 			case GYROBOT: gyroBotAnimate(my, nullptr, dist); break;
 			case DUMMYBOT: dummyBotAnimate(my, nullptr, dist); break;
-			case FLYINGRAT: flyingRatAnimate(my, nullptr, dist); break;
+			case FLYINGRAT: flyingRatAnimate(my, dist); break;
 			default: break;
 			}
 
@@ -8106,7 +8106,7 @@ timeToGoAgain:
 		case SPELLBOT: sentryBotAnimate(my, myStats, dist); break;
 		case GYROBOT: gyroBotAnimate(my, myStats, dist); break;
 		case DUMMYBOT: dummyBotAnimate(my, myStats, dist); break;
-		case FLYINGRAT: flyingRatAnimate(my, myStats, dist); break;
+		case FLYINGRAT: flyingRatAnimate(my, dist); break;
 		default: break;
 		}
 	}

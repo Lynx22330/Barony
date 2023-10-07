@@ -441,6 +441,7 @@ void actArrow(Entity* my)
 						switch ( hitstats->type )
 						{
 							case RAT:
+							case FLYINGRAT:
 							case SPIDER:
 							case SCORPION:
 							case SCARAB:

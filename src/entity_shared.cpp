@@ -1248,6 +1248,7 @@ int canWearEquip(Entity* entity, int category)
 				case SCARAB:
 				case CRYSTALGOLEM:
 				case COCKATRICE:
+				case FLYINGRAT:
 					equipType = 0;
 					break;
 

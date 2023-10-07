@@ -1274,7 +1274,8 @@ public:
 		TO_SENTRYBOT,
 		TO_SPELLBOT,
 		TO_GYROBOT,
-		TO_DUMMYBOT
+		TO_DUMMYBOT,
+		TO_FLYINGRAT
 	};
 	enum ScriptType : int
 	{

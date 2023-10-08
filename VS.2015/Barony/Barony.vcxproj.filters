@@ -255,6 +255,9 @@
     <ClCompile Include="..\..\src\shops.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+	<ClCompile Include="..\..\src\cooking.cpp">
+	  <Filter>Source Files</Filter>
+	</ClCompile>
     <ClCompile Include="..\..\src\stat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -665,6 +668,9 @@
     <ClInclude Include="..\..\src\shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="..\..\src\cooking.hpp">
+	  <Filter>Header Files</Filter>
+	</ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\src\game.ico">

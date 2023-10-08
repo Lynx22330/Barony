@@ -10,6 +10,7 @@
 #pragma once
 
 #include "main.hpp"
+#include "items.hpp"
 
 int isFoodRaw()
 {

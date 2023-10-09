@@ -14,6 +14,7 @@
 #include "game.hpp"
 #include "stat.hpp"
 #include "items.hpp"
+#include "cooking.hpp"
 #include "engine/audio/sound.hpp"
 #include "entity.hpp"
 #include "magic/magic.hpp"
@@ -4484,7 +4485,7 @@ void item_Food(Item*& item, int player)
 				hungerIncrease = 200;
 				break;
 			case FOOD_MEAT:
-				hungerIncrease = 600;
+					hungerIncrease = -200;
 				break;
 			case FOOD_FISH:
 				hungerIncrease = 500;

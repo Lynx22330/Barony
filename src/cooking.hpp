@@ -11,12 +11,10 @@
 
 #include "main.hpp"
 #include "items.hpp"
+namespace Cooking {
+	bool isRaw = true;
+	bool isCooked = false;
+	int doSomething();
+}
 
-int isFoodRaw()
-{
-	int foodRaw = 0;
-}
-int isFoodCooked()
-{
-	int foodCooked = 0;
-}
+

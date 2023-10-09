@@ -35,96 +35,106 @@ void initFlyingRat(Entity* my, Stat* myStats)
 		MONSTER_IDLESND = 29;
 		MONSTER_IDLEVAR = 1;
 	}
-
-			// generate 6 items max, less if there are any forced items from boss variants
-			int customItemsToGenerate = ITEM_CUSTOM_SLOT_LIMIT;
-
-			// boss variants
-			const bool boss = false;
-				local_rng.rand() % 50 == 0 &&
-				!my->flags[USERFLAG2] &&
-				!myStats->MISC_FLAGS[STAT_FLAG_DISABLE_MINIBOSS];
-			if ((boss || *cvar_summonBosses) && myStats->leader_uid == 0)
+	if (multiplayer != CLIENT && !MONSTER_INIT)
+	{
+		if (myStats != NULL)
+		{
+			if (!myStats->leader_uid)
 			{
-				myStats->setAttribute("invalid", "invalid");
-				strcpy(myStats->name, MonsterData_t::getSpecialNPCName(*myStats).c_str());
-				my->sprite = MonsterData_t::getSpecialNPCBaseModel(*myStats);
-				myStats->HP = 120;
-				myStats->MAXHP = 120;
-				myStats->OLDHP = myStats->HP;
-				myStats->STR = -1;
-				myStats->DEX = 20;
-				myStats->CON = 2;
-				myStats->INT = 20;
-				myStats->PER = -2;
-				myStats->CHR = 5;
-				myStats->LVL = 10;
-				newItem(GEM_EMERALD, static_cast<Status>(1 + local_rng.rand() % 4), 0, 1, local_rng.rand(), true, &myStats->inventory);
-				customItemsToGenerate = customItemsToGenerate - 1;
-				int c;
-				for (c = 0; c < 6; c++)
+				myStats->leader_uid = 0;
+
+				// generate 6 items max, less if there are any forced items from boss variants
+				int customItemsToGenerate = ITEM_CUSTOM_SLOT_LIMIT;
+
+				// boss variants
+				const bool boss = false;
+				local_rng.rand() % 50 == 0 &&
+					!my->flags[USERFLAG2] &&
+					!myStats->MISC_FLAGS[STAT_FLAG_DISABLE_MINIBOSS];
+				if ((boss || *cvar_summonBosses) && myStats->leader_uid == 0)
 				{
-					Entity* entity = summonMonster(RAT, my->x, my->y);
-					if (entity)
+					myStats->setAttribute("invalid", "invalid");
+					strcpy(myStats->name, MonsterData_t::getSpecialNPCName(*myStats).c_str());
+					my->sprite = MonsterData_t::getSpecialNPCBaseModel(*myStats);
+					myStats->HP = 120;
+					myStats->MAXHP = 120;
+					myStats->OLDHP = myStats->HP;
+					myStats->STR = -1;
+					myStats->DEX = 20;
+					myStats->CON = 2;
+					myStats->INT = 20;
+					myStats->PER = -2;
+					myStats->CHR = 5;
+					myStats->LVL = 10;
+					newItem(GEM_EMERALD, static_cast<Status>(1 + local_rng.rand() % 4), 0, 1, local_rng.rand(), true, &myStats->inventory);
+					customItemsToGenerate = customItemsToGenerate - 1;
+					int c;
+					for (c = 0; c < 6; c++)
 					{
-						entity->parent = my->getUID();
-						if (Stat* followerStats = entity->getStats())
+						Entity* entity = summonMonster(RAT, my->x, my->y);
+						if (entity)
 						{
-							followerStats->leader_uid = entity->parent;
+							entity->parent = my->getUID();
+							if (Stat* followerStats = entity->getStats())
+							{
+								followerStats->leader_uid = entity->parent;
+							}
 						}
 					}
 				}
-			}
-			// random effects
+				// random effects
 
-			// generates equipment and weapons if available from editor
-			createMonsterEquipment(myStats);
+				// generates equipment and weapons if available from editor
+				createMonsterEquipment(myStats);
 
-			// create any custom inventory items from editor if available
-			createCustomInventory(myStats, customItemsToGenerate);
+				// create any custom inventory items from editor if available
+				createCustomInventory(myStats, customItemsToGenerate);
 
-			// count if any custom inventory items from editor
-			int customItems = countCustomItems(myStats); //max limit of 6 custom items per entity.
+				// count if any custom inventory items from editor
+				int customItems = countCustomItems(myStats); //max limit of 6 custom items per entity.
 
-			// count any inventory items set to default in edtior
-			int defaultItems = countDefaultItems(myStats);
+				// count any inventory items set to default in edtior
+				int defaultItems = countDefaultItems(myStats);
 
-			my->setHardcoreStats(*myStats);
+				my->setHardcoreStats(*myStats);
 
-			// generate the default inventory items for the monster, provided the editor sprite allowed enough default slots
-			switch (defaultItems)
-			{
-			case 6:
-			case 5:
-			case 4:
-			case 3:
-			case 2:
-			case 1:
-				if (local_rng.rand() % 4)
+				// generate the default inventory items for the monster, provided the editor sprite allowed enough default slots
+				switch (defaultItems)
 				{
-					if (local_rng.rand() % 2)
+				case 6:
+				case 5:
+				case 4:
+				case 3:
+				case 2:
+				case 1:
+					if (local_rng.rand() % 4)
 					{
-						newItem(FOOD_MEAT, EXCELLENT, 0, 1, local_rng.rand(), false, &myStats->inventory);
+						if (local_rng.rand() % 2)
+						{
+							newItem(FOOD_MEAT, EXCELLENT, 0, 1, local_rng.rand(), false, &myStats->inventory);
+						}
+						else
+						{
+							newItem(FOOD_CHEESE, DECREPIT, 0, 1, local_rng.rand(), false, &myStats->inventory);
+						}
 					}
-					else
-					{
-						newItem(FOOD_CHEESE, DECREPIT, 0, 1, local_rng.rand(), false, &myStats->inventory);
-					}
+					break;
+				default:
+					break;
 				}
-				break;
-			default:
-				break;
+				{
+					if (multiplayer != CLIENT && myStats)
+					{
+						if (myStats->getAttribute("special_npc") == "notavailable")
+						{
+							my->z -= 1; // algernon is slightly larger than an ordinary rat.
+						}
+					}
+					myStats->EFFECTS[EFF_LEVITATING] = true;
+					myStats->EFFECTS_TIMERS[EFF_LEVITATING] = 0;
+				}
 			}
-	{
-	if (multiplayer != CLIENT && myStats)
-	{
-		if (myStats->getAttribute("special_npc") == "notavailable")
-		{
-			my->z -= 1; // algernon is slightly larger than an ordinary rat.
 		}
-	}
-	myStats->EFFECTS[EFF_LEVITATING] = true;
-	myStats->EFFECTS_TIMERS[EFF_LEVITATING] = 0;
 	}
 }
 

@@ -2751,7 +2751,8 @@ void useItem(Item* item, const int player, Entity* usedBy, bool unequipForDroppi
 				}
 			}
 			break;
-		case TOOL_COINFLIP:
+		case TOOL_MAGICCOIN:
+			item_flipCoin(item, player);
 		default:
 			printlog("error: item %d used, but it has no use case!\n", static_cast<int>(item->type));
 			break;
@@ -5519,6 +5520,7 @@ bool Item::shouldItemStack(const int player, bool ignoreStackLimit) const
 				&& itemCategory(this) != SPELLBOOK
 				&& this->type != TOOL_PICKAXE
 				&& this->type != TOOL_ALEMBIC
+				&& this->type != TOOL_MAGICCOIN
 				&& this->type != TOOL_TINKERING_KIT
 				&& this->type != ENCHANTED_FEATHER
 				&& this->type != TOOL_LANTERN
@@ -5533,6 +5535,7 @@ bool Item::shouldItemStack(const int player, bool ignoreStackLimit) const
 			|| (itemCategory(this) == TOOL 
 				&& this->type != TOOL_PICKAXE 
 				&& this->type != TOOL_ALEMBIC 
+				&& this->type != TOOL_MAGICCOIN
 				&& this->type != TOOL_TINKERING_KIT
 				&& this->type != ENCHANTED_FEATHER
 				&& this->type != TOOL_LANTERN

@@ -4919,6 +4919,7 @@ bool GenericGUIMenu::isItemRepairable(const Item* item, int repairScroll)
 				case TOOL_DECOY:
 				case TOOL_DUMMYBOT:
 				case ENCHANTED_FEATHER:
+				case TOOL_MAGICCOIN:
 					return false;
 					break;
 				default:
@@ -9410,7 +9411,7 @@ bool GenericGUIMenu::tinkeringGetItemValue(const Item* item, int* metal, int* ma
 			*metal = 2;
 			*magic = 4;
 			break;
-		case TOOL_COINFLIP:
+		case TOOL_MAGICCOIN:
 			*metal = 1;
 			*magic = (local_rng.rand() % 5);
 		default:
@@ -20502,6 +20503,7 @@ GenericGUIMenu::ItemEffectGUI_t::ItemEffectActions_t GenericGUIMenu::ItemEffectG
 							case TOOL_DECOY:
 							case TOOL_DUMMYBOT:
 							case ENCHANTED_FEATHER:
+							case TOOL_MAGICCOIN:
 								result = ITEMFX_ACTION_INVALID_ITEM;
 								break;
 							default:

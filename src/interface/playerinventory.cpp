@@ -10493,7 +10493,7 @@ std::vector<ItemContextMenuPrompts> getContextMenuOptionsForItem(const int playe
 		options.push_back(PROMPT_APPRAISE);
 		options.push_back(PROMPT_DROP);
 	}
-	else if (item->type == TOOL_COINFLIP)
+	else if (item->type == TOOL_MAGICCOIN)
 	{
 		options.push_back(PROMPT_EQUIP);
 		options.push_back(PROMPT_FLIP);

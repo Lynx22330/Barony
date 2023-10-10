@@ -108,7 +108,7 @@ void initFlyingRat(Entity* my, Stat* myStats)
 				case 2:
 					if (local_rng.rand() % 125)
 					{
-						newItem(TOOL_COINFLIP, DECREPIT, 0, 1, local_rng.rand(), false, &myStats->inventory);
+						newItem(TOOL_MAGICCOIN, DECREPIT, 0, 1, local_rng.rand(), false, &myStats->inventory);
 					}
 				case 1:
 					if (local_rng.rand() % 4)

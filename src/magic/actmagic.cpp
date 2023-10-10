@@ -232,6 +232,10 @@ void actMagiclightBall(Entity* my)
 					bool deducted = caster->safeConsumeMP(1); //Consume 1 mana every duration / mana seconds
 					if (deducted)
 					{
+						if (local_rng.rand() % 80 == 0) //1.25%
+						{
+							caster->increaseSkill(PRO_SPELLCASTING);
+						}
 						lightball_timer = spell->channel_duration / getCostOfSpell(spell);
 					}
 					else

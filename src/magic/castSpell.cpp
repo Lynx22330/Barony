@@ -2389,7 +2389,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				}
 				else // greater than 80
 				{
-					if ( local_rng.rand() % 20 == 0 ) //5%
+					if ( local_rng.rand()	 ) //5.88%
 					{
 						caster->increaseSkill(PRO_SPELLCASTING);
 					}
@@ -2398,7 +2398,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				// magic increase chances.
 				if ( stat->PROFICIENCIES[PRO_MAGIC] < 60 )
 				{
-					if ( local_rng.rand() % 20 == 0 ) //5%
+					if ( local_rng.rand() % 20 == 0 ) //5.88%
 					{
 						caster->increaseSkill(PRO_MAGIC);
 					}

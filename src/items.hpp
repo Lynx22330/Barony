@@ -598,6 +598,7 @@ void item_FoodAutomaton(Item*& item, int player);
 void item_Gem(Item* item, int player);
 void item_Spellbook(Item*& item, int player);
 void item_ToolLootBag(Item*& item, int player);
+void item_flipCoin(Item*& item, int player);
 
 //General functions.
 Item* newItem(ItemType type, Status status, Sint16 beatitude, Sint16 count, Uint32 appearance, bool identified, list_t* inventory);

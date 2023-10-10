@@ -9410,6 +9410,9 @@ bool GenericGUIMenu::tinkeringGetItemValue(const Item* item, int* metal, int* ma
 			*metal = 2;
 			*magic = 4;
 			break;
+		case TOOL_COINFLIP:
+			*metal = 1;
+			*magic = (local_rng.rand() % 5);
 		default:
 			*metal = 0;
 			*magic = 0;

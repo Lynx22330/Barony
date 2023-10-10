@@ -10279,6 +10279,7 @@ std::string getContextMenuOptionBindingName(const int player, const ItemContextM
 		case PROMPT_RETRIEVE_CHEST:
 		case PROMPT_INSPECT:
 		case PROMPT_DROPDOWN:
+		case PROMPT_FLIP:
 			return "MenuConfirm";
 		case PROMPT_DROP:
 			if ( players[player]->inventoryUI.useItemDropdownOnGamepad == Player::Inventory_t::GAMEPAD_DROPDOWN_COMPACT )
@@ -10291,7 +10292,6 @@ std::string getContextMenuOptionBindingName(const int player, const ItemContextM
 			}
 		case PROMPT_APPRAISE:
 			return "InventoryTooltipPromptAppraise";
-		case PROMPT_FLIP:
 		default:
 			return "";
 	}

@@ -24268,31 +24268,31 @@ void Player::Inventory_t::updateItemContextMenu()
 
 void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextMenuPrompts prompt)
 {
-	if ( !item )
+	if (!item)
 	{
 		return;
 	}
 	const int player = this->player.playernum;
 	bool disableItemUsage = false;
-	if ( players[player] && players[player]->entity )
+	if (players[player] && players[player]->entity)
 	{
-		if ( players[player]->entity->effectShapeshift != NOTHING )
+		if (players[player]->entity->effectShapeshift != NOTHING)
 		{
 			// shape shifted, disable some items
-			if ( !item->usableWhileShapeshifted(stats[player]) )
+			if (!item->usableWhileShapeshifted(stats[player]))
 			{
 				disableItemUsage = true;
 			}
-			if ( item->type == FOOD_CREAMPIE && (prompt == PROMPT_UNEQUIP || prompt == PROMPT_EQUIP) )
+			if (item->type == FOOD_CREAMPIE && (prompt == PROMPT_UNEQUIP || prompt == PROMPT_EQUIP))
 			{
 				disableItemUsage = true;
 			}
 		}
 		else
 		{
-			if ( itemCategory(item) == SPELL_CAT && item->appearance >= 1000 )
+			if (itemCategory(item) == SPELL_CAT && item->appearance >= 1000)
 			{
-				if ( canUseShapeshiftSpellInCurrentForm(player, *item) != 1 )
+				if (canUseShapeshiftSpellInCurrentForm(player, *item) != 1)
 				{
 					disableItemUsage = true;
 				}
@@ -24300,9 +24300,9 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 		}
 	}
 
-	if ( client_classes[player] == CLASS_SHAMAN )
+	if (client_classes[player] == CLASS_SHAMAN)
 	{
-		if ( item->type == SPELL_ITEM && !(playerUnlockedShamanSpell(player, item)) )
+		if (item->type == SPELL_ITEM && !(playerUnlockedShamanSpell(player, item)))
 		{
 			disableItemUsage = true;
 		}
@@ -24324,21 +24324,21 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 	//PROMPT_DROP
 
 	bool sellingItemToShop = false;
-	if ( players[player]->gui_mode == GUI_MODE_SHOP && itemCategory(item) != SPELL_CAT
-		&& players[player]->shopGUI.bOpen && uidToEntity(shopkeeper[player]) )
+	if (players[player]->gui_mode == GUI_MODE_SHOP && itemCategory(item) != SPELL_CAT
+		&& players[player]->shopGUI.bOpen && uidToEntity(shopkeeper[player]))
 	{
 		sellingItemToShop = true;
 	}
 
-	if ( prompt == PROMPT_DROPDOWN )
+	if (prompt == PROMPT_DROPDOWN)
 	{
 		return;
 	}
-	if ( prompt == PROMPT_CLEAR_HOTBAR_SLOT )
+	if (prompt == PROMPT_CLEAR_HOTBAR_SLOT)
 	{
-		for ( auto& slot : players[player]->hotbar.slots() )
+		for (auto& slot : players[player]->hotbar.slots())
 		{
-			if ( slot.item == item->uid )
+			if (slot.item == item->uid)
 			{
 				slot.item = 0;
 				slot.resetLastItem();
@@ -24346,35 +24346,35 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 		}
 		return;
 	}
-	if ( prompt == PROMPT_APPRAISE )
+	if (prompt == PROMPT_APPRAISE)
 	{
 		players[player]->inventoryUI.appraisal.appraiseItem(item);
 		return;
 	}
-	else if ( prompt == PROMPT_DROP )
+	else if (prompt == PROMPT_DROP)
 	{
 		dropItem(item, player);
 		return;
 	}
-	else if ( prompt == PROMPT_SELL )
+	else if (prompt == PROMPT_SELL)
 	{
-		if ( sellingItemToShop )
+		if (sellingItemToShop)
 		{
 			sellItemToShop(player, item);
 		}
 		return;
 	}
-	else if ( prompt == PROMPT_RETRIEVE_CHEST || prompt == PROMPT_RETRIEVE_CHEST_ALL )
+	else if (prompt == PROMPT_RETRIEVE_CHEST || prompt == PROMPT_RETRIEVE_CHEST_ALL)
 	{
 		bool emptiedSlot = false;
-		if ( openedChest[player] )
+		if (openedChest[player])
 		{
-			if ( prompt == PROMPT_RETRIEVE_CHEST )
+			if (prompt == PROMPT_RETRIEVE_CHEST)
 			{
 				bool tryAddToInventory = true;
-				while ( tryAddToInventory )
+				while (tryAddToInventory)
 				{
-					if ( item->count <= 0 )
+					if (item->count <= 0)
 					{
 						break;
 					}
@@ -24383,7 +24383,7 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 					int oldQty = item->count;
 					item->count = 1;
 					bool oldIdentify = item->identified;
-					if ( skillCapstoneUnlocked(player, PRO_APPRAISAL) )
+					if (skillCapstoneUnlocked(player, PRO_APPRAISAL))
 					{
 						item->identified = true;
 					}
@@ -24392,62 +24392,62 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 					item->count = oldQty;
 
 					int amountToPlace = 1;
-					switch ( result.resultType )
+					switch (result.resultType)
 					{
-						case ITEM_ADDED_ENTIRELY_TO_DESTINATION_STACK:
-						case ITEM_ADDED_PARTIALLY_TO_DESTINATION_STACK:
+					case ITEM_ADDED_ENTIRELY_TO_DESTINATION_STACK:
+					case ITEM_ADDED_PARTIALLY_TO_DESTINATION_STACK:
+					{
+						// operation success, can finish here.
+						Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, result.itemToStackInto, false);
+						tryAddToInventory = false;
+						if (oldQty == 1)
 						{
-							// operation success, can finish here.
-							Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, result.itemToStackInto, false);
+							emptiedSlot = true;
+						}
+						break;
+					}
+					case ITEM_ADDED_WITHOUT_NEEDING_STACK:
+					{
+						// check for inventory space
+						if (!bItemInventoryHasFreeSlot())
+						{
+							// no space
 							tryAddToInventory = false;
-							if ( oldQty == 1 )
-							{
-								emptiedSlot = true;
-							}
+							messagePlayer(player, MESSAGE_INVENTORY, Language::get(727), item->getName()); // no room
+							playSoundPlayer(player, 90, 64);
 							break;
 						}
-						case ITEM_ADDED_WITHOUT_NEEDING_STACK:
-						{
-							// check for inventory space
-							if ( !bItemInventoryHasFreeSlot() )
-							{
-								// no space
-								tryAddToInventory = false;
-								messagePlayer(player, MESSAGE_INVENTORY, Language::get(727), item->getName()); // no room
-								playSoundPlayer(player, 90, 64);
-								break;
-							}
 
-							// operation success, can finish here.
-							int amountToPlace = 1;
-							Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, nullptr, true);
-							tryAddToInventory = false;
-							if ( oldQty == 1 )
-							{
-								emptiedSlot = true;
-							}
-							break;
+						// operation success, can finish here.
+						int amountToPlace = 1;
+						Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, nullptr, true);
+						tryAddToInventory = false;
+						if (oldQty == 1)
+						{
+							emptiedSlot = true;
 						}
-						default:
-							// error out
-							tryAddToInventory = false;
-							break;
+						break;
+					}
+					default:
+						// error out
+						tryAddToInventory = false;
+						break;
 					}
 				}
 			}
-			else if ( prompt == PROMPT_RETRIEVE_CHEST_ALL )
+			else if (prompt == PROMPT_RETRIEVE_CHEST_ALL)
 			{
 				bool tryAddToInventory = true;
-				while ( tryAddToInventory )
+				while (tryAddToInventory)
 				{
-					if ( item->count <= 0 )
+					if (item->count <= 0)
 					{
 						break;
 					}
 					int oldItemQty = 0;
 					int destItemQty = 0;
 					bool oldIdentify = item->identified;
-					if ( skillCapstoneUnlocked(player, PRO_APPRAISAL) )
+					if (skillCapstoneUnlocked(player, PRO_APPRAISAL))
 					{
 						item->identified = true;
 					}
@@ -24455,88 +24455,88 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 					item->identified = oldIdentify;
 					int amountToPlace = item->count - oldItemQty;
 					assert(amountToPlace > 0);
-					if ( amountToPlace <= 0 )
+					if (amountToPlace <= 0)
 					{
 						break;
 					}
-					switch ( result.resultType )
+					switch (result.resultType)
 					{
-						case ITEM_ADDED_PARTIALLY_TO_DESTINATION_STACK:
+					case ITEM_ADDED_PARTIALLY_TO_DESTINATION_STACK:
+					{
+						if (Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, result.itemToStackInto, false))
 						{
-							if ( Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, result.itemToStackInto, false) )
-							{
-								// need to do another place operation.
-							}
-							else
-							{
-								tryAddToInventory = false;
-							}
-							break;
+							// need to do another place operation.
 						}
-						case ITEM_ADDED_ENTIRELY_TO_DESTINATION_STACK:
+						else
 						{
-							Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, result.itemToStackInto, false);
-							if ( oldItemQty > 0 )
-							{
-								// more work to do (unusually large stacks exceeding normal limits)
-							}
-							else
-							{
-								// operation success, can finish here.
-								tryAddToInventory = false;
-								if ( oldItemQty == 0 )
-								{
-									emptiedSlot = true;
-								}
-							}
-							break;
-						}
-						case ITEM_ADDED_WITHOUT_NEEDING_STACK:
-						{
-							// check for inventory space
-							if ( !bItemInventoryHasFreeSlot() )
-							{
-								// no space
-								tryAddToInventory = false;
-								messagePlayer(player, MESSAGE_INVENTORY, Language::get(727), item->getName()); // no room
-								playSoundPlayer(player, 90, 64);
-								break;
-							}
-							Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, nullptr, true);
 							tryAddToInventory = false;
-							if ( oldItemQty == 0 )
+						}
+						break;
+					}
+					case ITEM_ADDED_ENTIRELY_TO_DESTINATION_STACK:
+					{
+						Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, result.itemToStackInto, false);
+						if (oldItemQty > 0)
+						{
+							// more work to do (unusually large stacks exceeding normal limits)
+						}
+						else
+						{
+							// operation success, can finish here.
+							tryAddToInventory = false;
+							if (oldItemQty == 0)
 							{
 								emptiedSlot = true;
 							}
+						}
+						break;
+					}
+					case ITEM_ADDED_WITHOUT_NEEDING_STACK:
+					{
+						// check for inventory space
+						if (!bItemInventoryHasFreeSlot())
+						{
+							// no space
+							tryAddToInventory = false;
+							messagePlayer(player, MESSAGE_INVENTORY, Language::get(727), item->getName()); // no room
+							playSoundPlayer(player, 90, 64);
 							break;
 						}
-						default:
-							// error out
-							tryAddToInventory = false;
-							break;
+						Item* inventoryItem = takeItemFromChest(player, item, amountToPlace, nullptr, true);
+						tryAddToInventory = false;
+						if (oldItemQty == 0)
+						{
+							emptiedSlot = true;
+						}
+						break;
+					}
+					default:
+						// error out
+						tryAddToInventory = false;
+						break;
 					}
 				}
 			}
 		}
-		if ( !emptiedSlot && (inputs.getUIInteraction(player)->itemMenuOpen || players[player]->inventoryUI.bCompactView) )
+		if (!emptiedSlot && (inputs.getUIInteraction(player)->itemMenuOpen || players[player]->inventoryUI.bCompactView))
 		{
 			tooltipDelayTick = ticks + TICKS_PER_SECOND / 2;
 		}
 		return;
 	}
-	else if ( prompt == PROMPT_STORE_CHEST || prompt == PROMPT_STORE_CHEST_ALL )
+	else if (prompt == PROMPT_STORE_CHEST || prompt == PROMPT_STORE_CHEST_ALL)
 	{
 		bool emptiedSlot = false;
-		if ( !disableItemUsage || (disableItemUsage && !players[player]->paperDoll.isItemOnDoll(*item)) )
+		if (!disableItemUsage || (disableItemUsage && !players[player]->paperDoll.isItemOnDoll(*item)))
 		{
-			if ( openedChest[player] )
+			if (openedChest[player])
 			{
-				if ( prompt == PROMPT_STORE_CHEST )
+				if (prompt == PROMPT_STORE_CHEST)
 				{
 					bool tryAddToChest = true;
-					while ( tryAddToChest )
+					while (tryAddToChest)
 					{
-						if ( item->count <= 0 )
+						if (item->count <= 0)
 						{
 							break;
 						}
@@ -24546,57 +24546,57 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 						item->count = 1;
 						auto result = getItemStackingBehaviorIntoChest(player, item, nullptr, oldItemQty, destItemQty);
 						item->count = oldQty;
-						
-						int amountToPlace = 1;
-						switch ( result.resultType )
-						{
-							case ITEM_ADDED_ENTIRELY_TO_DESTINATION_STACK:
-							case ITEM_ADDED_PARTIALLY_TO_DESTINATION_STACK:
-							{
-								// operation success, can finish here.
-								Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, false, result.itemToStackInto);
-								tryAddToChest = false;
-								if ( oldQty == 1 )
-								{
-									emptiedSlot = true;
-								}
-								break;
-							}
-							case ITEM_ADDED_WITHOUT_NEEDING_STACK:
-							{
-								// check for chest space
-								if ( numItemsInChest(player) + 1 > (players[player]->inventoryUI.MAX_CHEST_X * players[player]->inventoryUI.MAX_CHEST_Y) )
-								{
-									// no space
-									tryAddToChest = false;
-									messagePlayer(player, MESSAGE_INVENTORY, Language::get(4098), item->getName()); // no room
-									playSoundPlayer(player, 90, 64);
-									break;
-								}
 
-								// operation success, can finish here.
-								int amountToPlace = 1;
-								Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, true, nullptr);
+						int amountToPlace = 1;
+						switch (result.resultType)
+						{
+						case ITEM_ADDED_ENTIRELY_TO_DESTINATION_STACK:
+						case ITEM_ADDED_PARTIALLY_TO_DESTINATION_STACK:
+						{
+							// operation success, can finish here.
+							Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, false, result.itemToStackInto);
+							tryAddToChest = false;
+							if (oldQty == 1)
+							{
+								emptiedSlot = true;
+							}
+							break;
+						}
+						case ITEM_ADDED_WITHOUT_NEEDING_STACK:
+						{
+							// check for chest space
+							if (numItemsInChest(player) + 1 > (players[player]->inventoryUI.MAX_CHEST_X * players[player]->inventoryUI.MAX_CHEST_Y))
+							{
+								// no space
 								tryAddToChest = false;
-								if ( oldQty == 1 )
-								{
-									emptiedSlot = true;
-								}
+								messagePlayer(player, MESSAGE_INVENTORY, Language::get(4098), item->getName()); // no room
+								playSoundPlayer(player, 90, 64);
 								break;
 							}
-							default:
-								// error out
-								tryAddToChest = false;
-								break;
+
+							// operation success, can finish here.
+							int amountToPlace = 1;
+							Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, true, nullptr);
+							tryAddToChest = false;
+							if (oldQty == 1)
+							{
+								emptiedSlot = true;
+							}
+							break;
+						}
+						default:
+							// error out
+							tryAddToChest = false;
+							break;
 						}
 					}
 				}
-				else if ( prompt == PROMPT_STORE_CHEST_ALL )
+				else if (prompt == PROMPT_STORE_CHEST_ALL)
 				{
 					bool tryAddToChest = true;
-					while ( tryAddToChest )
+					while (tryAddToChest)
 					{
-						if ( item->count <= 0 )
+						if (item->count <= 0)
 						{
 							break;
 						}
@@ -24605,69 +24605,69 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 						auto result = getItemStackingBehaviorIntoChest(player, item, nullptr, oldItemQty, destItemQty);
 						int amountToPlace = item->count - oldItemQty;
 						assert(amountToPlace > 0);
-						if ( amountToPlace <= 0 )
+						if (amountToPlace <= 0)
 						{
 							break;
 						}
-						switch ( result.resultType )
+						switch (result.resultType)
 						{
-							case ITEM_ADDED_PARTIALLY_TO_DESTINATION_STACK:
+						case ITEM_ADDED_PARTIALLY_TO_DESTINATION_STACK:
+						{
+							if (Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, false, result.itemToStackInto))
 							{
-								if ( Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, false, result.itemToStackInto) )
-								{
-									// need to do another place operation.
-								}
-								else
-								{
-									tryAddToChest = false;
-								}
+								// need to do another place operation.
+							}
+							else
+							{
+								tryAddToChest = false;
+							}
+							break;
+						}
+						case ITEM_ADDED_ENTIRELY_TO_DESTINATION_STACK:
+						{
+							// operation success, can finish here.
+							Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, false, result.itemToStackInto);
+							tryAddToChest = false;
+							if (oldItemQty == 0)
+							{
+								emptiedSlot = true;
+							}
+							break;
+						}
+						case ITEM_ADDED_WITHOUT_NEEDING_STACK:
+						{
+							// check for chest space
+							if (numItemsInChest(player) + 1 > (players[player]->inventoryUI.MAX_CHEST_X * players[player]->inventoryUI.MAX_CHEST_Y))
+							{
+								// no space
+								tryAddToChest = false;
+								messagePlayer(player, MESSAGE_INVENTORY, Language::get(4098), item->getName()); // no room
+								playSoundPlayer(player, 90, 64);
 								break;
 							}
-							case ITEM_ADDED_ENTIRELY_TO_DESTINATION_STACK:
+							Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, true, nullptr);
+							if (!itemInChest)
 							{
-								// operation success, can finish here.
-								Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, false, result.itemToStackInto);
+								tryAddToChest = false; // failure adding to chest
+							}
+							else if (oldItemQty > 0)
+							{
+								// more work to do (unusually large stacks exceeding normal limits)
+							}
+							else
+							{
 								tryAddToChest = false;
-								if ( oldItemQty == 0 )
+								if (oldItemQty == 0)
 								{
 									emptiedSlot = true;
 								}
-								break;
 							}
-							case ITEM_ADDED_WITHOUT_NEEDING_STACK:
-							{
-								// check for chest space
-								if ( numItemsInChest(player) + 1 > (players[player]->inventoryUI.MAX_CHEST_X * players[player]->inventoryUI.MAX_CHEST_Y) )
-								{
-									// no space
-									tryAddToChest = false;
-									messagePlayer(player, MESSAGE_INVENTORY, Language::get(4098), item->getName()); // no room
-									playSoundPlayer(player, 90, 64);
-									break;
-								}
-								Item* itemInChest = openedChest[player]->addItemToChestFromInventory(player, item, amountToPlace, true, nullptr);
-								if ( !itemInChest )
-								{
-									tryAddToChest = false; // failure adding to chest
-								}
-								else if ( oldItemQty > 0 )
-								{
-									// more work to do (unusually large stacks exceeding normal limits)
-								}
-								else
-								{
-									tryAddToChest = false;
-									if ( oldItemQty == 0 )
-									{
-										emptiedSlot = true;
-									}
-								}
-								break;
-							}
-							default:
-								// error out
-								tryAddToChest = false;
-								break;
+							break;
+						}
+						default:
+							// error out
+							tryAddToChest = false;
+							break;
 						}
 					}
 				}
@@ -24678,16 +24678,16 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 			messagePlayer(player, MESSAGE_INVENTORY | MESSAGE_HINT | MESSAGE_EQUIPMENT, Language::get(3432)); // unable to use in current form message.
 			playSoundPlayer(player, 90, 64);
 		}
-		if ( !emptiedSlot && (inputs.getUIInteraction(player)->itemMenuOpen || players[player]->inventoryUI.bCompactView) )
+		if (!emptiedSlot && (inputs.getUIInteraction(player)->itemMenuOpen || players[player]->inventoryUI.bCompactView))
 		{
 			tooltipDelayTick = ticks + TICKS_PER_SECOND / 2;
 		}
 		return;
 	}
-	else if ( prompt == PROMPT_GRAB )
+	else if (prompt == PROMPT_GRAB)
 	{
 		inputs.getUIInteraction(player)->selectedItemFromHotbar = -1;
-		if ( this->player.inventoryUI.isItemFromChest(item) )
+		if (this->player.inventoryUI.isItemFromChest(item))
 		{
 			inputs.getUIInteraction(player)->selectedItemFromChest = item->uid;
 		}
@@ -24697,18 +24697,18 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 		Input::inputs[player].consumeBinaryToggle("MenuLeftClick");
 		return;
 	}
-	else if ( prompt == PROMPT_EAT )
+	else if (prompt == PROMPT_EAT)
 	{
-		if ( !disableItemUsage )
+		if (!disableItemUsage)
 		{
 			useItem(item, player);
 		}
 		return;
 	}
-	else if ( prompt == PROMPT_CONSUME || prompt == PROMPT_CONSUME_ALTERNATE )
+	else if (prompt == PROMPT_CONSUME || prompt == PROMPT_CONSUME_ALTERNATE)
 	{
 		// consume item
-		if ( multiplayer == CLIENT )
+		if (multiplayer == CLIENT)
 		{
 			strcpy((char*)net_packet->data, "FODA");
 			SDLNet_Write32((Uint32)item->type, &net_packet->data[4]);
@@ -24726,33 +24726,33 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 		item_FoodAutomaton(item, player);
 		return;
 	}
-	else if ( prompt == PROMPT_INTERACT 
+	else if (prompt == PROMPT_INTERACT
 		|| prompt == PROMPT_INTERACT_SPELLBOOK_HOTBAR
-		|| prompt == PROMPT_INSPECT 
-		|| prompt == PROMPT_INSPECT_ALTERNATE 
-		|| prompt == PROMPT_TINKER )
+		|| prompt == PROMPT_INSPECT
+		|| prompt == PROMPT_INSPECT_ALTERNATE
+		|| prompt == PROMPT_TINKER)
 	{
-		if ( item->type == TOOL_PLAYER_LOOT_BAG )
+		if (item->type == TOOL_PLAYER_LOOT_BAG)
 		{
-			if ( prompt == PROMPT_INTERACT )
+			if (prompt == PROMPT_INTERACT)
 			{
 				item_ToolLootBag(item, player);
 			}
-			else if ( prompt == PROMPT_INSPECT )
+			else if (prompt == PROMPT_INSPECT)
 			{
 				useItem(item, player);
 			}
 		}
-		else if ( item->type == TOOL_ALEMBIC )
+		else if (item->type == TOOL_ALEMBIC)
 		{
 			// not experimenting
-			if ( GenericGUI[player].alchemyGUI.bOpen && GenericGUI[player].alembicItem == item )
+			if (GenericGUI[player].alchemyGUI.bOpen && GenericGUI[player].alembicItem == item)
 			{
 				GenericGUI[player].closeGUI();
 			}
-			else if ( !disableItemUsage )
+			else if (!disableItemUsage)
 			{
-				if ( item->status > BROKEN )
+				if (item->status > BROKEN)
 				{
 					GenericGUI[player].openGUI(GUI_TYPE_ALCHEMY, true, item);
 				}
@@ -24768,11 +24768,11 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 				playSoundPlayer(player, 90, 64);
 			}
 		}
-		else if ( item->type == TOOL_TINKERING_KIT )
+		else if (item->type == TOOL_TINKERING_KIT)
 		{
-			if ( !disableItemUsage )
+			if (!disableItemUsage)
 			{
-				if ( true /*item->status > BROKEN*/ ) // allow broken tinker kit
+				if (true /*item->status > BROKEN*/) // allow broken tinker kit
 				{
 					GenericGUI[player].openGUI(GUI_TYPE_TINKERING, item);
 				}
@@ -24790,16 +24790,16 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 		}
 		else
 		{
-			if ( !disableItemUsage && prompt == PROMPT_INTERACT_SPELLBOOK_HOTBAR )
+			if (!disableItemUsage && prompt == PROMPT_INTERACT_SPELLBOOK_HOTBAR)
 			{
-				if ( itemCategory(item) == SPELLBOOK )
+				if (itemCategory(item) == SPELLBOOK)
 				{
 					players[player]->magic.spellbookUidFromHotbarSlot = item->uid;
 				}
 				useItem(item, player);
 				players[player]->magic.spellbookUidFromHotbarSlot = 0;
 			}
-			else if ( !disableItemUsage && prompt == PROMPT_INTERACT )
+			else if (!disableItemUsage && prompt == PROMPT_INTERACT)
 			{
 				useItem(item, player);
 			}
@@ -24811,33 +24811,33 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 		}
 		return;
 	}
-	else if ( prompt == PROMPT_EQUIP 
+	else if (prompt == PROMPT_EQUIP
 		|| prompt == PROMPT_UNEQUIP
 		|| prompt == PROMPT_SPELL_EQUIP
-		|| prompt == PROMPT_UNEQUIP_FOR_DROP )
+		|| prompt == PROMPT_UNEQUIP_FOR_DROP)
 	{
-		if ( isItemEquippableInShieldSlot(item) && cast_animation[player].active_spellbook )
+		if (isItemEquippableInShieldSlot(item) && cast_animation[player].active_spellbook)
 		{
 			return; // don't try to equip shields while casting
 		}
 
-		if ( !disableItemUsage )
+		if (!disableItemUsage)
 		{
-			if ( item->status == BROKEN )
+			if (item->status == BROKEN)
 			{
 				messagePlayer(player, MESSAGE_EQUIPMENT, Language::get(1092), item->getName()); // don't try equip broken stuff
 				playSoundPlayer(player, 90, 64);
 				return;
 			}
 
-			if ( prompt == PROMPT_EQUIP
+			if (prompt == PROMPT_EQUIP
 				|| prompt == PROMPT_UNEQUIP
-				|| prompt == PROMPT_UNEQUIP_FOR_DROP )
+				|| prompt == PROMPT_UNEQUIP_FOR_DROP)
 			{
-				if ( items[item->type].item_slot == ItemEquippableSlot::EQUIPPABLE_IN_SLOT_WEAPON
-					|| itemCategory(item) == SPELLBOOK )
+				if (items[item->type].item_slot == ItemEquippableSlot::EQUIPPABLE_IN_SLOT_WEAPON
+					|| itemCategory(item) == SPELLBOOK)
 				{
-					if ( prompt == PROMPT_UNEQUIP_FOR_DROP )
+					if (prompt == PROMPT_UNEQUIP_FOR_DROP)
 					{
 						playerTryEquipItemAndUpdateServer(player, item, false); // don't check inventory space to unequip
 					}
@@ -24849,7 +24849,7 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 				}
 			}
 
-			if ( prompt == PROMPT_UNEQUIP_FOR_DROP )
+			if (prompt == PROMPT_UNEQUIP_FOR_DROP)
 			{
 				useItem(item, player, players[player]->entity, true);
 			}
@@ -24861,7 +24861,7 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 		}
 		else
 		{
-			if ( client_classes[player] == CLASS_SHAMAN && item->type == SPELL_ITEM )
+			if (client_classes[player] == CLASS_SHAMAN && item->type == SPELL_ITEM)
 			{
 				messagePlayer(player, MESSAGE_INVENTORY | MESSAGE_HINT | MESSAGE_EQUIPMENT, Language::get(3488)); // unable to use with current level.
 			}
@@ -24892,11 +24892,10 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 			playSoundPlayer(player, 90, 64);
 		}
 		return;
-		if (prompt == PROMPT_FLIP)
-		{
-			item_flipCoin(item, player);
-		}
-		return;
+	}
+	else if (prompt == PROMPT_FLIP)
+	{
+		item_flipCoin(item, player);
 	}
 }
 

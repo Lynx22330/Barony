@@ -5672,7 +5672,7 @@ void item_flipCoin(Item*& item, int player)
 	printlog("You flip the Coin of Fate...");
 
 	if (local_rng.rand() % 10 == 0) { // 1 in 10 chance of happening
-		switch (local_rng.rand() % 5 == 0)
+		switch (local_rng.rand() % 6)
 		{// 5 possible effects, chosen at random
 		case 0:
 			players[player]->entity->setEffect(EFF_PARALYZED, true, 300, false);

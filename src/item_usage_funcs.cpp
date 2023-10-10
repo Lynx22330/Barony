@@ -5667,31 +5667,32 @@ void item_ToolLootBag(Item*& item, int player)
 	return;
 }
 
-void item_Flipcoin(Item*& item, int player)
-	{
-		printlog("You flip the Coin of Fate...");
+void item_flipCoin(Item*& item, int player)
+{
+	printlog("You flip the Coin of Fate...");
 
-		if (local_rng.rand() % 10 == 0) { // 1 in 10 chance of happening
-			switch (local_rng.rand() % 5 == 0)
-			{// 5 possible effects, chosen at random
-			case 0:
-				players[player]->entity->setEffect(EFF_PARALYZED, true, 300, false);
-				break;
-			case 1:
-				players[player]->entity->setEffect(EFF_VOMITING, true, 300, false);
-				break;
-			case 2:
-				players[player]->entity->setEffect(EFF_INVISIBLE, true, 300, false);
-				break;
-			case 3:
-				players[player]->entity->setEffect(EFF_FEAR, true, 300, false);
-				break;
-			case 4:
-				players[player]->entity->setEffect(EFF_MESSY, true, 300, false);
-				break;
-			case 5:
-				players[player]->entity->setEffect(EFF_DRUNK, true, 300, false);
-				break;
-				return;
-			}
+	if (local_rng.rand() % 10 == 0) { // 1 in 10 chance of happening
+		switch (local_rng.rand() % 5 == 0)
+		{// 5 possible effects, chosen at random
+		case 0:
+			players[player]->entity->setEffect(EFF_PARALYZED, true, 300, false);
+			break;
+		case 1:
+			players[player]->entity->setEffect(EFF_VOMITING, true, 300, false);
+			break;
+		case 2:
+			players[player]->entity->setEffect(EFF_INVISIBLE, true, 300, false);
+			break;
+		case 3:
+			players[player]->entity->setEffect(EFF_FEAR, true, 300, false);
+			break;
+		case 4:
+			players[player]->entity->setEffect(EFF_MESSY, true, 300, false);
+			break;
+		case 5:
+			players[player]->entity->setEffect(EFF_DRUNK, true, 300, false);
+			break;
+			return;
 		}
+	}
+}

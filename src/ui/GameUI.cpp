@@ -24873,15 +24873,15 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 		}
 		return;
 	}
-	else if ( prompt == PROMPT_SPELL_QUICKCAST )
+	else if (prompt == PROMPT_SPELL_QUICKCAST)
 	{
-		if ( !disableItemUsage )
+		if (!disableItemUsage)
 		{
 			players[player]->magic.setQuickCastSpellFromInventory(item);
 		}
 		else
 		{
-			if ( client_classes[player] == CLASS_SHAMAN && item->type == SPELL_ITEM )
+			if (client_classes[player] == CLASS_SHAMAN && item->type == SPELL_ITEM)
 			{
 				messagePlayer(player, MESSAGE_INVENTORY | MESSAGE_HINT | MESSAGE_EQUIPMENT, Language::get(3488)); // unable to use with current level.
 			}
@@ -24890,6 +24890,11 @@ void Player::Inventory_t::activateItemContextMenuOption(Item* item, ItemContextM
 				messagePlayer(player, MESSAGE_INVENTORY | MESSAGE_HINT | MESSAGE_EQUIPMENT, Language::get(3432)); // unable to use in current form message.
 			}
 			playSoundPlayer(player, 90, 64);
+		}
+		return;
+		if (prompt == PROMPT_FLIP)
+		{
+			item_flipCoin(item, player);
 		}
 		return;
 	}

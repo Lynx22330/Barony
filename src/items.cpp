@@ -2751,6 +2751,7 @@ void useItem(Item* item, const int player, Entity* usedBy, bool unequipForDroppi
 				}
 			}
 			break;
+		case TOOL_COINFLIP:
 		default:
 			printlog("error: item %d used, but it has no use case!\n", static_cast<int>(item->type));
 			break;

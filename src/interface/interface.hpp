@@ -1357,7 +1357,8 @@ enum ItemContextMenuPrompts {
 	PROMPT_TINKER,
 	PROMPT_GRAB,
 	PROMPT_UNEQUIP_FOR_DROP,
-	PROMPT_CLEAR_HOTBAR_SLOT
+	PROMPT_CLEAR_HOTBAR_SLOT,
+	PROMPT_FLIP
 };
 
 std::vector<ItemContextMenuPrompts> getContextMenuOptionsForItem(const int player, Item* item);

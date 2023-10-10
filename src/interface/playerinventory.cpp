@@ -10291,6 +10291,7 @@ std::string getContextMenuOptionBindingName(const int player, const ItemContextM
 			}
 		case PROMPT_APPRAISE:
 			return "InventoryTooltipPromptAppraise";
+		case PROMPT_FLIP:
 		default:
 			return "";
 	}
@@ -10341,6 +10342,8 @@ const char* getContextMenuLangEntry(const int player, const ItemContextMenuPromp
 			return Language::get(4050);
 		case PROMPT_DROPDOWN:
 			return Language::get(4040);
+		case PROMPT_FLIP:
+			return Language::get(6024);
 		default:
 			return "Invalid";
 	}
@@ -10487,6 +10490,13 @@ std::vector<ItemContextMenuPrompts> getContextMenuOptionsForItem(const int playe
 	{
 		options.push_back(PROMPT_TINKER);
 		options.push_back(PROMPT_EQUIP);
+		options.push_back(PROMPT_APPRAISE);
+		options.push_back(PROMPT_DROP);
+	}
+	else if (item->type == TOOL_COINFLIP)
+	{
+		options.push_back(PROMPT_EQUIP);
+		options.push_back(PROMPT_FLIP);
 		options.push_back(PROMPT_APPRAISE);
 		options.push_back(PROMPT_DROP);
 	}

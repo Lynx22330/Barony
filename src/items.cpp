@@ -3750,11 +3750,11 @@ Sint32 Item::weaponGetAttack(const Stat* const wielder) const
 	}
 	else if ( type == SLING )
 	{
-		attack += 4;
+		attack += 5;
 	}
 	else if ( type == QUARTERSTAFF )
 	{
-		attack += 4;
+		attack += 5;
 	}
 	else if ( type == BRONZE_SWORD )
 	{
@@ -3762,7 +3762,7 @@ Sint32 Item::weaponGetAttack(const Stat* const wielder) const
 	}
 	else if ( type == BRONZE_MACE )
 	{
-		attack += 4;
+		attack += 5;
 	}
 	else if ( type == BRONZE_AXE )
 	{
@@ -3778,7 +3778,7 @@ Sint32 Item::weaponGetAttack(const Stat* const wielder) const
 	}
 	else if ( type == IRON_MACE )
 	{
-		attack += 5;
+		attack += 6;
 	}
 	else if ( type == IRON_AXE )
 	{
@@ -3794,7 +3794,7 @@ Sint32 Item::weaponGetAttack(const Stat* const wielder) const
 	}
 	else if ( type == STEEL_MACE )
 	{
-		attack += 6;
+		attack += 7;
 	}
 	else if ( type == STEEL_AXE )
 	{
@@ -3822,23 +3822,23 @@ Sint32 Item::weaponGetAttack(const Stat* const wielder) const
 	}
 	else if ( type == SHORTBOW )
 	{
-		attack += 6;
+		attack += 7;
 	}
 	else if ( type == CROSSBOW )
 	{
-		attack += 7;
+		attack += 8;
 	}
 	else if ( type == LONGBOW )
 	{
-		attack += 10;
+		attack += 11;
 	}
 	else if ( type == HEAVY_CROSSBOW )
 	{
-		attack += 16;
+		attack += 18;
 	}
 	else if ( type == COMPOUND_BOW )
 	{
-		attack += 9;
+		attack += 12;
 	}
 	else if ( type == CRYSTAL_SWORD )
 	{
@@ -3858,11 +3858,11 @@ Sint32 Item::weaponGetAttack(const Stat* const wielder) const
 	}
 	else if ( type == BRONZE_TOMAHAWK )
 	{
-		attack += 6;
+		attack += 3;
 	}
 	else if ( type == IRON_DAGGER )
 	{
-		attack += 8;
+		attack += 5;
 	}
 	else if ( type == BOOMERANG )
 	{
@@ -3870,15 +3870,15 @@ Sint32 Item::weaponGetAttack(const Stat* const wielder) const
 	}
 	else if ( type == STEEL_CHAKRAM )
 	{
-		attack += 10;
+		attack += 7;
 	}
 	else if ( type == CRYSTAL_SHURIKEN )
 	{
-		attack += 12;
+		attack += 10;
 	}
 	else if ( type == TOOL_WHIP )
 	{
-		attack += 2;
+		attack += 4;
 	}
 	else if ( type == QUIVER_SILVER )
 	{
@@ -4055,7 +4055,7 @@ Sint32 Item::potionGetEffectDurationMinimum(Entity* my, Stat* myStats) const
 		case POTION_BOOZE:
 			if ( myStats && myStats->type == GOATMAN )
 			{
-				duration = 7500; // 2.5 mins
+				duration = 15000; // 2.5 mins
 			}
 			else
 			{
@@ -4128,7 +4128,7 @@ Sint32 Item::potionGetEffectDurationMaximum(Entity* my, Stat* myStats) const
 		case POTION_BOOZE:
 			if ( myStats && myStats->type == GOATMAN )
 			{
-				duration = 10500; // 3.5 mins
+				duration = 25000; // 3.5 mins
 			}
 			else
 			{
@@ -4434,23 +4434,23 @@ Sint32 Item::armorGetAC(const Stat* const wielder) const
 	}
 	else if ( type == IRON_HELM )
 	{
-		armor += 2;
+		armor += 1;
 	}
 	else if ( type == STEEL_HELM )
 	{
-		armor += 3;
+		armor += 2;
 	}
 	else if ( type == LEATHER_BREASTPIECE )
 	{
-		armor += 2;
+		armor += 1;
 	}
 	else if ( type == IRON_BREASTPIECE )
 	{
-		armor += 3;
+		armor += 2;
 	}
 	else if ( type == STEEL_BREASTPIECE )
 	{
-		armor += 4;
+		armor += 3;
 	}
 	else if ( type == MACHINIST_APRON )
 	{
@@ -4458,7 +4458,7 @@ Sint32 Item::armorGetAC(const Stat* const wielder) const
 	}
 	else if ( type == WIZARD_DOUBLET || type == HEALER_DOUBLET )
 	{
-		armor += 0;
+		armor += 1;
 	}
 	else if ( type == VAMPIRE_DOUBLET )
 	{
@@ -4470,11 +4470,11 @@ Sint32 Item::armorGetAC(const Stat* const wielder) const
 	}
 	else if ( type == BRACERS || type == BRACERS_CONSTITUTION )
 	{
-		armor += 2;
+		armor += 1;
 	}
 	else if ( type == GAUNTLETS || type == GAUNTLETS_STRENGTH )
 	{
-		armor += 3;
+		armor += 2;
 	}
 	else if ( type == LEATHER_BOOTS || type == LEATHER_BOOTS_SPEED )
 	{
@@ -4482,27 +4482,27 @@ Sint32 Item::armorGetAC(const Stat* const wielder) const
 	}
 	else if ( type == IRON_BOOTS || type == IRON_BOOTS_WATERWALKING )
 	{
-		armor += 2;
+		armor += 1;
 	}
 	else if ( type == STEEL_BOOTS || type == STEEL_BOOTS_LEVITATION || type == STEEL_BOOTS_FEATHER )
 	{
-		armor += 3;
+		armor += 2;
 	}
 	else if ( type == WOODEN_SHIELD )
 	{
-		armor += 1;
+		armor -= 0;
 	}
 	else if ( type == BRONZE_SHIELD )
 	{
-		armor += 2;
+		armor += 1;
 	}
 	else if ( type == IRON_SHIELD )
 	{
-		armor += 3;
+		armor += 2;
 	}
 	else if ( type == STEEL_SHIELD || type == STEEL_SHIELD_RESISTANCE )
 	{
-		armor += 4;
+		armor += 3;
 	}
 	else if ( type == CLOAK_PROTECTION )
 	{
@@ -4510,7 +4510,7 @@ Sint32 Item::armorGetAC(const Stat* const wielder) const
 	}
 	else if ( type == RING_PROTECTION )
 	{
-		armor += 1;
+		armor += 2;
 	}
 	else if ( type == CRYSTAL_BREASTPIECE )
 	{
@@ -4526,7 +4526,7 @@ Sint32 Item::armorGetAC(const Stat* const wielder) const
 	}
 	else if ( type == CRYSTAL_SHIELD )
 	{
-		armor += 5;
+		armor += 4;
 	}
 	else if ( type == CRYSTAL_GLOVES )
 	{

@@ -149,17 +149,18 @@ void initClassStats(const int classnum, void* myStats)
 	{
 		// attributes
 		stat->PER -= 0;
-		stat->CON += 2;
+		stat->CON -= 0;
 		stat->DEX -= 1;
 		stat->CHR -= 0;
+		stat->INT += 1;
 
 		// skills
 		stat->PROFICIENCIES[PRO_MACE] = 35;
-		stat->PROFICIENCIES[PRO_SWIMMING] = 35;
-		stat->PROFICIENCIES[PRO_MAGIC] = 15;
+		stat->PROFICIENCIES[PRO_SWIMMING] = 15;
+		stat->PROFICIENCIES[PRO_MAGIC] = 45;
 		stat->PROFICIENCIES[PRO_SPELLCASTING] = 15;
 		stat->PROFICIENCIES[PRO_ALCHEMY] = 25;
-		stat->PROFICIENCIES[PRO_SHIELD] = 45;
+		stat->PROFICIENCIES[PRO_SHIELD] = 15;
 	}
 	// merchant
 	else if ( classnum == CLASS_MERCHANT )
@@ -634,7 +635,7 @@ void initClass(const int player)
 		}
 
 		// iron spear
-		item = newItem(IRON_SPEAR, WORN, 0, 1, 0, true, nullptr);
+		item = newItem(IRON_SPEAR, EXCELLENT, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -648,7 +649,7 @@ void initClass(const int player)
 		}
 
 		// bronze shield
-		item = newItem(BRONZE_SHIELD, WORN, 0, 1, 1, true, nullptr);
+		item = newItem(WOODEN_SHIELD, WORN, 0, 1, 1, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -675,7 +676,7 @@ void initClass(const int player)
 		}
 
 		// iron armor
-		item = newItem(IRON_BREASTPIECE, WORN, 0, 1, 0, true, nullptr);
+		item = newItem(LEATHER_BREASTPIECE, WORN, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -724,7 +725,7 @@ void initClass(const int player)
 		}
 
 		// quarterstaff
-		item = newItem(QUARTERSTAFF, SERVICABLE, 0, 1, 0, true, nullptr);
+		item = newItem(QUARTERSTAFF, SERVICABLE, curseItems ? -1 : 1, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -813,6 +814,18 @@ void initClass(const int player)
 			else
 			{
 				hotbar[9].item = item2->uid;
+			}
+			free(item);
+			// cure ailment spellbook
+			item = newItem(SPELLBOOK_LIGHT, DECREPIT, 0, 1, 1, true, nullptr);
+			item2 = itemPickup(player, item);
+			if (players[player]->hotbar.useHotbarFaceMenu)
+			{
+				hotbar[5].item = item2->uid;
+			}
+			else
+			{
+				hotbar[6].item = item2->uid;
 			}
 			free(item);
 
@@ -1095,7 +1108,7 @@ void initClass(const int player)
 		}
 
 		// wooden shield
-		item = newItem(IRON_SHIELD, WORN, 0, 1, 0, true, nullptr);
+		item = newItem(WOODEN_SHIELD, WORN, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1135,7 +1148,7 @@ void initClass(const int player)
 		}
 
 		// gloves
-		item = newItem(BRACERS, WORN, curseItems ? -1 : 1, 1, 0, true, nullptr);
+		item = newItem(BRACERS, WORN, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1371,8 +1384,8 @@ void initClass(const int player)
 			hotbar[2].item = item2->uid;
 			free(item);
 
-			// spellbook of fireball
-			item = newItem(SPELLBOOK_FIREBALL, SERVICABLE, 2, 1, 3, true, nullptr);
+			// spellbook of Magic Missile
+			item = newItem(SPELLBOOK_MAGICMISSILE, SERVICABLE, 2, 1, 3, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
 			{
@@ -1820,11 +1833,6 @@ void initClass(const int player)
 			hotbar[2].item = item2->uid;
 			free(item);
 			
-			// paralyze potion
-			item = newItem(POTION_PARALYSIS, EXCELLENT, 0, 1, 1, true, nullptr);
-			item2 = itemPickup(player, item);
-			hotbar[4].item = item2->uid;
-			free(item);
 
 			// invis potion
 			item = newItem(POTION_INVISIBILITY, EXCELLENT, 0, 1, 0, true, nullptr);
@@ -2385,7 +2393,7 @@ void initClass(const int player)
 
 		if ( isLocalPlayer )
 		{
-			item = newItem(CRYSTAL_BATTLEAXE, DECREPIT, 0, 1, 0, true, nullptr);
+			item = newItem(CRYSTAL_BATTLEAXE, WORN, 0, 1, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);

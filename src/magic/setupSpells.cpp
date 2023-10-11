@@ -43,7 +43,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellElement_force.mana = 2;
 	spellElement_force.base_mana = 2;
 	spellElement_force.overload_multiplier = 6;
-	spellElement_force.damage = 15;
+	spellElement_force.damage = 20;
 	spellElement_force.duration = 0;
 	strcpy(spellElement_force.element_internal_name, "spell_element_forcebolt");
 
@@ -192,10 +192,10 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_selfPolymorph.element_internal_name, "spell_element_self_polymorph");
 
 	spellElementConstructor(&spellElement_magicmissile);
-	spellElement_magicmissile.mana = 7;
-	spellElement_magicmissile.base_mana = 7;
+	spellElement_magicmissile.mana = 6;
+	spellElement_magicmissile.base_mana = 6;
 	spellElement_magicmissile.overload_multiplier = 1;
-	spellElement_magicmissile.damage = 32;
+	spellElement_magicmissile.damage = 36;
 	spellElement_magicmissile.duration = 0;
 	strcpy(spellElement_magicmissile.element_internal_name, "spell_element_magicmissile");
 
@@ -224,10 +224,10 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_stoneblood.element_internal_name, "spell_element_stoneblood");
 
 	spellElementConstructor(&spellElement_bleed);
-	spellElement_bleed.mana = 10;
-	spellElement_bleed.base_mana = 10;
+	spellElement_bleed.mana = 12;
+	spellElement_bleed.base_mana = 12;
 	spellElement_bleed.overload_multiplier = 1;
-	spellElement_bleed.damage = 30;
+	spellElement_bleed.damage = 36;
 	spellElement_bleed.duration = TICKS_PER_SECOND * SPELLELEMENT_BLEED_BASE_DURATION; //TODO: Decide on something.;
 	strcpy(spellElement_bleed.element_internal_name, "spell_element_bleed");
 
@@ -240,8 +240,8 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_missile_trio.element_internal_name, "spell_element_trio");
 
 	spellElementConstructor(&spellElement_dominate);
-	spellElement_dominate.mana = 35;
-	spellElement_dominate.base_mana = 35;
+	spellElement_dominate.mana = 100;
+	spellElement_dominate.base_mana = 100;
 	spellElement_dominate.overload_multiplier = 1;
 	spellElement_dominate.damage = 0;
 	spellElement_dominate.duration = 0;
@@ -259,7 +259,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellElement_acidSpray.mana = 10;
 	spellElement_acidSpray.base_mana = 10;
 	spellElement_acidSpray.overload_multiplier = 1;
-	spellElement_acidSpray.damage = 10;
+	spellElement_acidSpray.damage = 15;
 	spellElement_acidSpray.duration = TICKS_PER_SECOND * SPELLELEMENT_ACIDSPRAY_BASE_DURATION; //TODO: Decide on something.;
 	strcpy(spellElement_acidSpray.element_internal_name, "spell_element_acid_spray");
 
@@ -323,7 +323,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellElement_poison.mana = 4;
 	spellElement_poison.base_mana = 4;
 	spellElement_poison.overload_multiplier = 1;
-	spellElement_poison.damage = 10;
+	spellElement_poison.damage = 14;
 	spellElement_poison.duration = 0;
 	strcpy(spellElement_poison.element_internal_name, "spell_element_poison");
 
@@ -368,11 +368,11 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_detectFood.element_internal_name, "spell_element_detect_food");
 
 	spellElementConstructor(&spellElement_trollsBlood);
-	spellElement_trollsBlood.mana = 25;
-	spellElement_trollsBlood.base_mana = 25;
+	spellElement_trollsBlood.mana = 15;
+	spellElement_trollsBlood.base_mana = 15;
 	spellElement_trollsBlood.overload_multiplier = 0; //NOTE: Might segfault due to divide by zero?
 	spellElement_trollsBlood.damage = 0;
-	spellElement_trollsBlood.duration = 80 * TICKS_PER_SECOND;
+	spellElement_trollsBlood.duration = 120 * TICKS_PER_SECOND;
 	strcpy(spellElement_trollsBlood.element_internal_name, "spell_element_trolls_blood");
 
 	spellElementConstructor(&spellElement_flutter);

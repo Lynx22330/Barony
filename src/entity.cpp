@@ -6429,6 +6429,7 @@ void Entity::attack(int pose, int charge, Entity* target)
 			}
 			else if ( itemCategory(myStats->weapon) == SPELLBOOK || itemCategory(myStats->weapon) == MAGICSTAFF )
 			{
+				
 				if ( itemCategory(myStats->weapon) == MAGICSTAFF )
 				{
 					switch ( myStats->weapon->type )
@@ -16977,6 +16978,20 @@ int Entity::getManaringFromEquipment(Entity* my, Stat& myStats, bool isPlayer)
 			}
 		}
 	}
+	if (myStats.weapon != nullptr)
+	{
+		if (myStats.weapon->type == MAGICSTAFF_LIGHTNING || MAGICSTAFF_BLEED || MAGICSTAFF_CHARM || MAGICSTAFF_COLD || MAGICSTAFF_DIGGING)
+		{
+			if (myStats.weapon->beatitude <= 0 || cursedItemIsBuff)
+			{
+				manaring++;
+			}
+			else
+			{
+				manaring--;
+			}
+		}
+	}
 	if ( myStats.mask != nullptr )
 	{
 		if ( myStats.mask->type == MASK_SHAMAN && shapeshifted )
@@ -17393,7 +17408,7 @@ bool Entity::setArrowProjectileProperties(int weaponType)
 		return true;
 	}
 
-	if ( weaponType == CROSSBOW || weaponType == SLING || weaponType == HEAVY_CROSSBOW )
+	if ( weaponType == CROSSBOW || weaponType == SLING )
 	{
 		this->vel_z = -0.2;
 		this->arrowSpeed = 6;
@@ -17415,7 +17430,7 @@ bool Entity::setArrowProjectileProperties(int weaponType)
 			this->vel_z = -0.6;
 			this->arrowFallSpeed = 0.08;
 		}
-		else if ( weaponType == LONGBOW )
+		else if ( weaponType == LONGBOW || weaponType == HEAVY_CROSSBOW )
 		{
 			this->arrowSpeed = 8;
 			this->vel_z = -0.4;

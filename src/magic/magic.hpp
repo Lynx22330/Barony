@@ -73,7 +73,7 @@ static const int SPELL_DASH = 51;
 static const int SPELL_SELF_POLYMORPH = 52;
 static const int SPELL_CRAB_FORM = 53;
 static const int SPELL_CRAB_WEB = 54;
-static const int SPELL_MAGICTEST = 55;
+static const int SPELL_POISON_FLAME = 55;
 static const int NUM_SPELLS = 56;
 
 
@@ -118,6 +118,7 @@ static const int SPELLELEMENT_ACIDSPRAY_BASE_DURATION = 5;
 #define MAGICSTAFF_LIGHT_DURATION 6000
 
 #define HEAL_RADIUS 128
+#define EFFECT_RADIUS 64
 
 /*** misc effect particles ***/
 static const int PARTICLE_EFFECT_ABILITY_ROCK = 1;
@@ -394,6 +395,7 @@ extern spellElement_t spellElement_shadowTag;
 extern spellElement_t spellElement_telePull;
 extern spellElement_t spellElement_demonIllusion;
 extern spellElement_t spellElement_trollsBlood;
+extern spellElement_t spellElement_poisonFlame;
 extern spellElement_t spellElement_salvageItem;
 extern spellElement_t spellElement_flutter;
 extern spellElement_t spellElement_dash;
@@ -492,7 +494,7 @@ extern spell_t spell_salvageItem;
 extern spell_t spell_flutter;
 extern spell_t spell_dash;
 extern spell_t spell_polymorph;
-extern spell_t spell_magicTest;
+extern spell_t spell_poisonFlame;
 //TODO: Armor/protection/warding spells.
 //TODO: Targeting method?
 

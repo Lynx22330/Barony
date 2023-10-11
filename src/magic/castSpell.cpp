@@ -1248,9 +1248,58 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				caster->setEffect(EFF_TROLLS_BLOOD, true, element->duration, true);
 			}
 
+
 			playSoundEntity(caster, 168, 128);
 			spawnMagicEffectParticles(caster->x, caster->y, caster->z, 169);
 		}
+		else if (!strcmp(element->element_internal_name, spellElement_poisonFlame.element_internal_name))
+		{
+			for (int i = 0; i < MAXPLAYERS; ++i)
+			{
+				if (players[i] && caster && (caster == players[i]->entity))
+				{
+					int amount = element->duration;
+					amount += ((spellBookBonusPercent * 2 / 100.f) * amount); // 100-200%
+
+					if (overdrewIntoHP)
+					{
+						amount /= 4;
+						messagePlayerColor(player, MESSAGE_COMBAT, makeColorRGB(255, 255, 255), Language::get(3400));
+					}
+
+					Uint32 color = makeColorRGB(0, 255, 0);
+					messagePlayerColor(i, MESSAGE_HINT, color, Language::get(3490));
+					for (node = map.creatures->first; node; node = node->next)
+					{
+						Entity* entity = (Entity*)(node->element);
+						if (!entity || entity == caster)
+						{
+							continue;
+						}
+						if (entity->behavior != &actPlayer && entity->behavior != &actMonster)
+						{
+							continue;
+						}
+
+						if (entityDist(entity, caster) <= EFFECT_RADIUS && entity->checkEnemy(caster))
+						{
+							entity->setEffect(EFF_POISONED, true, amount, true);
+							entity->SetEntityOnFire();
+							playSoundEntity(entity, 168, 128);
+							spawnMagicEffectParticles(entity->x, entity->y, entity->z, 169);
+							if (entity->behavior == &actPlayer)
+							{
+								messagePlayerColor(entity->skill[2], MESSAGE_HINT, color, Language::get(3490));
+							}
+						}
+					}
+					break;
+				}
+			}
+
+			playSoundEntity(caster, 168, 128);
+			spawnMagicEffectParticles(caster->x, caster->y, caster->z, 169);
+			}
 		else if ( !strcmp(element->element_internal_name, spellElement_flutter.element_internal_name) )
 		{
 			for ( int i = 0; i < MAXPLAYERS; ++i )

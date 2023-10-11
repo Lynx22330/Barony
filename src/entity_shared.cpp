@@ -455,6 +455,7 @@ char itemNameStrings[NUM_ITEM_STRINGS][32] =
 	"scroll_conjurearrow",
 	"monocle",
 	"tool_player_loot_bag",
+	"spellbook_poison_flame",
 	""
 };
 

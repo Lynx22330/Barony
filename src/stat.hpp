@@ -60,6 +60,7 @@ static const int EFF_TROLLS_BLOOD = 35;
 static const int EFF_FLUTTER = 36;
 static const int EFF_DASH = 37;
 static const int EFF_DISTRACTED_COOLDOWN = 38;
+static const int EFF_POISON_FLAME = 39;
 static const int NUMEFFECTS = 40;
 
 // stats

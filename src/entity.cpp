@@ -1556,6 +1556,7 @@ void Entity::effectTimes()
 						messagePlayer(player, MESSAGE_STATUS, Language::get(3491));
 						updateClient = true;
 						break;
+					case EFF_POISON_FLAME:
 					case EFF_KNOCKBACK:
 						break;
 					case EFF_WITHDRAWAL:
@@ -6669,6 +6670,9 @@ void Entity::attack(int pose, int charge, Entity* target)
 							break;
 						case SPELLBOOK_FEAR:
 							castSpell(uid, &spell_fear, true, false);
+							break;
+						case SPELLBOOK_POISON_FLAME:
+							castSpell(uid, &spell_poisonFlame, true, false);
 							break;
 						//case SPELLBOOK_REFLECT_MAGIC: //TODO: Test monster support. Maybe better to just use a special ability that directly casts the spell.
 						//castSpell(uid, &spell_reflectMagic, true, false)

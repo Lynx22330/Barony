@@ -70,6 +70,7 @@ spellElement_t spellElement_shadowTag;
 spellElement_t spellElement_telePull;
 spellElement_t spellElement_demonIllusion;
 spellElement_t spellElement_trollsBlood;
+spellElement_t spellElement_poisonFlame;
 spellElement_t spellElement_salvageItem;
 spellElement_t spellElement_flutter;
 spellElement_t spellElement_dash;
@@ -114,6 +115,7 @@ spell_t spell_trollForm;
 spell_t spell_impForm;
 spell_t spell_sprayWeb;
 spell_t spell_poison;
+spell_t spell_poisonFlame;
 spell_t spell_speed;
 spell_t spell_fear;
 spell_t spell_strike;
@@ -304,6 +306,9 @@ bool addSpell(int spell, int player, bool ignoreSkill)
 		    break;
 		case SPELL_CRAB_WEB:
 			new_spell = copySpell(&spell_sprayWeb);
+			break;
+		case SPELL_POISON_FLAME:
+			new_spell = copySpell(&spell_poisonFlame);
 			break;
 		default:
 			return false;
@@ -852,6 +857,9 @@ spell_t* getSpellFromID(int ID)
 		case SPELL_CRAB_WEB:
 			spell = &spell_sprayWeb;
 			break;
+		case SPELL_POISON_FLAME:
+			spell = &spell_poisonFlame;
+			break;
 		default:
 			break;
 	}
@@ -1026,6 +1034,9 @@ int getSpellbookFromSpellID(int spellID)
 		case SPELL_CRAB_WEB:
 			itemType = SPELLBOOK_10;
 			break;
+		case SPELL_POISON_FLAME:
+			itemType = SPELLBOOK_POISON_FLAME;
+			break;
 		default:
 			break;
 	}
@@ -1143,6 +1154,8 @@ int getSpellIDFromSpellbook(int spellbookType)
 			return spell_spiderForm.ID;
 		case SPELLBOOK_10:
 			return spell_sprayWeb.ID;
+		case SPELLBOOK_POISON_FLAME:
+			return spell_poisonFlame.ID;
 		default:
 			return SPELL_NONE;
 	}

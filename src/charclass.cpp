@@ -1497,7 +1497,7 @@ void initClass(const int player)
 			free(item);
 
 			// spellbook of forcebolt
-			item = newItem(SPELLBOOK_FORCEBOLT, WORN, 1, 1, 6, true, nullptr);
+			item = newItem(SPELLBOOK_FORCEBOLTTWO, WORN, 1, 1, 6, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
 			{

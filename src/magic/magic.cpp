@@ -27,6 +27,7 @@
 void freeSpells()
 {
 	list_FreeAll(&spell_forcebolt.elements);
+	list_FreeAll(&spell_forcebolttwo.elements);
 	list_FreeAll(&spell_magicmissile.elements);
 	list_FreeAll(&spell_cold.elements);
 	list_FreeAll(&spell_fireball.elements);

@@ -28,6 +28,7 @@ spellElement_t spellElement_unintelligible;
 spellElement_t spellElement_missile;
 spellElement_t spellElement_missile_trio;
 spellElement_t spellElement_force;
+spellElement_t spellElement_forcetwo;
 spellElement_t spellElement_fire;
 spellElement_t spellElement_lightning;
 spellElement_t spellElement_light;
@@ -76,6 +77,7 @@ spellElement_t spellElement_dash;
 spellElement_t spellElement_selfPolymorph;
 
 spell_t spell_forcebolt;
+spell_t spell_forcebolttwo;
 spell_t spell_magicmissile;
 spell_t spell_cold;
 spell_t spell_fireball;
@@ -145,6 +147,9 @@ bool addSpell(int spell, int player, bool ignoreSkill)
 	{
 		case SPELL_FORCEBOLT:
 			new_spell = copySpell(&spell_forcebolt);
+			break;
+		case SPELL_FORCEBOLTTWO:
+			new_spell = copySpell(&spell_forcebolttwo);
 			break;
 		case SPELL_MAGICMISSILE:
 			new_spell = copySpell(&spell_magicmissile);
@@ -690,6 +695,9 @@ spell_t* getSpellFromID(int ID)
 		case SPELL_FORCEBOLT:
 			spell = &spell_forcebolt;
 			break;
+		case SPELL_FORCEBOLTTWO:
+			spell = &spell_forcebolttwo;
+			break;
 		case SPELL_MAGICMISSILE:
 			spell = &spell_magicmissile;
 			break;
@@ -1026,6 +1034,8 @@ int getSpellbookFromSpellID(int spellID)
 		case SPELL_CRAB_WEB:
 			itemType = SPELLBOOK_10;
 			break;
+		case SPELL_FORCEBOLTTWO:
+			itemType = SPELLBOOK_FORCEBOLTTWO;
 		default:
 			break;
 	}
@@ -1143,6 +1153,8 @@ int getSpellIDFromSpellbook(int spellbookType)
 			return spell_spiderForm.ID;
 		case SPELLBOOK_10:
 			return spell_sprayWeb.ID;
+		case SPELLBOOK_FORCEBOLTTWO:
+			return spell_forcebolttwo.ID;
 		default:
 			return SPELL_NONE;
 	}

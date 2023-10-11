@@ -455,6 +455,7 @@ char itemNameStrings[NUM_ITEM_STRINGS][32] =
 	"scroll_conjurearrow",
 	"monocle",
 	"tool_player_loot_bag",
+	"spellbook_forcebolttwo",
 	""
 };
 
@@ -608,6 +609,7 @@ char itemStringsByType[10][NUM_ITEM_STRINGS_BY_TYPE][32] =
 		"artifact_orb_red",
 		"artifact_orb_purple",
 		"artifact_orb_green",
+		"spellbook_forcebolttwo"
 		""
 	},
 	{

@@ -2475,6 +2475,7 @@ void useItem(Item* item, const int player, Entity* usedBy, bool unequipForDroppi
 			equipItemResult = equipItem(item, &stats[player]->ring, player, checkInventorySpaceForPaperDoll);
 			break;
 		case SPELLBOOK_FORCEBOLT:
+		case SPELLBOOK_FORCEBOLTTWO:
 		case SPELLBOOK_MAGICMISSILE:
 		case SPELLBOOK_COLD:
 		case SPELLBOOK_FIREBALL:

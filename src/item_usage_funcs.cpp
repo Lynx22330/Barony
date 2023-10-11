@@ -5062,6 +5062,9 @@ void item_Spellbook(Item*& item, int player)
 			case SPELLBOOK_FORCEBOLT:
 				learned = addSpell(SPELL_FORCEBOLT, player);
 				break;
+			case SPELLBOOK_FORCEBOLTTWO:
+				learned = addSpell(SPELL_FORCEBOLTTWO, player);
+				break;
 			case SPELLBOOK_MAGICMISSILE:
 				learned = addSpell(SPELL_MAGICMISSILE, player);
 				break;

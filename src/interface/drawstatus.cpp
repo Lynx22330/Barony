@@ -3734,6 +3734,7 @@ void getSpellEffectString(int spellID, char effectTextBuffer[256], char spellTyp
 	switch ( spellID )
 	{
 		case SPELL_FORCEBOLT:
+		case SPELL_FORCEBOLTTWO:
 		case SPELL_MAGICMISSILE:
 		case SPELL_LIGHTNING:
 			snprintf(effectTextBuffer, 255, Language::get(3289), value);

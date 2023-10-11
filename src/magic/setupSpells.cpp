@@ -47,6 +47,14 @@ void setupSpells()   ///TODO: Verify this function.
 	spellElement_force.duration = 0;
 	strcpy(spellElement_force.element_internal_name, "spell_element_forcebolt");
 
+	spellElementConstructor(&spellElement_forcetwo);
+	spellElement_forcetwo.mana = 1;
+	spellElement_forcetwo.base_mana = 1;
+	spellElement_forcetwo.overload_multiplier = 1;
+	spellElement_forcetwo.damage = 12;
+	spellElement_forcetwo.duration = 1000;
+	strcpy(spellElement_forcetwo.element_internal_name, "spell_element_forcebolttwo");
+
 	spellElementConstructor(&spellElement_fire);
 	spellElement_fire.mana = 6;
 	spellElement_fire.base_mana = 6;
@@ -441,6 +449,26 @@ void setupSpells()   ///TODO: Verify this function.
 	node->size = sizeof(spellElement_t);
 	node->deconstructor = &spellElementDeconstructor;
 	element = (spellElement_t*) node->element;
+	element->node = node;
+
+	spellConstructor(&spell_forcebolttwo);
+	strcpy(spell_forcebolttwo.spell_internal_name, "spell_forcebolttwo");
+	spell_forcebolttwo.ID = SPELL_FORCEBOLTTWO;
+	spell_forcebolttwo.difficulty = 0;
+	node = list_AddNodeLast(&spell_forcebolttwo.elements);
+	node->element = copySpellElement(&spellElement_forcetwo);
+	node->size = sizeof(spellElement_t);
+	node->deconstructor = &spellElementDeconstructor;
+	element = (spellElement_t*)node->element;
+	element->node = node; //Tell the element what list it resides in.
+	//Now for the second element.
+	element->elements.first = NULL;
+	element->elements.last = NULL;
+	node = list_AddNodeLast(&element->elements);
+	node->element = copySpellElement(&spellElement_missile);
+	node->size = sizeof(spellElement_t);
+	node->deconstructor = &spellElementDeconstructor;
+	element = (spellElement_t*)node->element;
 	element->node = node;
 
 	spellConstructor(&spell_magicmissile);

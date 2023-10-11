@@ -9182,6 +9182,7 @@ bool GenericGUIMenu::tinkeringGetItemValue(const Item* item, int* metal, int* ma
 		case SCROLL_FOOD:
 		case SCROLL_SUMMON:
 		case SPELLBOOK_FORCEBOLT:
+		case SPELLBOOK_FORCEBOLTTWO:
 		case SPELLBOOK_LIGHT:
 		case SPELLBOOK_SLOW:
 		case SPELLBOOK_LOCKING:

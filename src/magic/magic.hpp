@@ -74,7 +74,8 @@ static const int SPELL_SELF_POLYMORPH = 52;
 static const int SPELL_CRAB_FORM = 53;
 static const int SPELL_CRAB_WEB = 54;
 static const int SPELL_MAGICTEST = 55;
-static const int NUM_SPELLS = 56;
+static const int SPELL_FORCEBOLTTWO = 56;
+static const int NUM_SPELLS = 57;
 
 
 #define SPELLELEMENT_CONFUSE_BASE_DURATION 2//In seconds.
@@ -216,6 +217,15 @@ extern spellElement_t spellElement_missile;
  * Treshold effects (in concjunction with missile only? Maybe apply it to all spells that use it in general to give those spells a piercing quality): Every 10 points of mana, it pierces an additional enemy (or gains one more bounce?).
  */
 extern spellElement_t spellElement_force;
+
+/*
+ * The force element gives a spell properties related with force. For example, when it is attached onto a missile element, it creates a projectile of pure force.
+ * Base cost: 2 mana.
+ * Base damage: 1.
+ * Overload: Every 2 additional points of mana put into this spell increaes its damage by 1.
+ * Treshold effects (in concjunction with missile only? Maybe apply it to all spells that use it in general to give those spells a piercing quality): Every 10 points of mana, it pierces an additional enemy (or gains one more bounce?).
+ */
+extern spellElement_t spellElement_forcetwo;
 
 /*
  * The fire element gives a spell fire properties. Duh.
@@ -440,6 +450,7 @@ extern std::vector<spell_t*> allGameSpells; // to iterate over for quickly findi
 //Sleep just sets an effect.
 //TODO: Major spells. AoE spells. Zone spells. Etc.
 extern spell_t spell_forcebolt; //Done.
+extern spell_t spell_forcebolttwo; //Functional in-game, needs better effects.
 extern spell_t spell_magicmissile; //Done. //TODO: Better effects?
 extern spell_t spell_cold; //Done.
 extern spell_t spell_fireball; //Done.

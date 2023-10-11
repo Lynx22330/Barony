@@ -361,6 +361,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 
 #define PROPULSION_MISSILE 1
 #define PROPULSION_MISSILE_TRIO 2
+#define PROPULSION_FORCETWO 1.5
 	int chance = 0;
 	int propulsion = 0;
 	int traveltime = 0;
@@ -638,30 +639,50 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				}
 			}
 			traveltime += (((element->mana + extramagic_to_use) - element->base_mana) / static_cast<double>(element->overload_multiplier)) * element->duration;
-			if ( caster->behavior == &actBoulder )
+			if (caster->behavior == &actBoulder)
 			{
 				traveltime /= 4; // lava boulder casting.
 			}
 		}
-		else if ( !strcmp(element->element_internal_name, spellElement_missile_trio.element_internal_name) )
+		else if (!strcmp(element->element_internal_name, spellElement_missile_trio.element_internal_name))
 		{
 			//Set the propulsion to missile.
 			propulsion = PROPULSION_MISSILE_TRIO;
 			traveltime = element->duration;
-			if ( newbie )
+			if (newbie)
 			{
 				//This guy's a newbie. There's a chance they've screwed up and negatively impacted the efficiency of the spell.
 				chance = local_rng.rand() % 10;
-				if ( chance >= spellcasting / 10 )
+				if (chance >= spellcasting / 10)
 				{
 					traveltime -= local_rng.rand() % (1000 / (spellcasting + 1));
 				}
-				if ( traveltime < 30 )
+				if (traveltime < 30)
 				{
 					traveltime = 30;    //Range checking.
 				}
 			}
 			traveltime += (((element->mana + extramagic_to_use) - element->base_mana) / static_cast<double>(element->overload_multiplier)) * element->duration;
+		}
+		else if (!strcmp(element->element_internal_name, spellElement_forcetwo.element_internal_name))
+		{
+			//Set the propulsion to missile.
+			propulsion = PROPULSION_FORCETWO;
+			traveltime = element->duration;
+			if (newbie)
+			{
+				//This guy's a newbie. There's a chance they've screwed up and negatively impacted the efficiency of the spell.
+				chance = local_rng.rand() % 10;
+				if (chance >= spellcasting / 10)
+				{
+					traveltime -= local_rng.rand() % (1000 / (spellcasting + 1));
+				}
+				if (traveltime < 30)
+				{
+					traveltime = 30;    //Range checking.
+				}
+			}
+			traveltime += ((element->mana + extramagic_to_use) / static_cast<double>(element->overload_multiplier)) * element->duration;
 		}
 		else if (!strcmp(element->element_internal_name, spellElement_light.element_internal_name))
 		{
@@ -2008,18 +2029,18 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				}
 			}
 		}
-		else if ( propulsion == PROPULSION_MISSILE_TRIO )
+		else if (propulsion == PROPULSION_MISSILE_TRIO)
 		{
 			real_t angle = PI / 6;
 			real_t baseSpeed = 2;
 			real_t baseSideSpeed = 1;
 			int sprite = 170;
-			if ( !strcmp(spell->spell_internal_name, spell_stoneblood.spell_internal_name) )
+			if (!strcmp(spell->spell_internal_name, spell_stoneblood.spell_internal_name))
 			{
 				angle = PI / 6;
 				baseSpeed = 2;
 			}
-			else if ( !strcmp(spell->spell_internal_name, spell_acidSpray.spell_internal_name) )
+			else if (!strcmp(spell->spell_internal_name, spell_acidSpray.spell_internal_name))
 			{
 				sprite = 597;
 				angle = PI / 16;
@@ -2027,7 +2048,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				baseSideSpeed = 2;
 				traveltime = 20;
 			}
-			else if ( !strcmp(spell->spell_internal_name, spell_sprayWeb.spell_internal_name) )
+			else if (!strcmp(spell->spell_internal_name, spell_sprayWeb.spell_internal_name))
 			{
 				sprite = arachnophobia_filter ? 996 : 861;
 				angle = PI / 16;
@@ -2139,7 +2160,117 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 			node->deconstructor = &spellDeconstructor;
 			node->size = sizeof(spell_t);
 		}
+		else if (propulsion == PROPULSION_FORCETWO)
+		{
+			real_t angle = PI / 3;
+			real_t baseSpeed = 2;
+			real_t baseSideSpeed = 1;
+			int sprite = 170;
 
+			missileEntity = newEntity(168, 1, map.entities, nullptr); // red magic ball
+			missileEntity->parent = caster->getUID();
+			missileEntity->x = caster->x;
+			missileEntity->y = caster->y;
+			missileEntity->z = -1;
+			missileEntity->sizex = 1;
+			missileEntity->sizey = 1;
+			missileEntity->yaw = caster->yaw;
+			missileEntity->flags[UPDATENEEDED] = true;
+			missileEntity->flags[PASSABLE] = true;
+			missileEntity->behavior = &actMagicMissile;
+			missileEntity->sprite = sprite;
+
+			double missile_speed = baseSpeed * (element->mana / static_cast<double>(element->overload_multiplier)); //TODO: Factor in base mana cost?
+			missileEntity->vel_x = cos(missileEntity->yaw) * (missile_speed);
+			missileEntity->vel_y = sin(missileEntity->yaw) * (missile_speed);
+
+			missileEntity->skill[4] = 0;
+			missileEntity->skill[5] = traveltime;
+			if (using_magicstaff)
+			{
+				missileEntity->actmagicCastByMagicstaff = 1;
+			}
+			else if (usingSpellbook && spellBookBonusPercent > 0)
+			{
+				missileEntity->actmagicSpellbookBonus = spellBookBonusPercent;
+			}
+			node = list_AddNodeFirst(&missileEntity->children);
+			node->element = copySpell(spell);
+			((spell_t*)node->element)->caster = caster->getUID();
+			node->deconstructor = &spellDeconstructor;
+			node->size = sizeof(spell_t);
+
+			playSoundEntity(missileEntity, spellGetCastSound(spell), 128);
+
+			result = missileEntity;
+
+			Entity* entity1 = newEntity(168, 1, map.entities, nullptr); // red magic ball
+			entity1->parent = caster->getUID();
+			entity1->x = caster->x;
+			entity1->y = caster->y;
+			entity1->z = -1;
+			entity1->sizex = 1;
+			entity1->sizey = 1;
+			entity1->yaw = caster->yaw - angle;
+			entity1->flags[UPDATENEEDED] = true;
+			entity1->flags[PASSABLE] = true;
+			entity1->behavior = &actMagicMissile;
+			entity1->sprite = sprite;
+
+			missile_speed = baseSideSpeed * (element->mana / static_cast<double>(element->overload_multiplier)); //TODO: Factor in base mana cost?
+			entity1->vel_x = cos(entity1->yaw) * (missile_speed);
+			entity1->vel_y = sin(entity1->yaw) * (missile_speed);
+
+			entity1->skill[4] = 0;
+			entity1->skill[5] = traveltime;
+			if (using_magicstaff)
+			{
+				entity1->actmagicCastByMagicstaff = 1;
+			}
+			else if (usingSpellbook && spellBookBonusPercent > 0)
+			{
+				entity1->actmagicSpellbookBonus = spellBookBonusPercent;
+			}
+			node = list_AddNodeFirst(&entity1->children);
+			node->element = copySpell(spell);
+			((spell_t*)node->element)->caster = caster->getUID();
+			node->deconstructor = &spellDeconstructor;
+			node->size = sizeof(spell_t);
+
+			Entity* entity2 = newEntity(168, 1, map.entities, nullptr); // red magic ball
+			entity2->parent = caster->getUID();
+			entity2->x = caster->x;
+			entity2->y = caster->y;
+			entity2->z = -1;
+			entity2->sizex = 1;
+			entity2->sizey = 1;
+			entity2->yaw = caster->yaw + angle;
+			entity2->flags[UPDATENEEDED] = true;
+			entity2->flags[PASSABLE] = true;
+			entity2->behavior = &actMagicMissile;
+			entity2->sprite = sprite;
+
+			missile_speed = baseSideSpeed * (element->mana / static_cast<double>(element->overload_multiplier)); //TODO: Factor in base mana cost?
+			entity2->vel_x = cos(entity2->yaw) * (missile_speed);
+			entity2->vel_y = sin(entity2->yaw) * (missile_speed);
+
+			entity2->skill[4] = 0;
+			entity2->skill[5] = traveltime;
+			if (using_magicstaff)
+			{
+				entity2->actmagicCastByMagicstaff = 1;
+			}
+			else if (usingSpellbook && spellBookBonusPercent > 0)
+			{
+				entity2->actmagicSpellbookBonus = spellBookBonusPercent;
+			}
+			node = list_AddNodeFirst(&entity2->children);
+			node->element = copySpell(spell);
+			((spell_t*)node->element)->caster = caster->getUID();
+			node->deconstructor = &spellDeconstructor;
+			node->size = sizeof(spell_t);
+		}
+		
 		extramagic_to_use = 0;
 		if (extramagic > 0)
 		{

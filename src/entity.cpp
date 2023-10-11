@@ -6582,6 +6582,22 @@ void Entity::attack(int pose, int charge, Entity* target)
 								castSpell(uid, &spell_forcebolt, true, false);
 							}
 							break;
+						case SPELLBOOK_FORCEBOLTTWO:
+							if (myStats->type == SPELLBOT)
+							{
+								Entity* cast = castSpell(uid, &spell_forcebolt, true, false);
+								if (cast)
+								{
+									cast->z -= 1;
+									cast->x = this->x + 2 * cos(this->yaw);
+									cast->y = this->y + 2 * sin(this->yaw);
+								}
+							}
+							else
+							{
+								castSpell(uid, &spell_forcebolt, true, false);
+							}
+							break;
 						case SPELLBOOK_MAGICMISSILE:
 							if ( myStats->type == SPELLBOT )
 							{

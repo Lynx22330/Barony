@@ -379,8 +379,8 @@ void setupSpells()   ///TODO: Verify this function.
 	spellElement_poisonFlame.mana = 30;
 	spellElement_poisonFlame.base_mana = 30;
 	spellElement_poisonFlame.overload_multiplier = 0;
-	spellElement_poisonFlame.damage = 5;
-	spellElement_poisonFlame.duration = 80 * TICKS_PER_SECOND;
+	spellElement_poisonFlame.damage = 10;
+	spellElement_poisonFlame.duration = 150 * TICKS_PER_SECOND;
 	strcpy(spellElement_poisonFlame.element_internal_name, "spell_element_poison_flame");
 
 	spellElementConstructor(&spellElement_flutter);
@@ -1205,7 +1205,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_poisonFlame);
 	strcpy(spell_poisonFlame.spell_internal_name, "spell_poison_flame");
 	spell_poisonFlame.ID = SPELL_POISON_FLAME;
-	spell_poisonFlame.difficulty = 40;
+	spell_poisonFlame.difficulty = 25;
 	spell_poisonFlame.elements.first = NULL;
 	spell_poisonFlame.elements.last = NULL;
 	node = list_AddNodeLast(&spell_poisonFlame.elements);

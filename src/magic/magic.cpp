@@ -74,6 +74,7 @@ void freeSpells()
 	list_FreeAll(&spell_telePull.elements);
 	list_FreeAll(&spell_demonIllusion.elements);
 	list_FreeAll(&spell_trollsBlood.elements);
+	list_FreeAll(&spell_poisonFlame.elements);
 	list_FreeAll(&spell_salvageItem.elements);
 	list_FreeAll(&spell_flutter.elements);
 	list_FreeAll(&spell_dash.elements);
@@ -488,6 +489,114 @@ void spellEffectPoison(Entity& my, spellElement_t& element, Entity* parent, int 
 			hit.entity->doorHandleDamageMagic(damage, my, parent);
 		}
 		else if ( hit.entity->isDamageableCollider() && hit.entity->isColliderDamageableByMagic() )
+		{
+			hit.entity->colliderHandleDamageMagic(damage, my, parent);
+		}
+		spawnMagicEffectParticles(hit.entity->x, hit.entity->y, hit.entity->z, my.sprite);
+	}
+	else
+	{
+		spawnMagicEffectParticles(my.x, my.y, my.z, my.sprite);
+	}
+}
+
+void spellEffectPoisonFlame(Entity& my, spellElement_t& element, Entity* parent, int resistance)
+{
+	playSoundEntity(&my, 173, 128);
+	if (hit.entity)
+	{
+		int damage = element.damage;
+		damage += damage * ((my.actmagicSpellbookBonus / 100.f) + getBonusFromCasterOfSpellElement(parent, nullptr, &element));
+		//damage += ((element->mana - element->base_mana) / static_cast<double>(element->overload_multiplier)) * element->damage;
+
+		if (hit.entity->behavior == &actMonster || hit.entity->behavior == &actPlayer)
+		{
+			Entity* parent = uidToEntity(my.parent);
+			if (!(svFlags & SV_FLAG_FRIENDLYFIRE))
+			{
+				// test for friendly fire
+				if (parent && parent->checkFriend(hit.entity))
+				{
+					return;
+				}
+			}
+			playSoundEntity(hit.entity, 249, 64);
+
+			Stat* hitstats = hit.entity->getStats();
+			if (!hitstats)
+			{
+				return;
+			}
+
+			// write the obituary
+			if (parent)
+			{
+				parent->killedByMonsterObituary(hit.entity);
+			}
+
+			{
+				if (my.actmagicCastByMagicstaff == 1)
+				{
+					hit.entity->setEffect(EFF_POISONED, true, 320, true); // 6 seconds.
+					hit.entity->SetEntityOnFire();
+				}
+				else
+				{
+					hit.entity->setEffect(EFF_POISONED, true, std::max(200, 350 - hit.entity->getCON() * 5), true); // 4-7 seconds.
+					hit.entity->SetEntityOnFire();
+				}
+				hitstats->poisonKiller = my.parent;
+			}
+
+			if (hit.entity->behavior == &actPlayer)
+			{
+				serverUpdateEffects(hit.entity->skill[2]);
+			}
+			// hit messages
+			if (parent)
+			{
+				Uint32 color = makeColorRGB(0, 255, 0);
+				if (parent->behavior == &actPlayer)
+				{
+					messagePlayerMonsterEvent(parent->skill[2], color, *hitstats, Language::get(3427), Language::get(3426), MSG_COMBAT);
+				}
+			}
+
+			// update enemy bar for attacker
+			if (!strcmp(hitstats->name, ""))
+			{
+				updateEnemyBar(parent, hit.entity, getMonsterLocalizedName(hitstats->type).c_str(), hitstats->HP, hitstats->MAXHP,
+					false, DamageGib::DMG_TODO);
+			}
+			else
+			{
+				updateEnemyBar(parent, hit.entity, hitstats->name, hitstats->HP, hitstats->MAXHP,
+					false, DamageGib::DMG_TODO);
+			}
+
+			if (hitstats->HP <= 0 && parent)
+			{
+				parent->awardXP(hit.entity, true, true);
+				spawnBloodVialOnMonsterDeath(hit.entity, hitstats);
+			}
+
+			Uint32 color = makeColorRGB(255, 0, 0);
+
+			int player = -1;
+			if (hit.entity->behavior == &actPlayer)
+			{
+				player = hit.entity->skill[2];
+			}
+			if (player >= 0)
+			{
+				messagePlayerColor(player, MESSAGE_COMBAT, color, Language::get(3428));
+			}
+		}
+		else if (hit.entity->behavior == &actDoor)
+		{
+			hit.entity->doorHandleDamageMagic(damage, my, parent);
+		}
+		else if (hit.entity->isDamageableCollider() && hit.entity->isColliderDamageableByMagic())
 		{
 			hit.entity->colliderHandleDamageMagic(damage, my, parent);
 		}

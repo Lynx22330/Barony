@@ -3977,6 +3977,11 @@ void getSpellEffectString(int spellID, char effectTextBuffer[256], char spellTyp
 			break;
 		case SPELL_CRAB_FORM:
 		case SPELL_CRAB_WEB:
+		case SPELL_POISON_FLAME:
+			snprintf(spellType, 31, Language::get(3301));
+			snprintf(effectTextBuffer, 255, Language::get(6024));
+			*spellInfoLines = 2;
+			break;
 		default:
 			break;
 	}

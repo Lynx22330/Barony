@@ -233,6 +233,10 @@ void actMagiclightBall(Entity* my)
 					if (deducted)
 					{
 						lightball_timer = spell->channel_duration / getCostOfSpell(spell);
+						if (local_rng.rand() % 33 == 0)
+						{
+							caster->increaseSkill(PRO_SPELLCASTING);
+						}
 					}
 					else
 					{

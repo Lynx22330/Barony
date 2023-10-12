@@ -1179,7 +1179,7 @@ void initClass(const int player)
 			item2 = itemPickup(player, item);
 			free(item);
 
-			item = newItem(SPELLBOOK_TROLLS_BLOOD, DECREPIT, 0, 1, 8, true, nullptr);
+			item = newItem(SPELLBOOK_POISON_FLAME, DECREPIT, 0, 1, 8, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
 			{

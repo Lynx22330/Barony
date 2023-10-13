@@ -1259,7 +1259,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				if (players[i] && caster && (caster == players[i]->entity))
 				{
 					int amount = element->duration;
-					amount += ((spellBookBonusPercent * 2 / 100.f) * amount); // 100-200%
+					amount += ((spellBookBonusPercent * 4 / 100.f) * amount); // 200-400%
 
 					if (overdrewIntoHP)
 					{

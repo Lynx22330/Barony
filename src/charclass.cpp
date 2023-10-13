@@ -149,18 +149,18 @@ void initClassStats(const int classnum, void* myStats)
 	{
 		// attributes
 		stat->PER -= 0;
-		stat->CON -= 0;
+		stat->CON -= 1;
 		stat->DEX -= 1;
 		stat->CHR -= 0;
-		stat->INT += 1;
+		stat->INT += 2;
 
 		// skills
-		stat->PROFICIENCIES[PRO_MACE] = 35;
+		stat->PROFICIENCIES[PRO_MACE] = 25;
 		stat->PROFICIENCIES[PRO_SWIMMING] = 15;
-		stat->PROFICIENCIES[PRO_MAGIC] = 45;
-		stat->PROFICIENCIES[PRO_SPELLCASTING] = 15;
+		stat->PROFICIENCIES[PRO_MAGIC] = 35;
+		stat->PROFICIENCIES[PRO_SPELLCASTING] = 10;
 		stat->PROFICIENCIES[PRO_ALCHEMY] = 25;
-		stat->PROFICIENCIES[PRO_SHIELD] = 15;
+		stat->PROFICIENCIES[PRO_SHIELD] = 20;
 	}
 	// merchant
 	else if ( classnum == CLASS_MERCHANT )
@@ -1182,6 +1182,18 @@ void initClass(const int player)
 			item = newItem(SPELLBOOK_POISON_FLAME, DECREPIT, 0, 1, 8, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
+			{
+				hotbar[8].item = item2->uid;
+			}
+			else
+			{
+				hotbar[9].item = item2->uid;
+			}
+			free(item);
+
+			item = newItem(SPELLBOOK_POISON_FLAME, DECREPIT, 0, 1, 8, true, nullptr);
+			item2 = itemPickup(player, item);
+			if (players[player]->hotbar.useHotbarFaceMenu)
 			{
 				hotbar[8].item = item2->uid;
 			}

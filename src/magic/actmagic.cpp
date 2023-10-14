@@ -2126,6 +2126,7 @@ void actMagicMissile(Entity* my)   //TODO: Verify this function.
 							playSoundEntity(hit.entity, 28, 128);
 							int damage = element->damage;
 							damage += (spellbookDamageBonus * damage);
+							hit.entity->setEffect(EFF_PARALYZED, true, 50, false);
 							if ( my->actmagicIsOrbiting == 2 )
 							{
 								if ( parent && my->actmagicOrbitCastFromSpell == 0 )

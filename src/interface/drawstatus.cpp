@@ -3570,7 +3570,7 @@ int drawSpellTooltip(const int player, spell_t* spell, Item* item, SDL_Rect* src
 				damage += (damage * (bonus * 0.01 + getBonusFromCasterOfSpellElement(players[player]->entity, stats[player], primaryElement)));
 				heal += (heal * (bonus * 0.01 + getBonusFromCasterOfSpellElement(players[player]->entity, stats[player], primaryElement)));
 			}
-			if ( spell->ID == SPELL_HEALING || spell->ID == SPELL_EXTRAHEALING )
+			 if ( spell->ID == SPELL_HEALING || spell->ID == SPELL_EXTRAHEALING )
 			{
 				damage = heal;
 			}

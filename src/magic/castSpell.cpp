@@ -1259,7 +1259,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 				if (players[i] && caster && (caster == players[i]->entity))
 				{
 					int amount = element->duration;
-					amount += ((spellBookBonusPercent * 2 / 100.f) * amount); // 100-200%
+					amount += ((spellBookBonusPercent * 4 / 100.f) * amount); // 200-400%
 
 					if (overdrewIntoHP)
 					{
@@ -1373,7 +1373,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 					
 					//duration += (((element->mana + extramagic_to_use) - element->base_mana) / static_cast<double>(element->overload_multiplier)) * element->duration;
 					//if ( newbie )
-					//{
+					//{	
 					//	//This guy's a newbie. There's a chance they've screwed up and negatively impacted the efficiency of the spell.
 					//	chance = local_rng.rand() % 10;
 					//	if ( chance >= spellcasting / 10 )
@@ -1436,7 +1436,11 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 			{
 				if ( players[i] && caster && (caster == players[i]->entity) )
 				{
-					int amount = element->damage * (((element->mana + extramagic_to_use) / static_cast<double>(element->base_mana)) * element->overload_multiplier); //Amount to heal.
+					int amount = element->damage * ((((element->mana + extramagic_to_use) / static_cast<double>(element->base_mana)) * element->overload_multiplier) * 0.8); //Amount to heal.
+					if (players[i] && caster && (caster == players[i]->entity) && client_classes[player] == CLASS_HEALER)
+						amount = element->damage * ((((element->mana + extramagic_to_use) / static_cast<double>(element->base_mana)) * element->overload_multiplier) * 2); //Amount to heal.
+					if (players[i] && caster && (caster == players[i]->entity) && client_classes[player] == CLASS_HEALER && stats[player]->playerRace == RACE_VAMPIRE)
+						amount = element->damage * ((((element->mana + extramagic_to_use) / static_cast<double>(element->base_mana)) * element->overload_multiplier) * 0.9); //Amount to heal.
 					if (newbie)
 					{
 						//This guy's a newbie. There's a chance they've screwed up and negatively impacted the efficiency of the spell.

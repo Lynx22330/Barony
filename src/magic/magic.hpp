@@ -106,10 +106,10 @@ static const int SPELLELEMENT_ACIDSPRAY_BASE_DURATION = 5;
 #define lightball_flicker my->skill[10]
 #define lightball_lighting  my->skill[11]
 #define lightball_timer my->skill[12] //How long it has left to live.
-#define LIGHTBALL_MOVE_DELAY 3 //How long the lightball is to delay before starting to follow the player.
+#define LIGHTBALL_MOVE_DELAY 2 //How long the lightball is to delay before starting to follow the player.
 #define LIGHTBALL_HOVER_HIGHPEAK (-1.0f)
 #define LIGHTBALL_HOVER_LOWPEAK (1.0f)
-#define MAGICLIGHT_BALL_FOLLOW_DISTANCE 4
+#define MAGICLIGHT_BALL_FOLLOW_DISTANCE 2
 #define LIGHTBALL_CIRCLE_TIME 180
 #define MAGIC_LIGHTBALL_SPEEDLIMIT 10.0f
 #define MAGIC_LIGHTBALL_TURNSPEED 5
@@ -118,7 +118,7 @@ static const int SPELLELEMENT_ACIDSPRAY_BASE_DURATION = 5;
 #define MAGICSTAFF_LIGHT_DURATION 6000
 
 #define HEAL_RADIUS 128
-#define EFFECT_RADIUS 64
+#define EFFECT_RADIUS 256
 
 /*** misc effect particles ***/
 static const int PARTICLE_EFFECT_ABILITY_ROCK = 1;

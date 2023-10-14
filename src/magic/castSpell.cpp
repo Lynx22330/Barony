@@ -1439,6 +1439,8 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 					int amount = element->damage * ((((element->mana + extramagic_to_use) / static_cast<double>(element->base_mana)) * element->overload_multiplier) * 0.8); //Amount to heal.
 					if (players[i] && caster && (caster == players[i]->entity) && client_classes[player] == CLASS_HEALER)
 						amount = element->damage * ((((element->mana + extramagic_to_use) / static_cast<double>(element->base_mana)) * element->overload_multiplier) * 2); //Amount to heal.
+					if (players[i] && caster && (caster == players[i]->entity) && client_classes[player] == CLASS_HEALER && stats[player]->playerRace == RACE_VAMPIRE)
+						amount = element->damage * ((((element->mana + extramagic_to_use) / static_cast<double>(element->base_mana)) * element->overload_multiplier) * 0.9); //Amount to heal.
 					if (newbie)
 					{
 						//This guy's a newbie. There's a chance they've screwed up and negatively impacted the efficiency of the spell.

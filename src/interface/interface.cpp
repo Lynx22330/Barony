@@ -9386,6 +9386,10 @@ bool GenericGUIMenu::tinkeringGetItemValue(const Item* item, int* metal, int* ma
 			*metal = 16;
 			*magic = 16;
 			break;
+		case ARTIFACT_RING:
+			*metal = 8;
+			*magic = 8;
+			break;
 
 		case TOOL_SENTRYBOT:
 		case TOOL_SPELLBOT:

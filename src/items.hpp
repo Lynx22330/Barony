@@ -308,9 +308,10 @@ typedef enum ItemType
 	SCROLL_CONJUREARROW,
 	MONOCLE,
 	TOOL_PLAYER_LOOT_BAG,
-	SPELLBOOK_POISON_FLAME
+	SPELLBOOK_POISON_FLAME,
+	ARTIFACT_RING
 } ItemType;
-const int NUMITEMS = 290;
+const int NUMITEMS = 291;
 
 //NOTE: If you change this, make sure to update NUMCATEGORIES in game.h to reflect the total number of categories. Not doing that will make bad things happen.
 typedef enum Category

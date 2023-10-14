@@ -120,8 +120,8 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_confuse.element_internal_name, "spell_element_confuse");
 
 	spellElementConstructor(&spellElement_cure_ailment);
-	spellElement_cure_ailment.mana = 15;
-	spellElement_cure_ailment.base_mana = 15;
+	spellElement_cure_ailment.mana = 6;
+	spellElement_cure_ailment.base_mana = 6;
 	spellElement_cure_ailment.overload_multiplier = 0;
 	spellElement_cure_ailment.damage = 0;
 	spellElement_cure_ailment.duration = 0;

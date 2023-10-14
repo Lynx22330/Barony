@@ -456,6 +456,7 @@ char itemNameStrings[NUM_ITEM_STRINGS][32] =
 	"monocle",
 	"tool_player_loot_bag",
 	"spellbook_poison_flame",
+	"artifact_ring",
 	""
 };
 
@@ -679,6 +680,7 @@ char itemStringsByType[10][NUM_ITEM_STRINGS_BY_TYPE][32] =
 		"ring_levitation",
 		"ring_regeneration",
 		"ring_teleportation",
+		"artifact_ring",
 		""
 	},
 	{

@@ -2746,23 +2746,23 @@ void Entity::handleEffects(Stat* myStats)
 	int i, c;
 	int player = -1;
 
-	if ( !myStats )
+	if (!myStats)
 	{
 		return;
 	}
-	if ( this->behavior == &actPlayer )
+	if (this->behavior == &actPlayer)
 	{
 		player = this->skill[2];
 
 		// god mode and buddha mode
-		if ( godmode )
+		if (godmode)
 		{
 			myStats->HP = myStats->MAXHP;
 			myStats->MP = myStats->MAXMP;
 		}
-		else if ( buddhamode )
+		else if (buddhamode)
 		{
-			if ( myStats->HP <= 0 )
+			if (myStats->HP <= 0)
 			{
 				myStats->HP = 1;
 			}
@@ -2775,17 +2775,17 @@ void Entity::handleEffects(Stat* myStats)
 	auto& camera_shakey2 = cameravars[player >= 0 ? player : 0].shakey2;
 
 	// sleep Zs
-	if ( myStats->EFFECTS[EFF_ASLEEP] && ticks % 30 == 0 )
+	if (myStats->EFFECTS[EFF_ASLEEP] && ticks % 30 == 0)
 	{
 		spawnSleepZ(this->x + cos(this->yaw) * 2, this->y + sin(this->yaw) * 2, this->z);
 	}
 
 	int startingHPInHandleEffects = myStats->HP;
 
-	if ( creatureShadowTaggedThisUid != 0 )
+	if (creatureShadowTaggedThisUid != 0)
 	{
 		Entity* tagged = uidToEntity(creatureShadowTaggedThisUid);
-		if ( !tagged )
+		if (!tagged)
 		{
 			creatureShadowTaggedThisUid = 0;
 			serverUpdateEntitySkill(this, 54);
@@ -2793,7 +2793,7 @@ void Entity::handleEffects(Stat* myStats)
 		else
 		{
 			Stat* tagStats = tagged->getStats();
-			if ( tagStats && !tagStats->EFFECTS[EFF_SHADOW_TAGGED] ) // effect timed out.
+			if (tagStats && !tagStats->EFFECTS[EFF_SHADOW_TAGGED]) // effect timed out.
 			{
 				creatureShadowTaggedThisUid = 0;
 				serverUpdateEntitySkill(this, 54);
@@ -2801,18 +2801,18 @@ void Entity::handleEffects(Stat* myStats)
 		}
 	}
 
-	if ( *cvar_noxp )
+	if (*cvar_noxp)
 	{
 		myStats->EXP = 0;
 	}
 
 	// level ups
-	if ( myStats->EXP >= 100 )
+	if (myStats->EXP >= 100)
 	{
 		myStats->EXP -= 100;
 		myStats->LVL++;
 
-		if ( player >= 0 && players[player]->isLocalPlayer() )
+		if (player >= 0 && players[player]->isLocalPlayer())
 		{
 			players[player]->hud.xpBar.animateState = Player::HUD_t::AnimateStates::ANIMATE_LEVELUP_RISING;
 			players[player]->hud.xpBar.xpLevelups++;
@@ -2831,10 +2831,10 @@ void Entity::handleEffects(Stat* myStats)
 		{
 			myStats->MP += 1 + (std::max(myStats->INT, 1) * 0.75 + myStats->PROFICIENCIES[PRO_MAGIC] * 0.01);
 			myStats->MAXMP += 1 + (std::max(myStats->INT, 1) * 0.75 + myStats->PROFICIENCIES[PRO_MAGIC] * 0.01);
-			if ( behavior == &actPlayer && myStats->playerRace == RACE_INSECTOID && myStats->appearance == 0 )
+			if (behavior == &actPlayer && myStats->playerRace == RACE_INSECTOID && myStats->appearance == 0)
 			{
 				myStats->MAXMP = std::min(50, myStats->MAXMP);
-				if ( svFlags & SV_FLAG_HUNGER )
+				if (svFlags & SV_FLAG_HUNGER)
 				{
 					Sint32 hungerPointPerMana = playerInsectoidHungerValueOfManaPoint(*myStats);
 					myStats->HUNGER += MP_MOD * hungerPointPerMana;
@@ -2847,19 +2847,19 @@ void Entity::handleEffects(Stat* myStats)
 
 		// now pick three attributes to increase
 
-		if ( player >= 0 )
+		if (player >= 0)
 		{
 			// players only.
 			this->playerStatIncrease(client_classes[player], increasestat);
 		}
-		else if ( behavior == &actMonster && monsterAllySummonRank != 0 )
+		else if (behavior == &actMonster && monsterAllySummonRank != 0)
 		{
 			bool secondSummon = false;
-			if ( MonsterData_t::nameMatchesSpecialNPCName(*myStats, "skeleton knight") )
+			if (MonsterData_t::nameMatchesSpecialNPCName(*myStats, "skeleton knight"))
 			{
 				this->playerStatIncrease(CLASS_WARRIOR, increasestat); // warrior weighting
 			}
-			else if ( MonsterData_t::nameMatchesSpecialNPCName(*myStats, "skeleton sentinel") )
+			else if (MonsterData_t::nameMatchesSpecialNPCName(*myStats, "skeleton sentinel"))
 			{
 				secondSummon = true;
 				this->playerStatIncrease(CLASS_ROGUE, increasestat); // rogue weighting
@@ -2867,10 +2867,10 @@ void Entity::handleEffects(Stat* myStats)
 
 			bool rankUp = false;
 
-			if ( myStats->type == SKELETON )
+			if (myStats->type == SKELETON)
 			{
 				int rank = myStats->LVL / 5;
-				if ( rank <= 6 && myStats->LVL % 5 == 0 )
+				if (rank <= 6 && myStats->LVL % 5 == 0)
 				{
 					// went up a rank (every 5 LVLs)
 					rank = std::min(1 + rank, 7);
@@ -2879,46 +2879,46 @@ void Entity::handleEffects(Stat* myStats)
 					serverSpawnMiscParticles(this, PARTICLE_EFFECT_RISING_DROP, 791);
 					skeletonSummonSetEquipment(myStats, std::min(7, 1 + (myStats->LVL / 5)));
 				}
-				else if ( myStats->LVL == 35 )
+				else if (myStats->LVL == 35)
 				{
 					steamAchievementClient(this->monsterAllyIndex, "BARONY_ACH_BONE_TO_PICK");
 				}
 			}
 
-			for ( i = 0; i < 3; i++ )
+			for (i = 0; i < 3; i++)
 			{
-				switch ( increasestat[i] )
+				switch (increasestat[i])
 				{
-					case STAT_STR:
-						myStats->STR++;
-						break;
-					case STAT_DEX:
-						myStats->DEX++;
-						break;
-					case STAT_CON:
-						myStats->CON++;
-						break;
-					case STAT_INT:
-						myStats->INT++;
-						break;
-					case STAT_PER:
-						myStats->PER++;
-						break;
-					case STAT_CHR:
-						myStats->CHR++;
-						break;
-					default:
-						break;
+				case STAT_STR:
+					myStats->STR++;
+					break;
+				case STAT_DEX:
+					myStats->DEX++;
+					break;
+				case STAT_CON:
+					myStats->CON++;
+					break;
+				case STAT_INT:
+					myStats->INT++;
+					break;
+				case STAT_PER:
+					myStats->PER++;
+					break;
+				case STAT_CHR:
+					myStats->CHR++;
+					break;
+				default:
+					break;
 				}
 
 			}
 			Entity* leader = uidToEntity(myStats->leader_uid);
-			if ( leader )
+			if (leader)
 			{
 				Stat* leaderStats = leader->getStats();
-				if ( leaderStats )
+				if (leaderStats)
 				{
-					if ( !secondSummon )
+					if (!secondSummon)
 					{
 						leaderStats->playerSummonLVLHP = (myStats->LVL << 16);
 						leaderStats->playerSummonLVLHP |= (myStats->MAXHP);
@@ -2946,10 +2946,10 @@ void Entity::handleEffects(Stat* myStats)
 						leaderStats->playerSummon2PERCHR |= (myStats->CHR << 16);
 						leaderStats->playerSummon2PERCHR |= (this->monsterAllySummonRank << 8);
 					}
-					if ( leader->behavior == &actPlayer )
+					if (leader->behavior == &actPlayer)
 					{
 						serverUpdatePlayerSummonStrength(leader->skill[2]);
-						if ( rankUp )
+						if (rankUp)
 						{
 							color = makeColorRGB(255, 255, 0);
 							messagePlayerMonsterEvent(leader->skill[2], color, *myStats, Language::get(3197), Language::get(3197), MSG_GENERIC);
@@ -2964,44 +2964,44 @@ void Entity::handleEffects(Stat* myStats)
 			// monsters use this.
 			Entity::monsterRollLevelUpStats(increasestat);
 
-			for ( i = 0; i < 3; i++ )
+			for (i = 0; i < 3; i++)
 			{
-				switch ( increasestat[i] )
+				switch (increasestat[i])
 				{
-					case STAT_STR:
-						myStats->STR++;
-						break;
-					case STAT_DEX:
-						myStats->DEX++;
-						break;
-					case STAT_CON:
-						myStats->CON++;
-						break;
-					case STAT_INT:
-						myStats->INT++;
-						break;
-					case STAT_PER:
-						myStats->PER++;
-						break;
-					case STAT_CHR:
-						myStats->CHR++;
-						break;
-					default:
-						break;
+				case STAT_STR:
+					myStats->STR++;
+					break;
+				case STAT_DEX:
+					myStats->DEX++;
+					break;
+				case STAT_CON:
+					myStats->CON++;
+					break;
+				case STAT_INT:
+					myStats->INT++;
+					break;
+				case STAT_PER:
+					myStats->PER++;
+					break;
+				case STAT_CHR:
+					myStats->CHR++;
+					break;
+				default:
+					break;
 				}
 			}
 		}
 
-		if ( behavior == &actMonster )
+		if (behavior == &actMonster)
 		{
-			if ( myStats->leader_uid )
+			if (myStats->leader_uid)
 			{
 				Entity* leader = uidToEntity(myStats->leader_uid);
-				if ( leader )
+				if (leader)
 				{
-					for ( i = 0; i < MAXPLAYERS; ++i )
+					for (i = 0; i < MAXPLAYERS; ++i)
 					{
-						if ( players[i] && players[i]->entity == leader )
+						if (players[i] && players[i]->entity == leader)
 						{
 							color = makeColorRGB(0, 255, 0);
 							messagePlayerMonsterEvent(i, color, *myStats, Language::get(2379), Language::get(2379), MSG_GENERIC);
@@ -3013,9 +3013,9 @@ void Entity::handleEffects(Stat* myStats)
 			}
 		}
 
-		if ( player >= 0 )
+		if (player >= 0)
 		{
-			for ( i = 0; i < NUMSTATS * 2; ++i )
+			for (i = 0; i < NUMSTATS * 2; ++i)
 			{
 				myStats->PLAYER_LVL_STAT_TIMER[i] = 0;
 			}
@@ -3024,116 +3024,116 @@ void Entity::handleEffects(Stat* myStats)
 			int statIconTicks = 250;
 
 			std::vector<LevelUpAnimation_t::LevelUp_t::StatUp_t> StatUps;
-			for ( i = 0; i < 3; i++ )
+			for (i = 0; i < 3; i++)
 			{
 				messagePlayerColor(player, MESSAGE_SPAM_MISC, color, Language::get(623 + increasestat[i]));
-				switch ( increasestat[i] )
+				switch (increasestat[i])
 				{
-					case STAT_STR: // STR
-						StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->STR, 1));
-						myStats->STR++;
-						myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
-						if ( myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat )
+				case STAT_STR: // STR
+					StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->STR, 1));
+					myStats->STR++;
+					myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
+					if (myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat)
+					{
+						if (local_rng.rand() % 5 == 0)
 						{
-							if ( local_rng.rand() % 5 == 0 )
-							{
-								StatUps.at(StatUps.size() - 1).increaseStat += 1;
-								myStats->STR++;
-								rolledBonusStat = true;
-								myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
-								//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
-							}
+							StatUps.at(StatUps.size() - 1).increaseStat += 1;
+							myStats->STR++;
+							rolledBonusStat = true;
+							myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
+							//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
 						}
-						break;
-					case STAT_DEX: // DEX
-						StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->DEX, 1));
-						myStats->DEX++;
-						myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
-						if ( myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat )
+					}
+					break;
+				case STAT_DEX: // DEX
+					StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->DEX, 1));
+					myStats->DEX++;
+					myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
+					if (myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat)
+					{
+						if (local_rng.rand() % 5 == 0)
 						{
-							if ( local_rng.rand() % 5 == 0 )
-							{
-								StatUps.at(StatUps.size() - 1).increaseStat += 1;
-								myStats->DEX++;
-								rolledBonusStat = true;
-								myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
-								//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
-							}
+							StatUps.at(StatUps.size() - 1).increaseStat += 1;
+							myStats->DEX++;
+							rolledBonusStat = true;
+							myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
+							//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
 						}
-						break;
-					case STAT_CON: // CON
-						StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->CON, 1));
-						myStats->CON++;
-						myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
-						if ( myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat )
+					}
+					break;
+				case STAT_CON: // CON
+					StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->CON, 1));
+					myStats->CON++;
+					myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
+					if (myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat)
+					{
+						if (local_rng.rand() % 5 == 0)
 						{
-							if ( local_rng.rand() % 5 == 0 )
-							{
-								StatUps.at(StatUps.size() - 1).increaseStat += 1;
-								myStats->CON++;
-								rolledBonusStat = true;
-								myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
-								//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
-							}
+							StatUps.at(StatUps.size() - 1).increaseStat += 1;
+							myStats->CON++;
+							rolledBonusStat = true;
+							myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
+							//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
 						}
-						break;
-					case STAT_INT: // INT
-						StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->INT, 1));
-						myStats->INT++;
-						myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
-						if ( myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat )
+					}
+					break;
+				case STAT_INT: // INT
+					StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->INT, 1));
+					myStats->INT++;
+					myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
+					if (myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat)
+					{
+						if (local_rng.rand() % 5 == 0)
 						{
-							if ( local_rng.rand() % 5 == 0 )
-							{
-								StatUps.at(StatUps.size() - 1).increaseStat += 1;
-								myStats->INT++;
-								rolledBonusStat = true;
-								myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
-								//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
-							}
+							StatUps.at(StatUps.size() - 1).increaseStat += 1;
+							myStats->INT++;
+							rolledBonusStat = true;
+							myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
+							//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
 						}
-						break;
-					case STAT_PER: // PER
-						StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->PER, 1));
-						myStats->PER++;
-						myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
-						if ( myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat )
+					}
+					break;
+				case STAT_PER: // PER
+					StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->PER, 1));
+					myStats->PER++;
+					myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
+					if (myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat)
+					{
+						if (local_rng.rand() % 5 == 0)
 						{
-							if ( local_rng.rand() % 5 == 0 )
-							{
-								StatUps.at(StatUps.size() - 1).increaseStat += 1;
-								myStats->PER++;
-								rolledBonusStat = true;
-								myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
-								//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
-							}
+							StatUps.at(StatUps.size() - 1).increaseStat += 1;
+							myStats->PER++;
+							rolledBonusStat = true;
+							myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
+							//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
 						}
-						break;
-					case STAT_CHR: // CHR
-						StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->CHR, 1));
-						myStats->CHR++;
-						myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
-						if ( myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat )
+					}
+					break;
+				case STAT_CHR: // CHR
+					StatUps.push_back(LevelUpAnimation_t::LevelUp_t::StatUp_t(increasestat[i], myStats->CHR, 1));
+					myStats->CHR++;
+					myStats->PLAYER_LVL_STAT_TIMER[increasestat[i]] = statIconTicks;
+					if (myStats->PLAYER_LVL_STAT_BONUS[increasestat[i]] >= PRO_LOCKPICKING && !rolledBonusStat)
+					{
+						if (local_rng.rand() % 5 == 0)
 						{
-							if ( local_rng.rand() % 5 == 0 )
-							{
-								StatUps.at(StatUps.size() - 1).increaseStat += 1;
-								myStats->CHR++;
-								rolledBonusStat = true;
-								myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
-								//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
-							}
+							StatUps.at(StatUps.size() - 1).increaseStat += 1;
+							myStats->CHR++;
+							rolledBonusStat = true;
+							myStats->PLAYER_LVL_STAT_TIMER[increasestat[i] + NUMSTATS] = statIconTicks;
+							//messagePlayer(0, "Rolled bonus in %d", increasestat[i]);
 						}
-						break;
+					}
+					break;
 				}
 			}
 
-			for ( i = 0; i < MAXPLAYERS; ++i )
+			for (i = 0; i < MAXPLAYERS; ++i)
 			{
 				// broadcast a player levelled up to other players.
-				if ( i != player )
+				if (i != player)
 				{
-					if ( client_disconnected[i] || multiplayer == SINGLE )
+					if (client_disconnected[i] || multiplayer == SINGLE)
 					{
 						continue;
 					}
@@ -3141,16 +3141,16 @@ void Entity::handleEffects(Stat* myStats)
 				}
 			}
 
-			if ( players[player]->isLocalPlayer() )
+			if (players[player]->isLocalPlayer())
 			{
 				levelUpAnimation[player].addLevelUp(stats[player]->LVL, 1, StatUps);
 			}
 		}
 
 		// inform clients of stat changes
-		if ( multiplayer == SERVER )
+		if (multiplayer == SERVER)
 		{
-			if ( player > 0 && !players[player]->isLocalPlayer() )
+			if (player > 0 && !players[player]->isLocalPlayer())
 			{
 				strcpy((char*)net_packet->data, "ATTR");
 				net_packet->data[4] = clientnum;
@@ -3193,7 +3193,7 @@ void Entity::handleEffects(Stat* myStats)
 			serverUpdatePlayerLVL(); // update all clients of party levels.
 		}
 
-		for ( i = 0; i < NUMSTATS; ++i )
+		for (i = 0; i < NUMSTATS; ++i)
 		{
 			myStats->PLAYER_LVL_STAT_BONUS[i] = -1;
 		}
@@ -3202,9 +3202,9 @@ void Entity::handleEffects(Stat* myStats)
 	// hunger
 	int hungerTickRate = Entity::getHungerTickRate(myStats, behavior == &actPlayer, true);
 	int vampiricHunger = 0;
-	if ( myStats->EFFECTS[EFF_VAMPIRICAURA] )
+	if (myStats->EFFECTS[EFF_VAMPIRICAURA])
 	{
-		if ( myStats->EFFECTS_TIMERS[EFF_VAMPIRICAURA] == -2 )
+		if (myStats->EFFECTS_TIMERS[EFF_VAMPIRICAURA] == -2)
 		{
 			vampiricHunger = 2;
 		}
@@ -3214,9 +3214,9 @@ void Entity::handleEffects(Stat* myStats)
 		}
 	}
 	bool processHunger = (svFlags & SV_FLAG_HUNGER) && !MFLAG_DISABLEHUNGER; // check server flags if hunger is enabled.
-	if ( player >= 0 )
+	if (player >= 0)
 	{
-		if ( myStats->type == SKELETON || myStats->type == AUTOMATON )
+		if (myStats->type == SKELETON || myStats->type == AUTOMATON)
 		{
 			processHunger = false;
 		}
@@ -3224,30 +3224,30 @@ void Entity::handleEffects(Stat* myStats)
 
 	bool playerAutomaton = (myStats->type == AUTOMATON && player >= 0);
 
-	if ( playerAutomaton )
+	if (playerAutomaton)
 	{
-		if ( ticks % (hungerTickRate / 2) == 0 )
+		if (ticks % (hungerTickRate / 2) == 0)
 		{
 			//messagePlayer(0, "hungertick %d, curr %d, players: %d", hungerTickRate, myStats->HUNGER, playerCount);
-			if ( myStats->HUNGER > 0 )
+			if (myStats->HUNGER > 0)
 			{
 				bool update = (myStats->HUNGER % 100 == 0);
-				if ( myStats->HUNGER > 300 && myStats->HUNGER <= 600 )
+				if (myStats->HUNGER > 300 && myStats->HUNGER <= 600)
 				{
 					update = (myStats->HUNGER % 25 == 0); // critical levels for players to show hunger meter.
 				}
 				myStats->HUNGER--;
-				if ( update )
+				if (update)
 				{
 					serverUpdateHunger(player);
 				}
-				if ( myStats->HUNGER == 299 )
+				if (myStats->HUNGER == 299)
 				{
 					messagePlayer(player, MESSAGE_STATUS, Language::get(3708));
 					messagePlayer(player, MESSAGE_STATUS, Language::get(3709));
 					playSoundPlayer(player, 32, 128);
 				}
-				else if ( myStats->HUNGER == 0 )
+				else if (myStats->HUNGER == 0)
 				{
 					messagePlayer(player, MESSAGE_STATUS, Language::get(3708));
 					messagePlayer(player, MESSAGE_STATUS, Language::get(3710));
@@ -3260,29 +3260,29 @@ void Entity::handleEffects(Stat* myStats)
 			}
 		}
 	}
-	
-	if ( !processHunger && !playerAutomaton )
+
+	if (!processHunger && !playerAutomaton)
 	{
-		if ( behavior == &actMonster )
+		if (behavior == &actMonster)
 		{
 			myStats->HUNGER = 500;
 		}
-		else if ( myStats->HUNGER < 100 )
+		else if (myStats->HUNGER < 100)
 		{
 			myStats->HUNGER = 100;
 			serverUpdateHunger(player);
 		}
-		else if ( myStats->type == SKELETON && myStats->HUNGER > 1500 )
+		else if (myStats->type == SKELETON && myStats->HUNGER > 1500)
 		{
 			myStats->HUNGER = 1499;
 			serverUpdateHunger(player);
 		}
-		if ( vampiricHunger > 0 )
+		if (vampiricHunger > 0)
 		{
-			if ( ticks % (TICKS_PER_SECOND * 25) == 0 )
+			if (ticks % (TICKS_PER_SECOND * 25) == 0)
 			{
 				this->modHP(-1);
-				if ( myStats->HP <= 0 )
+				if (myStats->HP <= 0)
 				{
 					this->setObituary(Language::get(1530));
 					myStats->killer = KilledBy::STARVATION;
@@ -3291,19 +3291,19 @@ void Entity::handleEffects(Stat* myStats)
 				// Give the Player feedback on being hurt
 				playSoundEntity(this, 28, 64); // "Damage.ogg"
 
-				if ( myStats->HP > 0 )
+				if (myStats->HP > 0)
 				{
 					messagePlayer(player, MESSAGE_STATUS, Language::get(3253));
 
 					// Shake the Host's screen
-					if ( myStats->HP <= 10 )
+					if (myStats->HP <= 10)
 					{
-						if ( player >= 0 && players[player]->isLocalPlayer() )
+						if (player >= 0 && players[player]->isLocalPlayer())
 						{
 							camera_shakex += .1;
 							camera_shakey += 10;
 						}
-						else if ( player > 0 && multiplayer == SERVER && !players[player]->isLocalPlayer() )
+						else if (player > 0 && multiplayer == SERVER && !players[player]->isLocalPlayer())
 						{
 							// Shake the Client's screen
 							strcpy((char*)net_packet->data, "SHAK");
@@ -3319,10 +3319,10 @@ void Entity::handleEffects(Stat* myStats)
 			}
 		}
 	}
-	else if ( ticks % hungerTickRate == 0 )
+	else if (ticks % hungerTickRate == 0)
 	{
 		//messagePlayer(0, "hungertick %d, curr %d, players: %d", hungerTickRate, myStats->HUNGER, playerCount);
-		if ( myStats->HUNGER > 0 && !playerAutomaton )
+		if (myStats->HUNGER > 0 && !playerAutomaton)
 		{
 			myStats->HUNGER--;
 			Sint32 noLongerFull = getEntityHungerInterval(player, this, myStats, HUNGER_INTERVAL_OVERSATIATED);
@@ -3330,35 +3330,35 @@ void Entity::handleEffects(Stat* myStats)
 			Sint32 youFeelWeak = getEntityHungerInterval(player, this, myStats, HUNGER_INTERVAL_WEAK);
 			Sint32 youFeelFaint = getEntityHungerInterval(player, this, myStats, HUNGER_INTERVAL_STARVING);
 
-			if ( myStats->HUNGER == noLongerFull )
+			if (myStats->HUNGER == noLongerFull)
 			{
-				if ( !myStats->EFFECTS[EFF_VOMITING] )
+				if (!myStats->EFFECTS[EFF_VOMITING])
 				{
 					messagePlayer(player, MESSAGE_STATUS, Language::get(629));
 				}
 				serverUpdateHunger(player);
 			}
-			else if ( myStats->HUNGER == youFeelHungry )
+			else if (myStats->HUNGER == youFeelHungry)
 			{
-				if ( !myStats->EFFECTS[EFF_VOMITING] )
+				if (!myStats->EFFECTS[EFF_VOMITING])
 				{
 					messagePlayer(player, MESSAGE_STATUS, Language::get(630));
 					playSoundPlayer(player, 32, 128);
 				}
 				serverUpdateHunger(player);
 			}
-			else if ( myStats->HUNGER == youFeelWeak )
+			else if (myStats->HUNGER == youFeelWeak)
 			{
-				if ( !myStats->EFFECTS[EFF_VOMITING] )
+				if (!myStats->EFFECTS[EFF_VOMITING])
 				{
 					messagePlayer(player, MESSAGE_STATUS, Language::get(631));
 					playSoundPlayer(player, 32, 128);
 				}
 				serverUpdateHunger(player);
 			}
-			else if ( myStats->HUNGER == youFeelFaint )
+			else if (myStats->HUNGER == youFeelFaint)
 			{
-				if ( !myStats->EFFECTS[EFF_VOMITING] )
+				if (!myStats->EFFECTS[EFF_VOMITING])
 				{
 					messagePlayer(player, MESSAGE_STATUS, Language::get(632));
 					playSoundPlayer(player, 32, 128);
@@ -3370,9 +3370,9 @@ void Entity::handleEffects(Stat* myStats)
 		{
 			bool doStarvation = true;
 			// Process HUNGER Effect - Wasting Away
-			if ( playerAutomaton )
+			if (playerAutomaton)
 			{
-				if ( myStats->HUNGER == 0 && myStats->MP <= 0 )
+				if (myStats->HUNGER == 0 && myStats->MP <= 0)
 				{
 					// deal HP damage.
 					/*if ( myStats->HUNGER > 1 )
@@ -3391,23 +3391,23 @@ void Entity::handleEffects(Stat* myStats)
 			}
 
 			// Deal Hunger damage every three seconds
-			if ( doStarvation && !myStats->EFFECTS[EFF_VOMITING] && ticks % 150 == 0 )
+			if (doStarvation && !myStats->EFFECTS[EFF_VOMITING] && ticks % 150 == 0)
 			{
 				serverUpdateHunger(player);
 				bool allowStarve = true;
-				if ( playerAutomaton )
+				if (playerAutomaton)
 				{
-					if ( !(svFlags & SV_FLAG_HUNGER) )
+					if (!(svFlags & SV_FLAG_HUNGER))
 					{
 						allowStarve = false; // hunger off, don't starve at 0 MP.
 					}
 				}
 
-				if ( player >= 0 && allowStarve ) // Only Players can starve
+				if (player >= 0 && allowStarve) // Only Players can starve
 				{
-					if ( buddhamode )
+					if (buddhamode)
 					{
-						if ( myStats->HP - 4 > 0 )
+						if (myStats->HP - 4 > 0)
 						{
 							this->modHP(-4);
 						}
@@ -3421,18 +3421,18 @@ void Entity::handleEffects(Stat* myStats)
 					{
 						this->modHP(-4);
 
-						if ( myStats->HP <= 0 )
+						if (myStats->HP <= 0)
 						{
-							if ( playerAutomaton )
+							if (playerAutomaton)
 							{
-							    myStats->killer = KilledBy::NO_FUEL;
+								myStats->killer = KilledBy::NO_FUEL;
 								this->setObituary(Language::get(3864));
 								steamAchievementEntity(this, "BARONY_ACH_RUST_IN_PEACE");
 							}
 							else
 							{
-							    myStats->killer = KilledBy::STARVATION;
-							    this->setObituary(Language::get(1530));
+								myStats->killer = KilledBy::STARVATION;
+								this->setObituary(Language::get(1530));
 							}
 						}
 					}
@@ -3440,9 +3440,9 @@ void Entity::handleEffects(Stat* myStats)
 					// Give the Player feedback on being hurt
 					playSoundEntity(this, 28, 64); // "Damage.ogg"
 
-					if ( myStats->HP > 0 )
+					if (myStats->HP > 0)
 					{
-						if ( playerAutomaton )
+						if (playerAutomaton)
 						{
 							messagePlayer(player, MESSAGE_STATUS, Language::get(3714));
 						}
@@ -3453,12 +3453,12 @@ void Entity::handleEffects(Stat* myStats)
 					}
 
 					// Shake the Host's screen
-					if ( player >= 0 && players[player]->isLocalPlayer() )
+					if (player >= 0 && players[player]->isLocalPlayer())
 					{
 						camera_shakex += .1;
 						camera_shakey += 10;
 					}
-					else if ( player > 0 && multiplayer == SERVER && !players[player]->isLocalPlayer() )
+					else if (player > 0 && multiplayer == SERVER && !players[player]->isLocalPlayer())
 					{
 						// Shake the Client's screen
 						strcpy((char*)net_packet->data, "SHAK");
@@ -3475,13 +3475,13 @@ void Entity::handleEffects(Stat* myStats)
 	}
 
 	// "random" vomiting
-	if ( !this->char_gonnavomit && !myStats->EFFECTS[EFF_VOMITING] 
-		&& myStats->type != SKELETON && effectShapeshift == NOTHING && myStats->type != AUTOMATON )
+	if (!this->char_gonnavomit && !myStats->EFFECTS[EFF_VOMITING]
+		&& myStats->type != SKELETON && effectShapeshift == NOTHING && myStats->type != AUTOMATON)
 	{
-		if ( myStats->HUNGER > 1500 && local_rng.rand() % 1000 == 0 )
+		if (myStats->HUNGER > 1500 && local_rng.rand() % 1000 == 0)
 		{
 			// oversatiation
-			if ( !(svFlags & SV_FLAG_HUNGER) || MFLAG_DISABLEHUNGER )
+			if (!(svFlags & SV_FLAG_HUNGER) || MFLAG_DISABLEHUNGER)
 			{
 				myStats->HUNGER = std::min(myStats->HUNGER, 1000); // reset hunger to safe level.
 			}
@@ -3491,27 +3491,27 @@ void Entity::handleEffects(Stat* myStats)
 				this->char_gonnavomit = 140 + local_rng.rand() % 60;
 			}
 		}
-		else if ( ticks % 60 == 0 && local_rng.rand() % 200 == 0 && myStats->EFFECTS[EFF_DRUNK] && myStats->type != GOATMAN )
+		else if (ticks % 60 == 0 && local_rng.rand() % 200 == 0 && myStats->EFFECTS[EFF_DRUNK] && myStats->type != GOATMAN)
 		{
 			// drunkenness
 			messagePlayer(player, MESSAGE_STATUS, Language::get(634));
 			this->char_gonnavomit = 140 + local_rng.rand() % 60;
 		}
 	}
-	if ( this->char_gonnavomit > 0 )
+	if (this->char_gonnavomit > 0)
 	{
 		this->char_gonnavomit--;
-		if ( this->char_gonnavomit == 0 )
+		if (this->char_gonnavomit == 0)
 		{
 			messagePlayer(player, MESSAGE_STATUS, Language::get(635));
 			myStats->EFFECTS[EFF_VOMITING] = true;
 			myStats->EFFECTS_TIMERS[EFF_VOMITING] = 50 + local_rng.rand() % 20;
 			serverUpdateEffects(player);
-			if ( player >= 0 && players[player]->isLocalPlayer() )
+			if (player >= 0 && players[player]->isLocalPlayer())
 			{
 				camera_shakey += 9;
 			}
-			else if ( player > 0 && multiplayer == SERVER && !players[player]->isLocalPlayer() )
+			else if (player > 0 && multiplayer == SERVER && !players[player]->isLocalPlayer())
 			{
 				strcpy((char*)net_packet->data, "SHAK");
 				net_packet->data[4] = 0; // turns into 0
@@ -3524,7 +3524,7 @@ void Entity::handleEffects(Stat* myStats)
 			playSoundEntity(this, 78, 96);
 			serverUpdatePlayerGameplayStats(player, STATISTICS_TEMPT_FATE, 5);
 
-			if ( myStats->type == INSECTOID )
+			if (myStats->type == INSECTOID)
 			{
 				castSpell(uid, &spell_acidSpray, true, false);
 			}
@@ -3532,13 +3532,13 @@ void Entity::handleEffects(Stat* myStats)
 	}
 
 	// vomiting
-	if ( myStats->EFFECTS[EFF_VOMITING] && ticks % 2 == 0 )
+	if (myStats->EFFECTS[EFF_VOMITING] && ticks % 2 == 0)
 	{
 		Entity* entity = spawnGib(this);
-		if ( entity )
+		if (entity)
 		{
 			entity->sprite = 29;
-            entity->ditheringDisabled = true;
+			entity->ditheringDisabled = true;
 			entity->flags[SPRITE] = true;
 			entity->flags[GENIUS] = true;
 			entity->flags[INVISIBLE] = false;
@@ -3549,13 +3549,13 @@ void Entity::handleEffects(Stat* myStats)
 			entity->vel_x = vel * cos(entity->yaw);
 			entity->vel_y = vel * sin(entity->yaw);
 			entity->vel_z = -.5;
-			if ( (svFlags & SV_FLAG_HUNGER) )
+			if ((svFlags & SV_FLAG_HUNGER))
 			{
-				if ( myStats->type != INSECTOID && myStats->type != AUTOMATON
-					&& myStats->type != SKELETON && effectShapeshift == NOTHING )
+				if (myStats->type != INSECTOID && myStats->type != AUTOMATON
+					&& myStats->type != SKELETON && effectShapeshift == NOTHING)
 				{
 					myStats->HUNGER -= 40;
-					if ( myStats->HUNGER <= 50 )
+					if (myStats->HUNGER <= 50)
 					{
 						myStats->HUNGER = 50;
 						myStats->EFFECTS_TIMERS[EFF_VOMITING] = 1;
@@ -3569,19 +3569,19 @@ void Entity::handleEffects(Stat* myStats)
 	// healing over time
 	int healring = 0;
 	int healthRegenInterval = getHealthRegenInterval(this, *myStats, behavior == &actPlayer);
-	if ( healthRegenInterval == -1 && behavior == &actPlayer && myStats->type == SKELETON )
+	if (healthRegenInterval == -1 && behavior == &actPlayer && myStats->type == SKELETON)
 	{
 		healthRegenInterval = HEAL_TIME * 4;
 	}
 	bool naturalHeal = false;
-	if ( healthRegenInterval >= 0 )
+	if (healthRegenInterval >= 0)
 	{
-		if ( myStats->HP < myStats->MAXHP )
+		if (myStats->HP < myStats->MAXHP)
 		{
 			this->char_heal++;
-			if ( (svFlags & SV_FLAG_HUNGER) || behavior == &actMonster || (behavior == &actPlayer && myStats->type == SKELETON) )
+			if ((svFlags & SV_FLAG_HUNGER) || behavior == &actMonster || (behavior == &actPlayer && myStats->type == SKELETON))
 			{
-				if ( this->char_heal >= healthRegenInterval )
+				if (this->char_heal >= healthRegenInterval)
 				{
 					this->char_heal = 0;
 					this->modHP(1);
@@ -3596,13 +3596,29 @@ void Entity::handleEffects(Stat* myStats)
 	}
 
 	// random teleportation
-	if ( myStats->ring != NULL )
+	if (myStats->ring != NULL)
 	{
-		if ( myStats->ring->type == RING_TELEPORTATION )
+		if (myStats->ring->type == RING_TELEPORTATION)
 		{
-			if ( local_rng.rand() % 1000 == 0 )   // .1% chance every frame
+			if (local_rng.rand() % 1000 == 0)   // .1% chance every frame
 			{
 				teleportRandom();
+			}
+		}
+	}
+
+	if (myStats->ring != NULL)
+	{
+		if (myStats->ring->type == ARTIFACT_RING)
+		{
+			if (ticks % 60 == 0)
+			{
+				if (local_rng.rand() % 25)
+				{
+					messagePlayer(player, MESSAGE_STATUS, Language::get(6027));
+					this->modHP(-(5 + local_rng.rand() % 10));
+					playSoundEntity(this, 28, 64); // "Damage.ogg"
+				}
 			}
 		}
 	}
@@ -4712,6 +4728,13 @@ void Entity::handleEffects(Stat* myStats)
 		{
 			freeAction = true;
 		}
+	}
+	if (player >= 0
+		&& myStats->ring != nullptr
+		&& myStats->ring->type == ARTIFACT_RING
+		&& (ticks % 45 == 0 || !myStats->EFFECTS[EFF_MAGICAMPLIFY]))
+	{
+		setEffect(EFF_MAGICAMPLIFY, true, 60, true);
 	}
 
 	if ( ticks % 45 == 0 && myStats->type == GOATMAN && myStats->EFFECTS[EFF_DRUNK] )
@@ -16984,7 +17007,7 @@ int Entity::getManaringFromEquipment(Entity* my, Stat& myStats, bool isPlayer)
 	}
 	if (myStats.weapon != nullptr)
 	{
-		if (myStats.weapon->type == MAGICSTAFF_LIGHTNING || MAGICSTAFF_BLEED || MAGICSTAFF_CHARM || MAGICSTAFF_COLD || MAGICSTAFF_DIGGING)
+		if (myStats.weapon->type == ARTIFACT_MACE )
 		{
 			if (myStats.weapon->beatitude <= 0 || cursedItemIsBuff)
 			{
@@ -17042,9 +17065,9 @@ int Entity::getManaRegenInterval(Entity* my, Stat& myStats, bool isPlayer)
 		myStats.EFFECTS[EFF_MP_REGEN] = oldRegen;
 	}
 
-	if ( manaring > 3 )
+	if ( manaring > 99 )
 	{
-		manaring = 3;
+		manaring = 99;
 	}
 
 	if ( isPlayer && myStats.type == AUTOMATON && myStats.HUNGER <= 300 )
@@ -17143,6 +17166,13 @@ int Entity::getHealringFromEquipment(Entity* my, Stat& myStats, bool isPlayer)
 			{
 				healring--;
 			}
+			if (myStats.ring->type == ARTIFACT_RING)
+			{
+				if (myStats.ring->beatitude >= 0 || cursedItemIsBuff)
+				{
+					healring--;
+				}
+			}
 		}
 	}
 	if ( myStats.breastplate != nullptr )
@@ -17213,9 +17243,9 @@ int Entity::getHealthRegenInterval(Entity* my, Stat& myStats, bool isPlayer)
 		myStats.EFFECTS[EFF_HP_REGEN] = oldRegen;
 	}
 	
-	if ( healring > 3 )
+	if ( healring > 99 )
 	{
-		healring = 3;
+		healring = 99;
 	}
 
 	if ( !strncmp(map.name, "Mages Guild", 11) && myStats.type == SHOPKEEPER )
@@ -17474,6 +17504,10 @@ void Entity::SetEntityOnFire(Entity* sourceOfFire)
 					return;
 				}
 				if ( myStats->breastplate && myStats->breastplate->type == MACHINIST_APRON )
+				{
+					return;
+				}
+				if (myStats->playerRace == RACE_INCUBUS)
 				{
 					return;
 				}

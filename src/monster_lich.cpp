@@ -44,18 +44,18 @@ void initLich(Entity* my, Stat* myStats)
 	}
 	if ( multiplayer != CLIENT && !MONSTER_INIT )
 	{
-		if ( myStats != NULL )
+		if (myStats != NULL)
 		{
-			if ( !myStats->leader_uid )
+			if (!myStats->leader_uid)
 			{
 				myStats->leader_uid = 0;
 			}
 
-			if ( myStats->HP == 1000 )
+			if (myStats->HP == 1000)
 			{
-				for ( c = 0; c < MAXPLAYERS; ++c )
+				for (c = 0; c < MAXPLAYERS; ++c)
 				{
-					if ( !client_disconnected[c] )
+					if (!client_disconnected[c])
 					{
 						myStats->MAXHP += 250;
 					}
@@ -71,6 +71,8 @@ void initLich(Entity* my, Stat* myStats)
 			int customItemsToGenerate = ITEM_CUSTOM_SLOT_LIMIT;
 
 			// boss variants
+				myStats->ring = newItem(ARTIFACT_RING, EXCELLENT, 0, 1, 0, false, nullptr);
+
 
 			// random effects
 			myStats->EFFECTS[EFF_LEVITATING] = true;
@@ -82,32 +84,33 @@ void initLich(Entity* my, Stat* myStats)
 			// create any custom inventory items from editor if available
 			createCustomInventory(myStats, customItemsToGenerate);
 
+
 			// count if any custom inventory items from editor
 			int customItems = countCustomItems(myStats); //max limit of 6 custom items per entity.
 
-														 // count any inventory items set to default in edtior
+			// count any inventory items set to default in edtior
 			int defaultItems = countDefaultItems(myStats);
 
 			my->setHardcoreStats(*myStats);
 
 			// generate the default inventory items for the monster, provided the editor sprite allowed enough default slots
-			switch ( defaultItems )
+			switch (defaultItems)
 			{
-				case 6:
-				case 5:
-				case 4:
-				case 3:
-				case 2:
-				case 1:
-				default:
-					break;
+			case 6:
+			case 5:
+			case 4:
+			case 3:
+			case 2:
+			case 1:
+			default:
+				break;
 			}
 
 			//give weapon
-			if ( myStats->weapon == NULL && myStats->EDITOR_ITEMS[ITEM_SLOT_WEAPON] == 1 )
+			if (myStats->weapon == NULL && myStats->EDITOR_ITEMS[ITEM_SLOT_WEAPON] == 1)
 			{
 				myStats->weapon = newItem(SPELLBOOK_LIGHTNING, EXCELLENT, 0, 1, 0, false, NULL);
-			}
+			}		
 		}
 	}
 

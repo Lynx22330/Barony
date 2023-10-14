@@ -715,7 +715,7 @@ void initClass(const int player)
 		}
 	}
 	// healer
-	else if ( client_classes[player] == CLASS_HEALER )
+	else if ( client_classes[player] == CLASS_HEALER)
 	{
 		initClassStats(client_classes[player], stats[player]);
 
@@ -1397,15 +1397,36 @@ void initClass(const int player)
 			free(item);
 
 			// spellbook of Magic Missile
-			item = newItem(SPELLBOOK_MAGICMISSILE, SERVICABLE, 2, 1, 3, true, nullptr);
+			item = newItem(SPELLBOOK_MAGICMISSILE, DECREPIT, -1, 1, 3, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
 			{
-				hotbar[6].item = item2->uid;
+				hotbar[5].item = item2->uid;
 			}
 			else
 			{
+				hotbar[6].item = item2->uid;
+			}
+			free(item);
+
+			// spellbook of Magic Missile
+			item = newItem(SPELLBOOK_FIREBALL, SERVICABLE, 2, 1, 3, true, nullptr);
+			item2 = itemPickup(player, item);
+			if (players[player]->hotbar.useHotbarFaceMenu)
+			{
 				hotbar[7].item = item2->uid;
+			}
+			else
+			{
+				hotbar[8].item = item2->uid;
+			}
+			free(item);
+
+			item = newItem(SPELLBOOK_COLD, SERVICABLE, 2, 1, 3, true, nullptr);
+			item2 = itemPickup(player, item);
+			if (players[player]->hotbar.useHotbarFaceMenu)
+			{
+				hotbar[9].item = item2->uid;
 			}
 			free(item);
 
@@ -1414,14 +1435,6 @@ void initClass(const int player)
 			// spellbook of light
 			item = newItem(SPELLBOOK_LIGHT, SERVICABLE, 4, 1, 5, true, nullptr);
 			item2 = itemPickup(player, item);
-			if ( players[player]->hotbar.useHotbarFaceMenu )
-			{
-				hotbar[8].item = item2->uid;
-			}
-			else
-			{
-				hotbar[9].item = item2->uid;
-			}
 			free(item);
 		}
 	}
@@ -1707,13 +1720,13 @@ void initClass(const int player)
 		if ( isLocalPlayer )
 		{
 			// chakram
-			item = newItem(STEEL_CHAKRAM, SERVICABLE, 0, 3, 0, true, nullptr);
+			item = newItem(STEEL_CHAKRAM, SERVICABLE, 0, 2, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
 
 			// bread
-			item = newItem(FOOD_BREAD, SERVICABLE, 0, 2, 0, true, nullptr);
+			item = newItem(FOOD_BREAD, SERVICABLE, 0, 4, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
@@ -1770,8 +1783,8 @@ void initClass(const int player)
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
-			hotbar[0].item = item2->uid;
 			useItem(item2, player);
+			hotbar[0].item = item2->uid;
 			free(item);
 		}
 		else
@@ -1780,7 +1793,7 @@ void initClass(const int player)
 		}
 
 		// black hood
-		item = newItem(HAT_HOOD, SERVICABLE, 0, 1, 2, true, nullptr);
+		item = newItem(HAT_HOOD, SERVICABLE, 1, 1, 2, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1793,7 +1806,7 @@ void initClass(const int player)
 		}
 
 		// tunic
-		item = newItem(TUNIC, SERVICABLE, 0, 1, 1, true, nullptr);
+		item = newItem(TUNIC, SERVICABLE, 1, 1, 1, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1806,7 +1819,7 @@ void initClass(const int player)
 		}
 
 		// leather boots
-		item = newItem(LEATHER_BOOTS_SPEED, SERVICABLE, 0, 1, 0, true, nullptr);
+		item = newItem(LEATHER_BOOTS_SPEED, SERVICABLE, 1, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1819,7 +1832,7 @@ void initClass(const int player)
 		}
 
 		// black cloak
-		item = newItem(CLOAK_BLACK, EXCELLENT, 0, 1, 0, true, nullptr);
+		item = newItem(CLOAK_BLACK, EXCELLENT, 1, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1834,26 +1847,26 @@ void initClass(const int player)
 		if ( isLocalPlayer )
 		{
 			// daggers
-			item = newItem(IRON_DAGGER, WORN, 0, 5, 0, true, nullptr);
+			item = newItem(IRON_DAGGER, WORN, 0, 6, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
 
 			// bear trap
-			item = newItem(TOOL_BEARTRAP, SERVICABLE, 0, 3, 0, true, nullptr);
+			item = newItem(TOOL_BEARTRAP, SERVICABLE, 0, 2, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[2].item = item2->uid;
 			free(item);
 			
 
 			// invis potion
-			item = newItem(POTION_INVISIBILITY, EXCELLENT, 0, 1, 0, true, nullptr);
+			item = newItem(POTION_INVISIBILITY, EXCELLENT, 0, 2, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[3].item = item2->uid;
 			free(item);
 
 			// teleport scroll
-			item = newItem(SCROLL_TELEPORTATION, SERVICABLE, 0, 3, 0, true, nullptr);
+			item = newItem(SCROLL_TELEPORTATION, SERVICABLE, 0, 1, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[5].item = item2->uid;
 			free(item);
@@ -1870,7 +1883,7 @@ void initClass(const int player)
 		}
 
 		// knuckles
-		item = newItem(BRASS_KNUCKLES, EXCELLENT, 1, 1, 0, true, nullptr);
+		item = newItem(BRASS_KNUCKLES, EXCELLENT, 3, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -1911,13 +1924,13 @@ void initClass(const int player)
 		if ( isLocalPlayer )
 		{
 			// torch
-			item = newItem(TOOL_TORCH, WORN, 0, 1, 0, true, nullptr);
+			item = newItem(TOOL_TORCH, WORN, 0, 4, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[0].item = item2->uid;
 			free(item);
 
 			// light book
-			item = newItem(SPELLBOOK_LIGHT, WORN, 0, 1, 7, true, nullptr);
+			item = newItem(SPELLBOOK_LIGHT, SERVICABLE, 0, 1, 7, true, nullptr);
 			item2 = itemPickup(player, item);
 			if ( players[player]->hotbar.useHotbarFaceMenu )
 			{
@@ -1941,7 +1954,7 @@ void initClass(const int player)
 		}
 
 		// weapon
-		item = newItem(MAGICSTAFF_LIGHTNING, EXCELLENT, 0, 1, 0, true, nullptr);
+		item = newItem(MAGICSTAFF_LIGHTNING, EXCELLENT, 4, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -2002,7 +2015,7 @@ void initClass(const int player)
 			free(item);
 
 			// restore magic
-			item = newItem(POTION_RESTOREMAGIC, EXCELLENT, 0, 1, 1, true, nullptr);
+			item = newItem(POTION_RESTOREMAGIC, EXCELLENT, 0, 2, 1, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[2].item = item2->uid;
 			free(item);
@@ -2092,7 +2105,7 @@ void initClass(const int player)
 		}
 
 		// ring
-		item = newItem(RING_PROTECTION, EXCELLENT, curseItems ? -1 : 1, 1, 0, true, nullptr);
+		item = newItem(RING_PROTECTION, EXCELLENT, curseItems ? -3 : 3, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -2217,7 +2230,7 @@ void initClass(const int player)
 		}
 
 		// backpack
-		item = newItem(CLOAK_BACKPACK, SERVICABLE, 0, 1, 0, true, nullptr);
+		item = newItem(CLOAK_BACKPACK, EXCELLENT, curseItems ? -1 : 1, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -2313,7 +2326,7 @@ void initClass(const int player)
 			useItem(item, player);
 		}
 
-		item = newItem(MASK_SHAMAN, SERVICABLE, 0, 1, 0, true, nullptr);
+		item = newItem(MASK_SHAMAN, EXCELLENT, 0, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -2325,18 +2338,18 @@ void initClass(const int player)
 			useItem(item, player);
 		}
 
-		//// ring slow digestion
-		//item = newItem(RING_SLOWDIGESTION, SERVICABLE, 0, 1, 0, true, NULL);
-		//if ( isLocalPlayer )
-		//{
-		//	item2 = itemPickup(player, item);
-		//	useItem(item2, player);
-		//	free(item);
-		//}
-		//else
-		//{
-		//	useItem(item, player);
-		//}
+		// ring slow digestion
+		item = newItem(RING_REGENERATION, EXCELLENT, curseItems ? -1 : 1, 1, 0, true, NULL);
+		if ( isLocalPlayer )
+		{
+			item2 = itemPickup(player, item);
+			useItem(item2, player);
+			free(item);
+		}
+		else
+		{
+			useItem(item, player);
+		}
 
 		if ( isLocalPlayer )
 		{
@@ -2365,7 +2378,7 @@ void initClass(const int player)
 			return;
 		}
 
-		item = newItem(TOOL_WHIP, EXCELLENT, 0, 1, 0, true, nullptr);
+		item = newItem(TOOL_WHIP, EXCELLENT, curseItems ? -3 : 3, 1, 0, true, nullptr);
 		if ( isLocalPlayer )
 		{
 			item2 = itemPickup(player, item);
@@ -2405,16 +2418,12 @@ void initClass(const int player)
 
 		if ( isLocalPlayer )
 		{
-			item = newItem(CRYSTAL_BATTLEAXE, WORN, 0, 1, 0, true, nullptr);
-			item2 = itemPickup(player, item);
-			hotbar[1].item = item2->uid;
-			free(item);
 
-			item = newItem(FOOD_MEAT, EXCELLENT, 0, 1, 0, true, nullptr);
+			item = newItem(FOOD_MEAT, EXCELLENT, 0, 2, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
-			item = newItem(RING_CONFLICT, WORN, 0, 1, 0, true, nullptr);
+			item = newItem(RING_CONFLICT, WORN, curseItems ? -4 : 4, 1, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[2].item = item2->uid;
 			free(item);
@@ -2480,27 +2489,27 @@ void initClass(const int player)
 
 		if ( isLocalPlayer )
 		{
-			item = newItem(BOOMERANG, DECREPIT, curseItems ? -1 : -1, 1, 0, true, nullptr);
+			item = newItem(BOOMERANG, DECREPIT, curseItems ? -1 : 1, 1, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
 
-			item = newItem(QUIVER_SILVER, SERVICABLE, 0, 40, 0, true, nullptr);
+			item = newItem(QUIVER_SILVER, SERVICABLE, 0, 80, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[2].item = item2->uid;
 			free(item);
 
-			item = newItem(QUIVER_LIGHTWEIGHT, SERVICABLE, 0, 40, 0, true, nullptr);
+			item = newItem(QUIVER_LIGHTWEIGHT, SERVICABLE, 0, 80, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[3].item = item2->uid;
 			free(item);
 
-			item = newItem(QUIVER_HUNTING, SERVICABLE, 0, 20, 0, true, nullptr);
+			item = newItem(QUIVER_HUNTING, SERVICABLE, 0, 40, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[4].item = item2->uid;
 			free(item);
 
-			item = newItem(SCROLL_CONJUREARROW, EXCELLENT, 0, 2, 0, true, nullptr);
+			item = newItem(SCROLL_CONJUREARROW, EXCELLENT, 0, 4, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			free(item);
 
@@ -2509,7 +2518,7 @@ void initClass(const int player)
 			free(item);
 
 
-			item = newItem(TOOL_BLINDFOLD_TELEPATHY, EXCELLENT, 0, 1, 0, true, nullptr);
+			item = newItem(TOOL_BLINDFOLD_TELEPATHY, EXCELLENT, curseItems ? -2 : 2, 1, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[5].item = item2->uid;
 			free(item);
@@ -2595,7 +2604,7 @@ void initClass(const int player)
 
 		if ( isLocalPlayer )
 		{
-			item = newItem(TOOL_BEARTRAP, EXCELLENT, 0, 2, 0, true, nullptr);
+			item = newItem(TOOL_BEARTRAP, EXCELLENT, 0, 4, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[1].item = item2->uid;
 			free(item);
@@ -2605,12 +2614,12 @@ void initClass(const int player)
 			hotbar[2].item = item2->uid;
 			free(item);
 
-			item = newItem(TOOL_SLEEP_BOMB, EXCELLENT, 0, 1, 0, true, nullptr);
+			item = newItem(TOOL_SLEEP_BOMB, EXCELLENT, 0, 2, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[3].item = item2->uid;
 			free(item);
 
-			item = newItem(TOOL_LOCKPICK, EXCELLENT, 0, 2, 0, true, nullptr);
+			item = newItem(TOOL_LOCKPICK, EXCELLENT, 0, 4, 0, true, nullptr);
 			item2 = itemPickup(player, item);
 			hotbar[5].item = item2->uid;
 			free(item);
@@ -2627,22 +2636,10 @@ void initClass(const int player)
 			}
 			else
 			{
-				item = newItem(SCROLL_FIRE, SERVICABLE, 0, 1, 0, true, nullptr);
+				item = newItem(SCROLL_FIRE, SERVICABLE, 0, 2, 0, true, nullptr);
 				item2 = itemPickup(player, item);
 				free(item);
 			}
-
-			item = newItem(TOOL_METAL_SCRAP, DECREPIT, 0, 8, 0, true, nullptr);
-			item2 = itemPickup(player, item);
-			free(item);
-
-			item = newItem(TOOL_MAGIC_SCRAP, DECREPIT, 0, 4, 0, true, nullptr);
-			item2 = itemPickup(player, item);
-			free(item);
-
-			item = newItem(POTION_EMPTY, SERVICABLE, 0, 2, 0, true, nullptr);
-			item2 = itemPickup(player, item);
-			free(item);
 		}
 	}
 
@@ -2711,9 +2708,9 @@ void initClass(const int player)
 			useItem(item, player);
 		}
 	}
-	if ( isLocalPlayer )
+	if (isLocalPlayer)
 	{
-		if ( stats[player]->playerRace == RACE_VAMPIRE && stats[player]->appearance == 0 )
+		if (stats[player]->playerRace == RACE_VAMPIRE && stats[player]->appearance == 0)
 		{
 			addSpell(SPELL_FLUTTER, player, true);
 			addSpell(SPELL_BLEED, player, true);
@@ -2723,28 +2720,43 @@ void initClass(const int player)
 			addSpell(SPELL_FLUTTER, player, true);
 			addSpell(SPELL_DASH, player, true);
 			addSpell(SPELL_ACID_SPRAY, player, true);
+			stats[player]->DEX += 1;
 		}
-		else if ( stats[player]->playerRace == RACE_SUCCUBUS && stats[player]->appearance == 0 )
+		else if (stats[player]->playerRace == RACE_SUCCUBUS && stats[player]->appearance == 0)
 		{
 			addSpell(SPELL_TELEPORTATION, player, true);
 			addSpell(SPELL_SELF_POLYMORPH, player, true);
-			if (client_classes[player] == CLASS_BARBARIAN) //The start of class balancing for certain beast races and classes.
 			stats[player]->STR -= 2;
-			else (client_classes[player] == CLASS_HUNTER); //Hunter Balance for cursed boomerang.
-				stats[player]->DEX -= 1;
+			stats[player]->INT += 1;
+			stats[player]->CON += 1;
 		}
-		else if ( stats[player]->playerRace == RACE_INCUBUS && stats[player]->appearance == 0 )
+		else if (stats[player]->playerRace == RACE_INCUBUS && stats[player]->appearance == 0)
 		{
 			addSpell(SPELL_TELEPORTATION, player, true);
 			addSpell(SPELL_SHADOW_TAG, player, true);
-			if (client_classes[player] == CLASS_BARBARIAN)
-				stats[player]->STR -= 2;
-			else (client_classes[player] == CLASS_HUNTER); //Hunter Balance for cursed boomerang.
-			stats[player]->DEX -= 1;
+			stats[player]->STR -= 2;
+			stats[player]->INT += 1;
+			stats[player]->CON += 1;
 		}
-		else if ( stats[player]->playerRace == RACE_AUTOMATON && stats[player]->appearance == 0 )
+		else if (stats[player]->playerRace == RACE_AUTOMATON && stats[player]->appearance == 0)
 		{
 			addSpell(SPELL_SALVAGE, player, true);
+			stats[player]->CON += 2;
+			stats[player]->DEX -= 2;
+		}
+		else if (stats[player]->playerRace == RACE_GOBLIN && stats[player]->appearance == 0)
+		{
+			stats[player]->STR += 2;
+			stats[player]->INT -= 2;
+		}
+		else if (stats[player]->playerRace == RACE_SKELETON && stats[player]->appearance == 0)
+		{
+			stats[player]->STR += 1;
+			stats[player]->INT += 1;
+			stats[player]->CON += 1;
+			stats[player]->DEX += 1;
+			stats[player]->PER -= 3;
+			stats[player]->CHR -= 3;
 		}
 
 		if ( stats[player]->PROFICIENCIES[PRO_ALCHEMY] >= 0 )
@@ -2803,6 +2815,10 @@ void initClass(const int player)
 		else if ( client_classes[player] == CLASS_CONJURER )
 		{
 			addSpell(SPELL_SUMMON, player, true);
+		}
+		else if (client_classes[player] == CLASS_WIZARD)
+		{
+			addSpell(SPELL_AMPLIFY_MAGIC, player, true);
 		}
 
 		//printlog("spell size: %d", list_Size(&spellList));

@@ -2472,6 +2472,7 @@ void useItem(Item* item, const int player, Entity* usedBy, bool unequipForDroppi
 		case RING_LEVITATION:
 		case RING_REGENERATION:
 		case RING_TELEPORTATION:
+		case ARTIFACT_RING:
 			equipItemResult = equipItem(item, &stats[player]->ring, player, checkInventorySpaceForPaperDoll);
 			break;
 		case SPELLBOOK_FORCEBOLT:
@@ -2951,6 +2952,9 @@ void useItem(Item* item, const int player, Entity* usedBy, bool unequipForDroppi
 				break;
 			case TOOL_BLINDFOLD_TELEPATHY:
 				messagePlayer(player, MESSAGE_HINT | MESSAGE_EQUIPMENT, Language::get(2908));
+				break;
+			case ARTIFACT_RING:
+				messagePlayer(player, MESSAGE_HINT | MESSAGE_EQUIPMENT, Language::get(6026));
 				break;
 			default:
 				break;

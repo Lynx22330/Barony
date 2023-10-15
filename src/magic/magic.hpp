@@ -118,7 +118,7 @@ static const int SPELLELEMENT_ACIDSPRAY_BASE_DURATION = 5;
 #define MAGICSTAFF_LIGHT_DURATION 6000
 
 #define HEAL_RADIUS 128
-#define EFFECT_RADIUS 256
+#define EFFECT_RADIUS 64
 
 /*** misc effect particles ***/
 static const int PARTICLE_EFFECT_ABILITY_ROCK = 1;

@@ -1210,7 +1210,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 
 					if ( overdrewIntoHP )
 					{
-						amount /= 4;
+						amount /= (4 * (0.03 * stat->PROFICIENCIES[PRO_SPELLCASTING]));
 						messagePlayerColor(player, MESSAGE_COMBAT, makeColorRGB(255, 255, 255), Language::get(3400));
 					}
 
@@ -1263,7 +1263,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 
 					if (overdrewIntoHP)
 					{
-						amount /= 4;
+						amount /= (2 * ( 0.08 * stat->PROFICIENCIES[PRO_SPELLCASTING]));
 						messagePlayerColor(player, MESSAGE_COMBAT, makeColorRGB(255, 255, 255), Language::get(3400));
 					}
 
@@ -1281,11 +1281,12 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 							continue;
 						}
 
-						if (entityDist(entity, caster) <= EFFECT_RADIUS && entity->checkEnemy(caster))
+						if (entityDist(entity, caster) <= (EFFECT_RADIUS + stat->PROFICIENCIES[PRO_SPELLCASTING]) && entity->checkEnemy(caster))
 						{
 							entity->setEffect(EFF_POISONED, true, amount, true);
 							entity->SetEntityOnFire();
-							playSoundEntity(entity, 168, 128);
+							entity->modHP(-15);
+								playSoundEntity(entity, 168, 128);
 							spawnMagicEffectParticles(entity->x, entity->y, entity->z, 169);
 							if (entity->behavior == &actPlayer)
 							{
@@ -1296,6 +1297,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 					break;
 				}
 			}
+		
 
 			playSoundEntity(caster, 168, 128);
 			spawnMagicEffectParticles(caster->x, caster->y, caster->z, 169);
@@ -1445,7 +1447,7 @@ Entity* castSpell(Uint32 caster_uid, spell_t* spell, bool using_magicstaff, bool
 					{
 						//This guy's a newbie. There's a chance they've screwed up and negatively impacted the efficiency of the spell.
 						chance = local_rng.rand() % 10;
-						if (chance >= spellcasting / 10)
+						if (chance >= spellcasting / 10)	
 						{
 							amount -= local_rng.rand() % (1000 / (spellcasting + 1));
 						}

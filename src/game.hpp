@@ -305,7 +305,7 @@ extern Uint32 serverSchedulePlayerHealthUpdate;
 
 void drawAllPlayerCameras();
 
-#define TOUCHRANGE 32
+#define TOUCHRANGE 24
 #define STRIKERANGE 24
 #define XPSHARERANGE 99999
 
@@ -334,9 +334,9 @@ extern char last_port[64];
 
 #define MAXCHARGE 30 // charging up weapons
 
-static const int BASE_MELEE_DAMAGE = 8;
-static const int BASE_RANGED_DAMAGE = 7;
-static const int BASE_THROWN_DAMAGE = 6;
+static const int BASE_MELEE_DAMAGE = 7;
+static const int BASE_RANGED_DAMAGE = 6;
+static const int BASE_THROWN_DAMAGE = 4;
 static const int BASE_PLAYER_UNARMED_DAMAGE = 8;
 
 extern bool spawn_blood;

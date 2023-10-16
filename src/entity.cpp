@@ -17007,9 +17007,9 @@ int Entity::getManaringFromEquipment(Entity* my, Stat& myStats, bool isPlayer)
 	}
 	if (myStats.weapon != nullptr)
 	{
-		if (myStats.weapon->type == ARTIFACT_MACE )
+		if (myStats.weapon->type == ARTIFACT_MACE)
 		{
-			if (myStats.weapon->beatitude <= 0 || cursedItemIsBuff)
+			if (myStats.weapon->beatitude >= 0 || cursedItemIsBuff)
 			{
 				manaring++;
 			}

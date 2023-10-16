@@ -296,8 +296,8 @@ void setupSpells()   ///TODO: Verify this function.
 	strcpy(spellElement_amplifyMagic.element_internal_name, "spell_element_amplify_magic");
 
 	spellElementConstructor(&spellElement_charmMonster);
-	spellElement_charmMonster.mana = 50;
-	spellElement_charmMonster.base_mana = 50;
+	spellElement_charmMonster.mana = 34;
+	spellElement_charmMonster.base_mana = 34;
 	spellElement_charmMonster.overload_multiplier = 1;
 	spellElement_charmMonster.damage = 0;
 	spellElement_charmMonster.duration = 300;
@@ -990,7 +990,7 @@ void setupSpells()   ///TODO: Verify this function.
 	spellConstructor(&spell_charmMonster);
 	strcpy(spell_charmMonster.spell_internal_name, "spell_charm");
 	spell_charmMonster.ID = SPELL_CHARM_MONSTER;
-	spell_charmMonster.difficulty = 80;
+	spell_charmMonster.difficulty = 45;
 	node = list_AddNodeLast(&spell_charmMonster.elements);
 	node->element = copySpellElement(&spellElement_missile);
 	node->size = sizeof(spellElement_t);

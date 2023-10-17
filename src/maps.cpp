@@ -3334,6 +3334,11 @@ int generateDungeon(char* levelset, Uint32 seed, std::tuple<int, int, int, int> 
 
 		// create entity
 		entity = nullptr;
+		if (map_rng.rand() % 10 == 0) {
+			entity = newEntity(1248, 1, map.entities, nullptr); //Grass Entity
+			skipPossibleLocationsDecrement = true;
+		}
+		else {
 		if ( (c == 0 || (minotaurlevel && c < 2)) && (!secretlevel || currentlevel != 7) && (!secretlevel || currentlevel != 20)
 			&& std::get<LEVELPARAM_DISABLE_NORMAL_EXIT>(mapParameters) == 0 )
 		{
@@ -3874,64 +3879,64 @@ int generateDungeon(char* levelset, Uint32 seed, std::tuple<int, int, int, int> 
 				else
 				{
 					// decorations
-					if ( (map_rng.rand() % 4 == 0 || (currentlevel <= 10 && !customTrapsForMapInUse)) && strcmp(map.name, "Hell") )
+					if ((map_rng.rand() % 4 == 0 || (currentlevel <= 10 && !customTrapsForMapInUse)) && strcmp(map.name, "Hell"))
 					{
-						switch ( map_rng.rand() % 7 )
+						switch (map_rng.rand() % 7)
 						{
-							case 0:
-								entity = newEntity(12, 1, map.entities, nullptr); //Firecamp entity.
-								break; //Firecamp
-							case 1:
-								entity = newEntity(14, 1, map.entities, nullptr); //Fountain entity.
-								break; //Fountain
-							case 2:
-								entity = newEntity(15, 1, map.entities, nullptr); //Sink entity.
-								break; //Sink
-							case 3:
-								entity = newEntity(21, 1, map.entities, nullptr); //Chest entity.
-								setSpriteAttributes(entity, nullptr, nullptr);
-								entity->chestLocked = -1;
-								break; //Chest
-							case 4:
-								entity = newEntity(39, 1, map.entities, nullptr); //Tomb entity.
-								break; //Tomb
-							case 5:
-								entity = newEntity(59, 1, map.entities, nullptr); //Table entity.
-								setSpriteAttributes(entity, nullptr, nullptr);
-								break; //Table
-							case 6:
-								entity = newEntity(60, 1, map.entities, nullptr); //Chair entity.
-								setSpriteAttributes(entity, nullptr, nullptr);
-								break; //Chair
+						case 0:
+							entity = newEntity(12, 1, map.entities, nullptr); //Firecamp entity.
+							break; //Firecamp
+						case 1:
+							entity = newEntity(14, 1, map.entities, nullptr); //Fountain entity.
+							break; //Fountain
+						case 2:
+							entity = newEntity(15, 1, map.entities, nullptr); //Sink entity.
+							break; //Sink
+						case 3:
+							entity = newEntity(21, 1, map.entities, nullptr); //Chest entity.
+							setSpriteAttributes(entity, nullptr, nullptr);
+							entity->chestLocked = -1;
+							break; //Chest
+						case 4:
+							entity = newEntity(39, 1, map.entities, nullptr); //Tomb entity.
+							break; //Tomb
+						case 5:
+							entity = newEntity(59, 1, map.entities, nullptr); //Table entity.
+							setSpriteAttributes(entity, nullptr, nullptr);
+							break; //Table
+						case 6:
+							entity = newEntity(60, 1, map.entities, nullptr); //Chair entity.
+							setSpriteAttributes(entity, nullptr, nullptr);
+							break; //Chair
 						}
 					}
 					else
 					{
-						if ( customTrapsForMapInUse )
+						if (customTrapsForMapInUse)
 						{
-							if ( !customTraps.spikes && !customTraps.verticalSpelltraps )
+							if (!customTraps.spikes && !customTraps.verticalSpelltraps)
 							{
 								continue;
 							}
-							else if ( customTraps.verticalSpelltraps && map_rng.rand() % 2 == 0 )
+							else if (customTraps.verticalSpelltraps && map_rng.rand() % 2 == 0)
 							{
 								entity = newEntity(120, 1, map.entities, nullptr); // vertical spell trap.
 								setSpriteAttributes(entity, nullptr, nullptr);
 							}
-							else if ( customTraps.spikes )
+							else if (customTraps.spikes)
 							{
 								entity = newEntity(64, 1, map.entities, nullptr); // spear trap
 							}
 						}
 						else
 						{
-							if ( currentlevel <= 25 )
+							if (currentlevel <= 25)
 							{
 								entity = newEntity(64, 1, map.entities, nullptr); // spear trap
 							}
 							else
 							{
-								if ( map_rng.rand() % 2 == 0 )
+								if (map_rng.rand() % 2 == 0)
 								{
 									entity = newEntity(120, 1, map.entities, nullptr); // vertical spell trap.
 									setSpriteAttributes(entity, nullptr, nullptr);
@@ -3947,6 +3952,7 @@ int generateDungeon(char* levelset, Uint32 seed, std::tuple<int, int, int, int> 
 						also->y = y * 16;
 						//printlog("15 Generated entity. Sprite: %d Uid: %d X: %.2f Y: %.2f\n",also->sprite,also->getUID(),also->x,also->y);
 					}
+				}
 					numGenDecorations++;
 				}
 			}
